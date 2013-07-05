@@ -55,7 +55,7 @@ public class CardDetailFragment extends Fragment {
 		if (card != null) {
 			ImageView iView = (ImageView) rootView.findViewById(R.id.card_detail);
 			String imageName = "_" + card.getImageName();
-			int resId = getResources().getIdentifier(imageName, "drawable", "it.ck.androidnetrunnerlibrarymanager");
+			int resId = getResources().getIdentifier(imageName, "drawable", "it.ck.cyberdeck");
 		    Log.d("detailFragment", "Img Name: " + imageName + ", resId: " + String.valueOf(resId) );
 		    iView.setImageResource(resId);
 //			((TextView) rootView.findViewById(R.id.card_detail))

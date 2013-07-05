@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 
-	private static final String PACKAGE_NAME = "it.ck.androidnetrunnerlibrarymanager";
+	private static final String PACKAGE_NAME = "it.ck.cyberdeck";
 	private final Context context;
 	private final List<Card> values;
 
