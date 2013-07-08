@@ -1,12 +1,8 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.CardSet;
-import it.ck.cyberdeck.model.Faction;
-import it.ck.cyberdeck.persistance.CardSetDeserializer;
-import it.ck.cyberdeck.persistance.FactionDeserializer;
-import it.ck.cyberdeck.persistance.IntegerDeserializer;
+import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.persistance.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -77,7 +73,7 @@ public class CardListFragment extends ListFragment {
 	};
 
 	private List<Card> cardList;
-
+	private LibraryCardGateway gateway;
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -88,7 +84,8 @@ public class CardListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		cardList = loadCards();
+		gateway = new RawResourceLibraryCardGateway(getResources());
+		cardList = gateway.loadCards();
 		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardList);
 		setListAdapter(adapter);
 	}
@@ -165,54 +162,6 @@ public class CardListFragment extends ListFragment {
 		}
 
 		mActivatedPosition = position;
-	}
-	
-	public List<Card> loadCards() {
-		Gson gson = getGson();
-		return gson.fromJson(readLibrarySource(), getType());
-	}
-
-	private Type getType() {
-		Type collectionType = new TypeToken<Collection<Card>>() {
-		}.getType();
-		return collectionType;
-	}
-
-	private Gson getGson() {
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Integer.class, new IntegerDeserializer());
-		builder.registerTypeAdapter(Faction.class, new FactionDeserializer());
-		builder.registerTypeAdapter(CardSet.class, new CardSetDeserializer());
-		Gson gson = builder.create();
-		return gson;
-	}
-
-	private String readLibrarySource() {
-
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader reader = null;
-		try {
-			InputStream inputStream = getResources().openRawResource(
-					R.raw.carddata);
-			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String line = null;
-			String ls = System.getProperty("line.separator");
-
-			while ((line = reader.readLine()) != null) {
-				stringBuilder.append(line);
-				stringBuilder.append(ls);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null)
-				try {
-					reader.close();
-				} catch (IOException e) {
-				}
-		}
-		return stringBuilder.toString();
 	}
 
 }

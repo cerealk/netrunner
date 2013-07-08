@@ -7,7 +7,7 @@ public class CardLibrary {
 
   private List<Card> cards;
 
-  public CardLibrary(LibraryCardLoader loader) {
+  public CardLibrary(LibraryCardGateway loader) {
     this.cards = loader.loadCards();
   }
 

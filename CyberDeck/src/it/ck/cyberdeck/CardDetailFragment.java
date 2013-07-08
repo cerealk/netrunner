@@ -58,8 +58,6 @@ public class CardDetailFragment extends Fragment {
 			int resId = getResources().getIdentifier(imageName, "drawable", "it.ck.cyberdeck");
 		    Log.d("detailFragment", "Img Name: " + imageName + ", resId: " + String.valueOf(resId) );
 		    iView.setImageResource(resId);
-//			((TextView) rootView.findViewById(R.id.card_detail))
-//					.setText(card.getImageName());
 		}
 
 		return rootView;

@@ -1,10 +1,8 @@
 package it.ck.cyberdeck.model;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import it.ck.cyberdeck.persistance.JsonLibraryCardLoader;
+import it.ck.cyberdeck.persistance.FileSystemLibraryCardGateway;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Description;
@@ -24,16 +22,24 @@ public class CardLibraryTest {
 
   @Test
   public void test() throws Exception {
-    assertThat(cl.size(), is(equalTo(213)));
-    assertThat(cl.getCardList().size(), is(equalTo(213)));
+    assertThat(cl.size(), is(equalTo(233)));
+    assertThat(cl.getCardList().size(), is(equalTo(233)));
   }
 
   private CardLibrary getCardLibrary() {
-    JsonLibraryCardLoader loader = new JsonLibraryCardLoader();
+    FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway();
     CardLibrary cl = new CardLibrary(loader);
     return cl;
   }
 
+  @Test
+  public void eachCardHasSet(){
+	  for (Card card : cl.getCardList()) {
+		  assertThat(card.getSet(), is(notNullValue()));
+		
+	}
+  }
+  
   @Test
   public void eachCardHasAFurl() throws Exception {
     for (Card card : cl.getCardList()) {
