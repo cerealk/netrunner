@@ -1,15 +1,9 @@
 package it.ck.cyberdeck;
 
-import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.model.*;
-import it.ck.cyberdeck.persistance.*;
+import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.LibraryCardGateway;
+import it.ck.cyberdeck.persistance.RawResourceLibraryCardGateway;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.List;
 
 import android.app.Activity;
@@ -17,10 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * A list fragment representing a list of CardLibrary. This fragment also
