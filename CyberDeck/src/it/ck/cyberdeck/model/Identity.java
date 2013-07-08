@@ -30,5 +30,9 @@ public class Identity {
   public Integer getReputationCap() {
     return reputationCap;
   }
+  
+  public boolean checkSize(int size){
+	 return this.minDeckSize <= size;
+  }
 
 }

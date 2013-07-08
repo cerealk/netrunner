@@ -60,7 +60,7 @@ public class Deck {
   }
 
   private boolean checkSize() {
-    return identity.getMinDeckSize() <= size();
+    return identity.checkSize(size());
   }
 
   public void add(Card card, int numberOfCopies) {
