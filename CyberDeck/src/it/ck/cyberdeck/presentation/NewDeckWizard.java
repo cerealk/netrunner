@@ -1,5 +1,8 @@
-package it.ck.cyberdeck;
+package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.R.layout;
+import it.ck.cyberdeck.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
