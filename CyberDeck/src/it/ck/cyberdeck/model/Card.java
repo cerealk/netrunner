@@ -3,8 +3,7 @@ package it.ck.cyberdeck.model;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.*;
 
 public class Card implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -210,5 +209,10 @@ public class Card implements Serializable {
 	  @Override
 	  public boolean equals(Object obj) {
 	    return EqualsBuilder.reflectionEquals(this, obj);
+	  }
+	  
+	  @Override
+	  public String toString(){
+		  return ToStringBuilder.reflectionToString(this);
 	  }
 }

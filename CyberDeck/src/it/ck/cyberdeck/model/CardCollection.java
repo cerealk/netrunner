@@ -1,11 +1,14 @@
 package it.ck.cyberdeck.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CardCollection {
+public class CardCollection implements Serializable {
 
-  public class CardNotFoundException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
+
+	public class CardNotFoundException extends RuntimeException {
     private static final long serialVersionUID = -4688094597415515668L;
   }
 
@@ -36,5 +39,10 @@ public class CardCollection {
 
   public Integer calculateReputation(Faction faction) {
     return cardCounter.calculateReputation(cards, faction);
+  }
+  
+  @Override
+  public String toString(){
+	  return cardCounter.toString();
   }
 }

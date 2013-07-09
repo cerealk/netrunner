@@ -2,9 +2,12 @@ package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.presentation.DeckActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 /**
  * An activity representing a list of CardLibrary. This activity has different
@@ -56,7 +59,7 @@ public class CardListActivity extends FragmentActivity implements
 	 * the item with the given ID was selected.
 	 */
 	@Override
-	public void onItemSelected(Card card) {
+	public void onItemSelected(Card card, Deck deck) {
 		if (mTwoPane) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
@@ -75,5 +78,12 @@ public class CardListActivity extends FragmentActivity implements
 			detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, card);
 			startActivity(detailIntent);
 		}
+		
+//		deck.add(card);
+//		Log.d("CardListActivity", "deck: " + deck.toString() );
+//		Intent detailIntent = new Intent(this, DeckActivity.class);
+//		detailIntent.putExtra("deck", deck);
+//		startActivity(detailIntent);
+		
 	}
 }

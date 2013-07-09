@@ -41,7 +41,7 @@ public class CardLibraryTest {
   }
   
   @Test
-  public void eachCardHasAFurl() throws Exception {
+  public void eachCardHasAnImageName() throws Exception {
     for (Card card : cl.getCardList()) {
       assertThat(card.getImageName(), is(not(emptyString())));
     }
@@ -52,6 +52,13 @@ public class CardLibraryTest {
     for (Card card : cl.getCardList()) {
       assertThat(card.getName(), is(not(emptyString())));
     }
+  }
+  
+  @Test
+  public void eachCardHasASide(){
+	  for (Card card : cl.getCardList()) {
+	      assertThat(card.getSide(), is(not(nullValue())));
+	    }  
   }
 
   protected Matcher<? super String> emptyString() {

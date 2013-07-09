@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="identity_list">
+        <item>Noise</item>
+        <item>HB</item>
+        <item>Andromeda</item>
+    </array>
+</resources>
