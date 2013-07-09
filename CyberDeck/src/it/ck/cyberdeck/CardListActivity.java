@@ -1,13 +1,10 @@
 package it.ck.cyberdeck;
 
-import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.presentation.DeckActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 /**
  * An activity representing a list of CardLibrary. This activity has different
