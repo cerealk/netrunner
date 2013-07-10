@@ -76,11 +76,5 @@ public class CardListActivity extends FragmentActivity implements
 			startActivity(detailIntent);
 		}
 		
-//		deck.add(card);
-//		Log.d("CardListActivity", "deck: " + deck.toString() );
-//		Intent detailIntent = new Intent(this, DeckActivity.class);
-//		detailIntent.putExtra("deck", deck);
-//		startActivity(detailIntent);
-		
 	}
 }
