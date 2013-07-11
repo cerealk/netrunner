@@ -1,23 +1,62 @@
 package it.ck.cyberdeck.presentation;
 
+import java.util.List;
+
 import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.R.layout;
-import it.ck.cyberdeck.R.menu;
-import android.os.Bundle;
+import it.ck.cyberdeck.app.DeckService;
+import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.model.Identity;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.*;
 
 public class NewDeckWizard extends Activity {
 
+	private EditText deckNameText;
+	private Spinner deckIdentity;
+	private Button createDeck;
+	private DeckService deckService;
+	private List<Identity> identities;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_deck_wizard);
+		this.deckService = ((CyberDeckApp) getApplication()).getDeckService();
+		this.identities = deckService.loadCardLibrary().getIdentities();
+
+		this.deckNameText = (EditText) findViewById(R.id.field_deck_name);
+		this.deckIdentity = (Spinner) findViewById(R.id.deck_identity_spinner);
+		ArrayAdapter<Identity> dataAdapter = new ArrayAdapter<Identity>(this,
+				android.R.layout.simple_spinner_item, identities);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		deckIdentity.setAdapter(dataAdapter);
+			
+		this.createDeck = (Button) findViewById(R.id.create_deck);
+
+		
+		this.createDeck.setOnClickListener(new View.OnClickListener(){
+			@Override
+      public void onClick(View v) {
+				Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText.getText().toString());
+	      Intent intent = new Intent(NewDeckWizard.this, DeckActivity.class);
+	      intent.putExtra("deck", deck);
+	      startActivity(intent);
+      }
+			
+		});
 	}
+
+	protected Identity getSelectedIdentity() {
+		int position = deckIdentity.getSelectedItemPosition();
+	  return identities.get(position);
+  }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.new_deck_wizard, menu);
 		return true;
 	}

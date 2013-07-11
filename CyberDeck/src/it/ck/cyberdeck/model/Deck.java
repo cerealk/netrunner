@@ -2,7 +2,7 @@ package it.ck.cyberdeck.model;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.*;
 
 public class Deck implements Serializable {
 	
@@ -30,12 +30,17 @@ public class Deck implements Serializable {
 		this.identity = identity;
 	}
 
+	public Deck(Identity identity, String name) {
+	  this(identity);
+	  this.name = name;
+  }
+
 	public Identity getIdentity() {
 		return identity;
 	}
 
 	public void add(Card card) {
-		if (!(identity.getSide().equals(card.getSide()))) {
+		if (!(identity.side().equals(card.getSide()))) {
 			throw new WrongSideException();
 		}
 		if (cards.getCount(card) >= 3) {
@@ -64,9 +69,9 @@ public class Deck implements Serializable {
 	}
 
 	private boolean checkReputation(Card card) {
-		Integer reputation = cards.calculateReputation(identity.getFaction());
-		reputation += card.calculateInfluenceCost(identity.getFaction());
-		return reputation <= identity.getReputationCap();
+		Integer reputation = cards.calculateReputation(identity.faction());
+		reputation += card.calculateInfluenceCost(identity.faction());
+		return reputation <= identity.reputationCap();
 	}
 
 	private boolean checkSize() {
@@ -85,4 +90,23 @@ public class Deck implements Serializable {
 	public String name() {
 		return this.name;
 	}
+
+	
+	//TODO: rivedere se al posto di questo equals è meglio utilizzare un oggetto "chiave"
+	@Override
+  public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		if(! (o instanceof Deck))
+			return false;
+		Deck other = (Deck) o;
+	  return new EqualsBuilder().append(this.identity, other.identity).append(this.name, other.name).isEquals();
+  }
+
+	@Override
+  public int hashCode() {
+	  return new HashCodeBuilder().append(identity).append(name).hashCode();
+  }
+	
+	
 }

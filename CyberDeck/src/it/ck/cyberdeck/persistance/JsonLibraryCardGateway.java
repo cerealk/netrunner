@@ -35,6 +35,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		builder.registerTypeAdapter(Integer.class, new IntegerDeserializer());
 		builder.registerTypeAdapter(Faction.class, new FactionDeserializer());
 		builder.registerTypeAdapter(CardSet.class, new CardSetDeserializer());
+		builder.registerTypeAdapter(CardType.class, new CardTypeDeserializer());
 		builder.registerTypeAdapter(Side.class, new SideDeserializer());
 	    Gson gson = builder.create();
 	    return gson;

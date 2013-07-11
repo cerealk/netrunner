@@ -1,6 +1,7 @@
-package it.ck.cyberdeck;
+package it.ck.cyberdeck.presentation.adapter;
 
 import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.R.*;
 import it.ck.cyberdeck.model.Card;
 
 import java.util.List;

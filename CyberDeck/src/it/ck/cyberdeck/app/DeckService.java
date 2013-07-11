@@ -1,12 +1,11 @@
 package it.ck.cyberdeck.app;
 
-import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.Identity;
+import it.ck.cyberdeck.model.*;
 
 public interface DeckService {
 
-	void addCard(Card card);
-	
-	void createDeck(Identity identity);
+	Deck createDeck(Identity identity, String name);
+
+	CardLibrary loadCardLibrary();
 
 }

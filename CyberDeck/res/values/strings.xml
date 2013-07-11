@@ -13,5 +13,6 @@
     <string name="title_activity_new_deck_wizard">NewDeckWizard</string>
     <string name="deck_name">Deck Name</string>
     <string name="identity">Identity</string>
+    <string name="create_deck_label">Create...</string>
 
 </resources>

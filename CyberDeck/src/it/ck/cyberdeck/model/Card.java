@@ -12,7 +12,7 @@ public class Card implements Serializable {
 	private String cost;
 	private Side side;
 	private Faction identity;
-	private String type;
+	private CardType type;
 	private String subtype;
 	private Integer loyality = 0;
 	private String strength;
@@ -27,7 +27,25 @@ public class Card implements Serializable {
 	private Integer count;
 	private Integer link;
 	private String illustrator;
+	private Integer identitytop;
+	private Integer identitybottom;
 	
+
+	public Integer getIdentitytop() {
+		return identitytop;
+	}
+
+	public void setIdentitytop(Integer identitytop) {
+		this.identitytop = identitytop;
+	}
+
+	public Integer getIdentitybottom() {
+		return identitybottom;
+	}
+
+	public void setIdentitybottom(Integer identitybottom) {
+		this.identitybottom = identitybottom;
+	}
 
 	public Integer getCount() {
 		return count;
@@ -89,11 +107,11 @@ public class Card implements Serializable {
 		this.identity = faction;
 	}
 
-	public String getType() {
+	public CardType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(CardType type) {
 		this.type = type;
 	}
 
@@ -215,4 +233,8 @@ public class Card implements Serializable {
 	  public String toString(){
 		  return ToStringBuilder.reflectionToString(this);
 	  }
+
+		public boolean isIdentity() {
+	    return this.type.equals(CardType.IDENTITY);
+    }
 }

@@ -4,12 +4,11 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.persistance.FileSystemLibraryCardGateway;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
-import org.junit.Test;
+import org.hamcrest.*;
+import org.junit.*;
 
 public class CardLibraryTest {
 
@@ -58,7 +57,25 @@ public class CardLibraryTest {
   public void eachCardHasASide(){
 	  for (Card card : cl.getCardList()) {
 	      assertThat(card.getSide(), is(not(nullValue())));
-	    }  
+	  }  
+  }
+  
+  @Test
+  public void eachCardHasAType(){
+  	for (Card card : cl.getCardList()) {
+      assertThat(card.getType(), is(not(nullValue())));
+  	}
+  }
+  
+  @Test
+  public void iCanGetTheIdentities() throws Exception {
+	  List<Identity> identities = cl.getIdentities();
+	  assertThat(identities.size()>0, is(true));
+	  for(Identity card : identities){
+	  	assertThat(card.side(), is(not(nullValue())));
+	  	assertThat(card.faction(), is(not(nullValue())));
+	  	assertThat(card.name(), is(not(nullValue())));
+	  }
   }
 
   protected Matcher<? super String> emptyString() {

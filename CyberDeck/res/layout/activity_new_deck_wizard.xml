@@ -9,14 +9,13 @@
     tools:context=".NewDeckWizard" >
 
     <Spinner
-        android:id="@+id/planets_spinner"
+        android:id="@+id/deck_identity_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/field_deck_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:prompt="@string/identity"  
-	    android:entries="@array/identity_list" />
+        android:prompt="@string/identity" />
 
     <EditText
         android:id="@+id/field_deck_name"
@@ -28,5 +27,15 @@
         android:ems="10"
         android:hint="@string/deck_name"
         android:inputType="text" />
+
+    <Button
+        android:id="@+id/create_deck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/deck_identity_spinner"
+        android:layout_marginBottom="43dp"
+        android:layout_marginRight="17dp"
+        android:text="@string/create_deck_label" />
 
 </RelativeLayout>

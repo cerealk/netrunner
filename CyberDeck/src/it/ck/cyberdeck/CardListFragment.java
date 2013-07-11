@@ -2,6 +2,7 @@ package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.persistance.RawResourceLibraryCardGateway;
+import it.ck.cyberdeck.presentation.adapter.CardLibraryArrayAdapter;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class CardListFragment extends ListFragment {
 	};
 
 	private List<Card> cardList;
-	private LibraryCardGateway gateway;
+	private CardLibrary gateway;
 	private Deck deck; 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -74,8 +75,8 @@ public class CardListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		gateway = new RawResourceLibraryCardGateway(getResources());
-		cardList = gateway.loadCards();
+		gateway = new CardLibrary(new RawResourceLibraryCardGateway(getResources()));
+		cardList = gateway.getCardList();
 		Identity identity = new Identity("Noise: Hacker Extraordinaire", Side.RUNNER, Faction.ANARCH, 45, 15);
 		this.deck = new Deck(identity);
 		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardList);

@@ -1,7 +1,6 @@
 package it.ck.cyberdeck.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CardLibrary {
 
@@ -12,10 +11,20 @@ public class CardLibrary {
   }
 
   public List<Card> getCardList() {
-    return new ArrayList<Card>(cards);
+    return Collections.unmodifiableList(cards);
   }
-
+  
   public int size() {
     return cards.size();
+  }
+
+	public List<Identity> getIdentities() {
+	  
+		List<Identity> identities = new ArrayList<Identity>();
+		for(Card card : cards){
+	  	if(card.isIdentity())
+	  		identities.add(new Identity(card));
+	  }
+	  return Collections.unmodifiableList(identities);
   }
 }

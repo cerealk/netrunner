@@ -21,20 +21,28 @@ public class Identity implements Serializable {
 		this.faction = faction;
 		this.reputationCap = reputationCap;
 	}
+	
+	public Identity(Card identityCard){
+		this.name = identityCard.getName();
+		this.side = identityCard.getSide();
+		this.faction = identityCard.getIdentity();
+		this.minDeckSize = identityCard.getIdentitytop();
+		this.reputationCap = identityCard.getIdentitybottom();
+	}
 
 	public Integer getMinDeckSize() {
 		return minDeckSize;
 	}
 
-	public Side getSide() {
+	public Side side() {
 		return side;
 	}
 
-	public Faction getFaction() {
+	public Faction faction() {
 		return faction;
 	}
 
-	public Integer getReputationCap() {
+	public Integer reputationCap() {
 		return reputationCap;
 	}
 
