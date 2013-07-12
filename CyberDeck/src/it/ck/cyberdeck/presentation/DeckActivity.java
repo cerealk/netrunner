@@ -9,6 +9,7 @@ import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
 import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -54,21 +55,25 @@ public class DeckActivity extends Activity implements DeckPublisher{
 
 			@Override
       public void onClick(View v) {
-	      DeckService deckService = ((CyberDeckApp)getApplication()).getDeckService();
-	      
-	      CardLibrary cardLibrary = deckService.loadCardLibrary();
-	      
-	      List<Card> cardList2 = cardLibrary.getCardList();
-	      Card selectedCard = null;
-				for (Card card : cardList2){
-	      	if(card.getIdentity().equals(Faction.HAAS_BIOROID)){
-	      		selectedCard = card;
-	      		break;
-	      	}
-	      }
-	      
-				deck.add(selectedCard);
-				adapter.adapt(DeckActivity.this);
+//	      DeckService deckService = ((CyberDeckApp)getApplication()).getDeckService();
+//	      
+//	      CardLibrary cardLibrary = deckService.loadCardLibrary();
+//	      
+//	      List<Card> cardList2 = cardLibrary.getCardList();
+//	      Card selectedCard = null;
+//				for (Card card : cardList2){
+//	      	if(card.getIdentity().equals(Faction.HAAS_BIOROID)){
+//	      		selectedCard = card;
+//	      		break;
+//	      	}
+//	      }
+//	      
+//				deck.add(selectedCard);
+//				adapter.adapt(DeckActivity.this);
+				
+				Intent intent = new Intent(DeckActivity.this, AddCardActivity.class);
+				intent.putExtra("deck", deck);
+				startActivity(intent);
       }
 			
 		});

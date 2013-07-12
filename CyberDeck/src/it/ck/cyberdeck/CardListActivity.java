@@ -1,7 +1,6 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.Deck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -56,7 +55,7 @@ public class CardListActivity extends FragmentActivity implements
 	 * the item with the given ID was selected.
 	 */
 	@Override
-	public void onItemSelected(Card card, Deck deck) {
+	public void onItemSelected(Card card) {
 		if (mTwoPane) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a

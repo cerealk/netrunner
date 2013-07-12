@@ -49,7 +49,7 @@ public class CardListFragment extends ListFragment {
 		/**
 		 * Callback for when an item has been selected.
 		 */
-		public void onItemSelected(Card card, Deck deck);
+		public void onItemSelected(Card card);
 	}
 
 	/**
@@ -58,13 +58,13 @@ public class CardListFragment extends ListFragment {
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {
 		@Override
-		public void onItemSelected(Card card, Deck deck) {
+		public void onItemSelected(Card card) {
 		}
 	};
 
 	private List<Card> cardList;
 	private CardLibrary gateway;
-	private Deck deck; 
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -77,8 +77,6 @@ public class CardListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		gateway = new CardLibrary(new RawResourceLibraryCardGateway(getResources()));
 		cardList = gateway.getCardList();
-		Identity identity = new Identity("Noise: Hacker Extraordinaire", Side.RUNNER, Faction.ANARCH, 45, 15);
-		this.deck = new Deck(identity);
 		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardList);
 		setListAdapter(adapter);
 	}
@@ -123,7 +121,7 @@ public class CardListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(cardList.get(position), this.deck);
+		mCallbacks.onItemSelected(cardList.get(position));
 	}
 
 	@Override

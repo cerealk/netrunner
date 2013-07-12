@@ -27,4 +27,14 @@ public class CardLibrary {
 	  }
 	  return Collections.unmodifiableList(identities);
   }
+
+	public List<Card> getCardList(Identity identity) {
+	  List<Card> result = new ArrayList<Card>();
+	  for(Card card : cards){
+	  	if(identity.isCompatibleWith(card)){
+	  		result.add(card);
+	  	}
+	  }
+	  return result;
+  }
 }
