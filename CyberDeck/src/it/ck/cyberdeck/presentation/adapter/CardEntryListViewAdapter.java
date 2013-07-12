@@ -1,4 +1,4 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.adapter;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;

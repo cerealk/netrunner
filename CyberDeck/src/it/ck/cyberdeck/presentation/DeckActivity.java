@@ -6,6 +6,7 @@ import java.util.List;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
 import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
 import android.app.Activity;
 import android.os.Bundle;
