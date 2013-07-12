@@ -14,6 +14,7 @@ public class DeckAdapter {
 	public void adapt(DeckPublisher target){
 		target.publishDeckName(deck.name());
 		target.publishIdentityName(deck.getIdentity().name());
+		target.publishCardList(deck.cards());
 	}
 	
 }

@@ -1,6 +1,7 @@
 package it.ck.cyberdeck.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.*;
 
@@ -23,7 +24,7 @@ public class Deck implements Serializable {
 	}
 
 	private final Identity identity;
-	private final CardCollection cards = new CardCollection();
+	private final CardCounter cards = new CardCounter();
 	private String name;
 
 	public Deck(Identity identity) {
@@ -91,6 +92,9 @@ public class Deck implements Serializable {
 		return this.name;
 	}
 
+	public List<CardEntry> cards(){
+		return cards.getEntries();
+	}
 	
 	//TODO: rivedere se al posto di questo equals è meglio utilizzare un oggetto "chiave"
 	@Override

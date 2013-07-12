@@ -1,11 +1,13 @@
 package it.ck.cyberdeck.presentation;
 
-import java.util.List;
-
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Identity;
+import it.ck.cyberdeck.presentation.adapter.IdentityAdapter;
+
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,9 +32,10 @@ public class NewDeckWizard extends Activity {
 
 		this.deckNameText = (EditText) findViewById(R.id.field_deck_name);
 		this.deckIdentity = (Spinner) findViewById(R.id.deck_identity_spinner);
-		ArrayAdapter<Identity> dataAdapter = new ArrayAdapter<Identity>(this,
-				android.R.layout.simple_spinner_item, identities);
-			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+SpinnerAdapter dataAdapter = new IdentityAdapter(getApplicationContext(), identities);
+		//		ArrayAdapter<Identity> dataAdapter = new ArrayAdapter<Identity>(this,
+//				android.R.layout.simple_spinner_item, identities);
+//			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		deckIdentity.setAdapter(dataAdapter);
 			
 		this.createDeck = (Button) findViewById(R.id.create_deck);

@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.*;
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.app.DeckServiceImpl;
 import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.persistance.FileSystemLibraryCardGateway;
 
 import org.junit.Test;
 
@@ -12,7 +13,8 @@ public class DeckServicetest {
 
 	 
 	
-	private DeckService ds = new DeckServiceImpl();
+	private LibraryCardGateway gw = new FileSystemLibraryCardGateway();
+	private DeckService ds = new DeckServiceImpl(gw );
 	
 	@Test
   public void withTheDeckServiceICanCreateADeck() throws Exception {
@@ -22,18 +24,4 @@ public class DeckServicetest {
 		assertThat(deck, equalTo(new Deck(identity, deckName)));
   }
 	
-//	@Test
-//	public void withTheDsICanaddACardToadeck(){
-//		Identity identity = new Identity("identity", Side.RUNNER, Faction.ANARCH, 45, 15);
-//		String deckName = "testDeck";
-//		Deck deck = new Deck(identity, deckName);
-//		
-//		assertThat(deck.size(), equalTo(0));
-//		
-//		Card card = new Card("carta", Side.RUNNER, 2);
-//		
-//		ds.addCard(deck, card);
-//		assertThat(deck.size(), equalTo(1));
-//	}
-
 }

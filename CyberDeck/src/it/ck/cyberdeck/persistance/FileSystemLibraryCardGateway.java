@@ -1,6 +1,6 @@
 package it.ck.cyberdeck.persistance;
 
-import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.model.LibraryCardGateway;
 
 import java.io.*;
 
