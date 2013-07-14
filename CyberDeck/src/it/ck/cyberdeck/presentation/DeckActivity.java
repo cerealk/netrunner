@@ -17,6 +17,7 @@ import android.widget.*;
 
 public class DeckActivity extends Activity implements DeckPublisher{
 
+	protected static final int REQUEST_CODE = 42;
 	private TextView deckName;
 	private TextView identityName;
 	private ListView cardList;
@@ -73,7 +74,7 @@ public class DeckActivity extends Activity implements DeckPublisher{
 				
 				Intent intent = new Intent(DeckActivity.this, AddCardActivity.class);
 				intent.putExtra("deck", deck);
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_CODE);
       }
 			
 		});
@@ -104,4 +105,17 @@ public class DeckActivity extends Activity implements DeckPublisher{
 //	  listViewAdapter.notifyDataSetChanged();
   }
 
+	@Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == REQUEST_CODE){
+			if(resultCode == RESULT_OK){
+				this.deck = (Deck) data.getSerializableExtra("deck");
+			}
+		}
+		
+		publishCardList(this.deck.cards());
+  }
+
+	
+	
 }
