@@ -1,13 +1,14 @@
 package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.model.CardEntry;
+import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
+import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.app.DeckService;
-import it.ck.cyberdeck.model.*;
-import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
-import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
