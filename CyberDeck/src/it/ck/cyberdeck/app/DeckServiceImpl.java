@@ -17,7 +17,8 @@ public class DeckServiceImpl implements DeckService {
 	
 	@Override
 	public CardLibrary loadCardLibrary(){
-		CardLibrary cl = new CardLibrary(loader);
+		CardLibrary cl = new CardLibrary();
+		cl.addAll(loader.loadCards());
 		return cl;
 	}
 

@@ -63,7 +63,7 @@ public class CardListFragment extends ListFragment {
 	};
 
 	private List<Card> cardList;
-	private CardLibrary gateway;
+	private LibraryCardGateway gateway;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -75,8 +75,8 @@ public class CardListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		gateway = new CardLibrary(new RawResourceLibraryCardGateway(getResources()));
-		cardList = gateway.getCardList();
+		gateway = new RawResourceLibraryCardGateway(getResources());
+		cardList = gateway.loadCards();
 		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardList);
 		setListAdapter(adapter);
 	}

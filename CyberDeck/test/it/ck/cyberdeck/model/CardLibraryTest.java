@@ -1,7 +1,7 @@
 package it.ck.cyberdeck.model;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import it.ck.cyberdeck.persistance.FileSystemLibraryCardGateway;
 
 import java.util.List;
@@ -27,7 +27,9 @@ public class CardLibraryTest {
 
   private CardLibrary getCardLibrary() {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway();
-    CardLibrary cl = new CardLibrary(loader);
+    List<Card> loadCards = loader.loadCards();
+    CardLibrary cl = new CardLibrary();
+    cl.addAll(loadCards);
     return cl;
   }
 
@@ -78,6 +80,13 @@ public class CardLibraryTest {
 	  }
   }
 
+  @Test
+  public void iCanGetTheCardsGroupedByType() throws Exception {
+	  List<CardGroup> list = cl.getCardGroups(Side.RUNNER);
+	  assertThat(list, is(not(nullValue())));
+	  assertThat(list.size() > 0 , is(true));
+  }
+  
   protected Matcher<? super String> emptyString() {
     return new TypeSafeMatcher<String>() {
 

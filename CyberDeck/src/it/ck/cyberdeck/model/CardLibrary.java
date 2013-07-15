@@ -4,10 +4,9 @@ import java.util.*;
 
 public class CardLibrary {
 
-  private List<Card> cards;
+  private List<Card> cards = new ArrayList<Card>();
 
-  public CardLibrary(LibraryCardGateway loader) {
-    this.cards = loader.loadCards();
+  public CardLibrary() {
   }
 
   public List<Card> getCardList() {
@@ -36,5 +35,26 @@ public class CardLibrary {
 	  	}
 	  }
 	  return result;
+  }
+
+	public void addAll(List<Card> cardList) {
+		this.cards.addAll(cardList);
+  }
+
+	public List<CardGroup> getCardGroups(Side side) {
+	  Map<CardType, CardGroup> cardGroups = new HashMap<CardType,CardGroup>();
+	  for(Card card : cards){
+	  	if (card.getSide().equals(side)){
+	  		CardGroup cardGroup = cardGroups.get(card.getType());
+	  		if(cardGroup == null){
+	  			cardGroup = new CardGroup(card.getType());
+	  		}
+	  		cardGroup.add(card);
+	  		cardGroups.put(card.getType(), cardGroup);
+	  	}
+	  }
+	  
+	  return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups.values()));
+	  
   }
 }
