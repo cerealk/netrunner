@@ -47,6 +47,10 @@
             android:name="it.ck.cyberdeck.presentation.AddCardActivity"
             android:label="@string/title_activity_add_card" >
         </activity>
+        <activity
+            android:name="it.ck.cyberdeck.presentation.AddExpandableCardActivity"
+            android:label="@string/title_activity_add_expandable_card" >
+        </activity>
     </application>
 
 </manifest>

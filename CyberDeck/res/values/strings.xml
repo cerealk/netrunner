@@ -16,5 +16,6 @@
     <string name="create_deck_label">Create...</string>
     <string name="add_cards">Add...</string>
     <string name="title_activity_add_card">Add...</string>
+    <string name="title_activity_add_expandable_card">AddExpandableCardActivity</string>
 
 </resources>

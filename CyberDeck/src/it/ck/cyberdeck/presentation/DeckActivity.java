@@ -57,23 +57,8 @@ public class DeckActivity extends Activity implements DeckPublisher{
 
 			@Override
       public void onClick(View v) {
-//	      DeckService deckService = ((CyberDeckApp)getApplication()).getDeckService();
-//	      
-//	      CardLibrary cardLibrary = deckService.loadCardLibrary();
-//	      
-//	      List<Card> cardList2 = cardLibrary.getCardList();
-//	      Card selectedCard = null;
-//				for (Card card : cardList2){
-//	      	if(card.getIdentity().equals(Faction.HAAS_BIOROID)){
-//	      		selectedCard = card;
-//	      		break;
-//	      	}
-//	      }
-//	      
-//				deck.add(selectedCard);
-//				adapter.adapt(DeckActivity.this);
 				
-				Intent intent = new Intent(DeckActivity.this, AddCardActivity.class);
+				Intent intent = new Intent(DeckActivity.this, AddExpandableCardActivity.class);
 				intent.putExtra("deck", deck);
 				startActivityForResult(intent, REQUEST_CODE);
       }
