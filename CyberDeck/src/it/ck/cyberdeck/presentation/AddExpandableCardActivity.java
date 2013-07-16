@@ -1,15 +1,14 @@
 package it.ck.cyberdeck.presentation;
 
-import java.util.List;
-
 import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.R.layout;
-import it.ck.cyberdeck.R.menu;
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryExpandableListAdapter;
-import android.os.Bundle;
+
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ExpandableListView;
