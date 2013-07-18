@@ -11,7 +11,7 @@ public class IntegerDeserializer implements JsonDeserializer<Integer> {
       throws JsonParseException {
     String value = json.getAsJsonPrimitive().getAsString();
     if (value.length() == 0)
-      return Integer.valueOf(0);
+      return null;
     else
       return Integer.valueOf(value);
   }

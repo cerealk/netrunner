@@ -9,6 +9,11 @@ public class Deck implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	public class CantBeAttachedException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+	}
+
+	
 	public static class TooManyOutOfFactionCardsException extends
 			RuntimeException {
 		private static final long serialVersionUID = -413205268787698514L;
@@ -47,6 +52,9 @@ public class Deck implements Serializable {
 		if (cards.getCount(card) >= 3) {
 			throw new TooManyCardOfTheSameTypeException();
 		}
+		if(!(card.sameFactionAs(this.getIdentity())&& card.isNeutral()) && !card.canBeAttached()){
+			throw new CantBeAttachedException();
+		}
 		if (!checkReputation(card)) {
 			throw new TooManyOutOfFactionCardsException();
 		}
@@ -70,8 +78,8 @@ public class Deck implements Serializable {
 	}
 
 	private boolean checkReputation(Card card) {
-		Integer reputation = cards.calculateReputation(identity.faction());
-		reputation += card.calculateInfluenceCost(identity.faction());
+		Integer reputation = cards.calculateReputation(identity);
+		reputation += card.calculateInfluenceCost(identity);
 		return reputation <= identity.reputationCap();
 	}
 

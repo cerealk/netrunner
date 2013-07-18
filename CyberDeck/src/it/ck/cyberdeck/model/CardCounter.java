@@ -43,11 +43,11 @@ public class CardCounter implements Serializable{
     return totalCount;
   }
 
-  public Integer calculateReputation(Faction faction) {
+  public Integer calculateReputation(Identity identity) {
     Integer reputation = 0;
     Set<Card> cards = count.keySet();
     for (Card card : cards) {
-      reputation += card.calculateInfluenceCost(faction) * getCount(card);
+      reputation += card.calculateInfluenceCost(identity) * getCount(card);
     }
     return reputation;
   }

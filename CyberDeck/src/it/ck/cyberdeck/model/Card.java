@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import org.apache.commons.lang3.builder.*;
 
 public class Card implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
@@ -14,7 +15,7 @@ public class Card implements Serializable {
 	private Faction identity;
 	private CardType type;
 	private String subtype;
-	private Integer loyality = 0;
+	private Integer loyalty = 0;
 	private String strength;
 	private Integer agendapoints;
 	private Integer memory;
@@ -124,11 +125,11 @@ public class Card implements Serializable {
 	}
 
 	public Integer getLoyality() {
-		return loyality;
+		return loyalty;
 	}
 
-	public void setLoyality(Integer loyality) {
-		this.loyality = loyality;
+	public void setLoyalty(Integer loyalty) {
+		this.loyalty = loyalty;
 	}
 
 	public String getStrength() {
@@ -203,17 +204,29 @@ public class Card implements Serializable {
 	public Card(String name, Side side, int influence) {
 		this.name = name;
 		this.side = side;
-		this.loyality = influence;
+		this.loyalty = influence;
 	}
 
-	public Integer calculateInfluenceCost(Faction targetFaction) {
-		if (this.identity.equals(targetFaction)
-				|| this.identity.equals(Faction.NEUTRAL))
+	public Integer calculateInfluenceCost(Identity identity) {
+		if (sameFactionAs(identity) || isNeutral())
 			return 0;
-		return loyality;
+
+		return loyalty;
 
 	}
+
+	public boolean isNeutral() {
+	  return this.identity.equals(Faction.NEUTRAL);
+  }
+
+	public boolean sameFactionAs(Identity identity) {
+	  return this.identity.equals(identity.faction());
+  }
 	
+	public boolean canBeAttached() {
+	  return loyalty != null;
+  }
+
 	public String getImageName(){
 		DecimalFormat df = new DecimalFormat("000");
 		return set.getCode() + df.format(num);

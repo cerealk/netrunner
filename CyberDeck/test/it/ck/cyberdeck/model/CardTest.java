@@ -11,9 +11,17 @@ public class CardTest {
   public void aNeutralCardNeverAddToReputation() {
     Card card = new Card("Name", Side.RUNNER, 5);
     card.setIdentity(Faction.NEUTRAL);
-    assertThat(card.calculateInfluenceCost(Faction.ANARCH), is(0));
-    assertThat(card.calculateInfluenceCost(Faction.CRIMINAL), is(0));
-    assertThat(card.calculateInfluenceCost(Faction.SHAPER), is(0));
+    Identity identity = new Identity("name", Side.RUNNER, Faction.ANARCH, 45, 15);
+    assertThat(card.calculateInfluenceCost(identity), is(0));
+    
+    card.setIdentity(Faction.ANARCH);
+    assertThat(card.calculateInfluenceCost(identity), is(0));
+    
+    card.setIdentity(Faction.CRIMINAL);
+    assertThat(card.calculateInfluenceCost(identity), is(5));
+    
+    card.setIdentity(Faction.SHAPER);
+    assertThat(card.calculateInfluenceCost(identity), is(5));
   }
 
 }

@@ -57,4 +57,22 @@ public class CardLibrary {
 	  return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups.values()));
 	  
   }
+
+	public List<CardGroup> getCardGroups(Identity identity) {
+	  Map<CardType, CardGroup> cardGroups = new HashMap<CardType,CardGroup>();
+	  for(Card card : cards){
+	  	if (card.getSide().equals(identity.side())){
+	  		CardGroup cardGroup = cardGroups.get(card.getType());
+	  		if(cardGroup == null){
+	  			cardGroup = new CardGroup(card.getType());
+	  		}
+	  		if(identity.isCompatibleWith(card)){
+	  			cardGroup.add(card);
+	  			cardGroups.put(card.getType(), cardGroup);
+	  		}
+	  	}
+	  }
+	  
+	  return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups.values()));
+  }
 }

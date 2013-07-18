@@ -81,8 +81,16 @@ public class CardLibraryTest {
   }
 
   @Test
-  public void iCanGetTheCardsGroupedByType() throws Exception {
+  public void iCanGetTheCardsGroupedByTypePerSide() throws Exception {
 	  List<CardGroup> list = cl.getCardGroups(Side.RUNNER);
+	  assertThat(list, is(not(nullValue())));
+	  assertThat(list.size() > 0 , is(true));
+  }
+  
+  @Test
+  public void iCanGetTheCardsGroupedByTypePerIdentity() throws Exception {
+	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15);
+  	List<CardGroup> list = cl.getCardGroups(identity);
 	  assertThat(list, is(not(nullValue())));
 	  assertThat(list.size() > 0 , is(true));
   }

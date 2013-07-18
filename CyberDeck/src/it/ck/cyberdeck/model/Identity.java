@@ -60,7 +60,7 @@ public class Identity implements Serializable {
 	}
 
 	public boolean isCompatibleWith(Card card) {
-	  if(this.side().equals(card.getSide()) && !card.isIdentity())
+	  if((this.side().equals(card.getSide()) || card.getLoyality() != null) && !card.isIdentity())
 	  		return true;
 	  return false;
   }
