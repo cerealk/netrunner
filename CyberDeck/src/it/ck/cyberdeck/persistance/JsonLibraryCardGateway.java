@@ -3,8 +3,7 @@ package it.ck.cyberdeck.persistance;
 import it.ck.cyberdeck.model.*;
 
 import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,18 +16,27 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 	}
 
 	@Override
-	public List<Card> loadCards() {
-	    Gson gson = getGson();
-	    return gson.fromJson(readLibrarySource(), getType());
-	  }
+	public List<Card> loadCards(){
+		List<CardData> data = loadRawData();
+		List<Card> cards = new ArrayList<Card>();
+		for (CardData cardData : data) {
+      cards.add(new Card(cardData));
+    }
+		return cards;
+	}
+	
+	protected List<CardData> loadRawData() {
+    Gson gson = getGson();
+    return gson.fromJson(readLibrarySource(), getType());
+  }
 
 	protected abstract String readLibrarySource();
-
+	
 	private Type getType() {
-	    Type collectionType = new TypeToken<Collection<Card>>() {
-	    }.getType();
-	    return collectionType;
-	  }
+    Type collectionType = new TypeToken<Collection<CardData>>() {
+    }.getType();
+    return collectionType;
+  }
 
 	private Gson getGson() {
 	    GsonBuilder builder = new GsonBuilder();

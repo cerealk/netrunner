@@ -31,6 +31,30 @@ public class Card implements Serializable {
 	private Integer identitytop;
 	private Integer identitybottom;
 	
+	
+	public Card(CardData cardData) {
+		this.name= cardData.name ;
+		this.cost= cardData.cost ;
+		this.side= cardData.side ;
+		this.identity= cardData.identity ;
+		this.type= cardData.type ;
+		this.subtype= cardData.subtype ;
+		this.loyalty= cardData.loyalty ;
+		this.strength= cardData.strength ;
+		this.agendapoints= cardData.agendapoints ;
+		this.memory= cardData.memory ;
+		this.trash= cardData.trash ;
+		this.errata= cardData.errata ;
+		this.unique= cardData.unique ;
+		this.text= cardData.text ;
+		this.set= cardData.set ;
+		this.num= cardData.num ;
+		this.count= cardData.count ;
+		this.link= cardData.link ;
+		this.illustrator= cardData.illustrator ;
+		this.identitytop= cardData.identitytop ;
+		this.identitybottom= cardData.identitybottom ;
+  }
 
 	public Integer getIdentitytop() {
 		return identitytop;
@@ -206,6 +230,8 @@ public class Card implements Serializable {
 		this.side = side;
 		this.loyalty = influence;
 	}
+
+
 
 	public Integer calculateInfluenceCost(Identity identity) {
 		if (sameFactionAs(identity) || isNeutral())
