@@ -12,7 +12,6 @@ import com.google.gson.reflect.TypeToken;
 public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
 	public JsonLibraryCardGateway() {
-		super();
 	}
 
 	@Override
