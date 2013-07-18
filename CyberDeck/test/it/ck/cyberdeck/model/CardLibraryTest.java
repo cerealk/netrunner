@@ -34,17 +34,9 @@ public class CardLibraryTest {
   }
 
   @Test
-  public void eachCardHasSet(){
-	  for (Card card : cl.getCardList()) {
-		  assertThat(card.getSet(), is(notNullValue()));
-		
-	}
-  }
-  
-  @Test
   public void eachCardHasAnImageName() throws Exception {
     for (Card card : cl.getCardList()) {
-      assertThat(card.getImageName(), is(not(emptyString())));
+      assertThat(card.getCardCode(), is(not(emptyString())));
     }
   }
 

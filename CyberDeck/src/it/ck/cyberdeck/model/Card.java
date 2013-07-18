@@ -9,13 +9,14 @@ public class Card implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private CardKey key;
 	private String name;
 	private String cost;
 	private Side side;
-	private Faction identity;
+	private Faction faction;
 	private CardType type;
 	private String subtype;
-	private Integer loyalty = 0;
+	private Integer reputation = 0;
 	private String strength;
 	private Integer agendapoints;
 	private Integer memory;
@@ -23,23 +24,31 @@ public class Card implements Serializable {
 	private String errata;
 	private Boolean unique;
 	private String text;
-	private CardSet set;
-	private Integer num;
+
 	private Integer count;
 	private Integer link;
 	private String illustrator;
-	private Integer identitytop;
-	private Integer identitybottom;
+	private Integer minDeckSize;
+	private Integer maxReputation;
 	
+
+	public Card(String name, Side side, Faction faction, int reputation, CardKey key) {
+		this.name = name;
+		this.side = side;
+		this.faction = faction;
+		this.reputation = reputation;
+	}
+
 	
 	public Card(CardData cardData) {
+		key = new CardKey(cardData.set, cardData.num);
 		this.name= cardData.name ;
 		this.cost= cardData.cost ;
 		this.side= cardData.side ;
-		this.identity= cardData.identity ;
+		this.faction= cardData.identity ;
 		this.type= cardData.type ;
 		this.subtype= cardData.subtype ;
-		this.loyalty= cardData.loyalty ;
+		this.reputation= cardData.loyalty ;
 		this.strength= cardData.strength ;
 		this.agendapoints= cardData.agendapoints ;
 		this.memory= cardData.memory ;
@@ -47,215 +56,111 @@ public class Card implements Serializable {
 		this.errata= cardData.errata ;
 		this.unique= cardData.unique ;
 		this.text= cardData.text ;
-		this.set= cardData.set ;
-		this.num= cardData.num ;
 		this.count= cardData.count ;
 		this.link= cardData.link ;
 		this.illustrator= cardData.illustrator ;
-		this.identitytop= cardData.identitytop ;
-		this.identitybottom= cardData.identitybottom ;
+		this.minDeckSize= cardData.identitytop ;
+		this.maxReputation= cardData.identitybottom ;
   }
 
-	public Integer getIdentitytop() {
-		return identitytop;
+	public Integer getMinDeckSize() {
+		return minDeckSize;
 	}
 
-	public void setIdentitytop(Integer identitytop) {
-		this.identitytop = identitytop;
-	}
-
-	public Integer getIdentitybottom() {
-		return identitybottom;
-	}
-
-	public void setIdentitybottom(Integer identitybottom) {
-		this.identitybottom = identitybottom;
+	public Integer getMaxReputation() {
+		return maxReputation;
 	}
 
 	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
 	public Integer getLink() {
 		return link;
-	}
-
-	public void setLink(Integer link) {
-		this.link = link;
 	}
 
 	public String getIllustrator() {
 		return illustrator;
 	}
 
-	public void setIllustrator(String illustrator) {
-		this.illustrator = illustrator;
-	}
-
-	public void setNum(Integer num) {
-		this.num = num;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getCost() {
 		return cost;
 	}
 
-	public void setCost(String cost) {
-		this.cost = cost;
-	}
-
 	public Side getSide() {
 		return side;
 	}
 
-	public void setSide(Side side) {
-		this.side = side;
-	}
-
-	public Faction getIdentity() {
-		return identity;
-	}
-
-	public void setIdentity(Faction faction) {
-		this.identity = faction;
+	public Faction getFaction() {
+		return faction;
 	}
 
 	public CardType getType() {
 		return type;
 	}
 
-	public void setType(CardType type) {
-		this.type = type;
-	}
-
 	public String getSubtype() {
 		return subtype;
 	}
 
-	public void setSubtype(String subtype) {
-		this.subtype = subtype;
-	}
-
-	public Integer getLoyality() {
-		return loyalty;
-	}
-
-	public void setLoyalty(Integer loyalty) {
-		this.loyalty = loyalty;
+	public Integer getReputation() {
+		return reputation;
 	}
 
 	public String getStrength() {
 		return strength;
 	}
 
-	public void setStrength(String strength) {
-		this.strength = strength;
-	}
-
 	public Integer getAgendapoints() {
 		return agendapoints;
-	}
-
-	public void setAgendapoints(Integer agendaPoints) {
-		this.agendapoints = agendaPoints;
 	}
 
 	public Integer getMemory() {
 		return memory;
 	}
 
-	public void setMemory(Integer memory) {
-		this.memory = memory;
-	}
-
 	public Integer getTrash() {
 		return trash;
-	}
-
-	public void setTrash(Integer trash) {
-		this.trash = trash;
 	}
 
 	public String getErrata() {
 		return errata;
 	}
 
-	public void setErrata(String errata) {
-		this.errata = errata;
-	}
-
-	public Boolean getUnique() {
+	public Boolean isUnique() {
 		return unique;
-	}
-
-	public void setUnique(Boolean unique) {
-		this.unique = unique;
 	}
 
 	public String getText() {
 		return text;
 	}
 
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public CardSet getSet() {
-		return set;
-	}
-
-	public Integer getNum() {
-		return num;
-	}
-
-
-	public void setSet(CardSet set) {
-		this.set = set;
-	}
-
-	public Card(String name, Side side, int influence) {
-		this.name = name;
-		this.side = side;
-		this.loyalty = influence;
-	}
-
-
-
 	public Integer calculateInfluenceCost(Identity identity) {
 		if (sameFactionAs(identity) || isNeutral())
 			return 0;
 
-		return loyalty;
+		return reputation;
 
 	}
 
 	public boolean isNeutral() {
-	  return this.identity.equals(Faction.NEUTRAL);
+	  return this.faction.equals(Faction.NEUTRAL);
   }
 
 	public boolean sameFactionAs(Identity identity) {
-	  return this.identity.equals(identity.faction());
+	  return this.faction.equals(identity.faction());
   }
 	
 	public boolean canBeAttached() {
-	  return loyalty != null;
+	  return reputation != null;
   }
 
-	public String getImageName(){
-		DecimalFormat df = new DecimalFormat("000");
-		return set.getCode() + df.format(num);
+	public String getCardCode(){
+		return key.getCardCode();
 	}
 	
 	  @Override

@@ -35,7 +35,7 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		Card card = values.get(position);
 		textView.setText(card.getName());
 
-		Faction identity = card.getIdentity();
+		Faction identity = card.getFaction();
 		int resImg = ImageFactory.gefFactionImageId(context, identity);
 
 		imageView.setImageResource(resImg);

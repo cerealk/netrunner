@@ -94,14 +94,10 @@ public class DeckTest {
 
   @Test(expected = TooManyOutOfFactionCardsException.class)
   public void aDeckCanHaveOutOfFactionCardsUpToTheReputationOfTheIdentity() throws Exception {
-    Card card1 = new Card("card1", Side.RUNNER, 5);
-    card1.setIdentity(Faction.ANARCH);
-    Card card2 = new Card("card2", Side.RUNNER, 5);
-    card2.setIdentity(Faction.ANARCH);
-    Card card3 = new Card("card3", Side.RUNNER, 5);
-    card3.setIdentity(Faction.ANARCH);
-    Card card4 = new Card("card4", Side.RUNNER, 5);
-    card4.setIdentity(Faction.ANARCH);
+    Card card1 = new Card("card1", Side.RUNNER, Faction.ANARCH, 5, null);
+    Card card2 = new Card("card2", Side.RUNNER, Faction.ANARCH, 5, null);
+    Card card3 = new Card("card3", Side.RUNNER, Faction.ANARCH,5, null);
+    Card card4 = new Card("card4", Side.RUNNER,Faction.ANARCH, 5, null);
     deck.add(card1);
     deck.add(card2);
     deck.add(card3);
@@ -132,8 +128,7 @@ public class DeckTest {
   }
 
   private Card getCard(String name, Side side) {
-    Card card = new Card(name, side, 1);
-    card.setIdentity(Faction.SHAPER);
+    Card card = new Card(name, side,Faction.SHAPER, 1, null);
     return card;
   }
 

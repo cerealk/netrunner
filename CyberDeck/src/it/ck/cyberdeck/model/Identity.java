@@ -25,9 +25,9 @@ public class Identity implements Serializable {
 	public Identity(Card identityCard){
 		this.name = identityCard.getName();
 		this.side = identityCard.getSide();
-		this.faction = identityCard.getIdentity();
-		this.minDeckSize = identityCard.getIdentitytop();
-		this.reputationCap = identityCard.getIdentitybottom();
+		this.faction = identityCard.getFaction();
+		this.minDeckSize = identityCard.getMinDeckSize();
+		this.reputationCap = identityCard.getMaxReputation();
 	}
 
 	public Integer getMinDeckSize() {
@@ -60,7 +60,7 @@ public class Identity implements Serializable {
 	}
 
 	public boolean isCompatibleWith(Card card) {
-	  if((this.side().equals(card.getSide()) || card.getLoyality() != null) && !card.isIdentity())
+	  if((this.side().equals(card.getSide()) || card.getReputation() != null) && !card.isIdentity())
 	  		return true;
 	  return false;
   }

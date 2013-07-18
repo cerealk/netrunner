@@ -34,7 +34,7 @@ public class TestDataParsing {
   public void testLoyalityRetreival() throws Exception {
 	  List<Card> cardList = cl.getCardList();
 	  Card card = cardList.get(0);
-	  assertThat(card.getLoyality(), is(not(nullValue())));
+	  assertThat(card.getReputation(), is(not(nullValue())));
   }
   
 	@Test
