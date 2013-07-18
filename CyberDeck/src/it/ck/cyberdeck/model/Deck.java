@@ -46,7 +46,7 @@ public class Deck implements Serializable {
 	}
 
 	public void add(Card card) {
-		if (!(identity.side().equals(card.getSide()))) {
+		if (!(card.sameSideAs(identity))) {
 			throw new WrongSideException();
 		}
 		if (cards.getCount(card) >= 3) {

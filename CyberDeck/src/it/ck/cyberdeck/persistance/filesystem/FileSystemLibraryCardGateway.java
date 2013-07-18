@@ -1,4 +1,4 @@
-package it.ck.cyberdeck.persistance;
+package it.ck.cyberdeck.persistance.filesystem;
 
 import it.ck.cyberdeck.model.LibraryCardGateway;
 

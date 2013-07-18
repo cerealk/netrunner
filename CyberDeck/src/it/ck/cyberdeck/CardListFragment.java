@@ -1,7 +1,7 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.*;
-import it.ck.cyberdeck.persistance.RawResourceLibraryCardGateway;
+import it.ck.cyberdeck.persistance.filesystem.RawResourceLibraryCardGateway;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryArrayAdapter;
 
 import java.util.List;

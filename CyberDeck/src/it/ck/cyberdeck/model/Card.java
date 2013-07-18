@@ -1,7 +1,6 @@
 package it.ck.cyberdeck.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 
 import org.apache.commons.lang3.builder.*;
 
@@ -11,11 +10,9 @@ public class Card implements Serializable {
 	
 	private CardKey key;
 	private String name;
+	private CardClassifier classifier;
+
 	private String cost;
-	private Side side;
-	private Faction faction;
-	private CardType type;
-	private String subtype;
 	private Integer reputation = 0;
 	private String strength;
 	private Integer agendapoints;
@@ -34,8 +31,8 @@ public class Card implements Serializable {
 
 	public Card(String name, Side side, Faction faction, int reputation, CardKey key) {
 		this.name = name;
-		this.side = side;
-		this.faction = faction;
+		this.key = key;
+		this.classifier = new CardClassifier(side, faction, null, null);
 		this.reputation = reputation;
 	}
 
@@ -43,11 +40,8 @@ public class Card implements Serializable {
 	public Card(CardData cardData) {
 		key = new CardKey(cardData.set, cardData.num);
 		this.name= cardData.name ;
+		this.classifier = new CardClassifier(cardData.side,cardData.identity,cardData.type, cardData.subtype);
 		this.cost= cardData.cost ;
-		this.side= cardData.side ;
-		this.faction= cardData.identity ;
-		this.type= cardData.type ;
-		this.subtype= cardData.subtype ;
 		this.reputation= cardData.loyalty ;
 		this.strength= cardData.strength ;
 		this.agendapoints= cardData.agendapoints ;
@@ -91,22 +85,6 @@ public class Card implements Serializable {
 		return cost;
 	}
 
-	public Side getSide() {
-		return side;
-	}
-
-	public Faction getFaction() {
-		return faction;
-	}
-
-	public CardType getType() {
-		return type;
-	}
-
-	public String getSubtype() {
-		return subtype;
-	}
-
 	public Integer getReputation() {
 		return reputation;
 	}
@@ -148,12 +126,16 @@ public class Card implements Serializable {
 	}
 
 	public boolean isNeutral() {
-	  return this.faction.equals(Faction.NEUTRAL);
+	  return this.classifier.isNeutral();
   }
 
 	public boolean sameFactionAs(Identity identity) {
-	  return this.faction.equals(identity.faction());
+	  return this.classifier.sameFactionAs(identity);
   }
+	
+	public boolean sameSideAs(Identity identity){
+		return this.classifier.sameSideAs(identity);
+	}
 	
 	public boolean canBeAttached() {
 	  return reputation != null;
@@ -165,12 +147,15 @@ public class Card implements Serializable {
 	
 	  @Override
 	  public int hashCode() {
-	    return HashCodeBuilder.reflectionHashCode(this);
+	    return HashCodeBuilder.reflectionHashCode(this.key);
 	  }
 
 	  @Override
 	  public boolean equals(Object obj) {
-	    return EqualsBuilder.reflectionEquals(this, obj);
+	  	if(!(obj instanceof Card)){
+	  		return false;
+	  	}
+	    return this.key.equals(((Card)obj).key);
 	  }
 	  
 	  @Override
@@ -179,6 +164,21 @@ public class Card implements Serializable {
 	  }
 
 		public boolean isIdentity() {
-	    return this.type.equals(CardType.IDENTITY);
+	    return this.classifier.isIdentity();
+    }
+
+
+		protected Side getSide() {
+	    return this.classifier.getSide();
+    }
+
+
+		public Faction getFaction() {
+	    return this.classifier.getFaction();
+    }
+
+
+		protected CardType getType() {
+	    return this.classifier.getType();
     }
 }

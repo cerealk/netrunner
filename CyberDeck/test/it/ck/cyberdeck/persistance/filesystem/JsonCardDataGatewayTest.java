@@ -1,8 +1,9 @@
-package it.ck.cyberdeck.persistance;
+package it.ck.cyberdeck.persistance.filesystem;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.CardData;
+import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
 import java.util.List;
 

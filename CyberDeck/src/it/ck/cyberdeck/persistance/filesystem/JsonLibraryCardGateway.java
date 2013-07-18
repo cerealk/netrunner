@@ -1,6 +1,7 @@
-package it.ck.cyberdeck.persistance;
+package it.ck.cyberdeck.persistance.filesystem;
 
 import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.persistance.*;
 
 import java.lang.reflect.Type;
 import java.util.*;

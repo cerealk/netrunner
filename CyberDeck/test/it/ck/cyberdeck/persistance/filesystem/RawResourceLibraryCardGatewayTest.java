@@ -1,8 +1,9 @@
-package it.ck.cyberdeck.persistance;
+package it.ck.cyberdeck.persistance.filesystem;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.CardListActivity;
+import it.ck.cyberdeck.persistance.filesystem.RawResourceLibraryCardGateway;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

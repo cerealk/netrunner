@@ -1,7 +1,7 @@
 package it.ck.cyberdeck.presentation;
 
 import it.ck.cyberdeck.app.*;
-import it.ck.cyberdeck.persistance.RawResourceLibraryCardGateway;
+import it.ck.cyberdeck.persistance.filesystem.RawResourceLibraryCardGateway;
 import android.app.Application;
 
 public class CyberDeckApp extends Application {

@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.*;
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.app.DeckServiceImpl;
 import it.ck.cyberdeck.model.*;
-import it.ck.cyberdeck.persistance.FileSystemLibraryCardGateway;
+import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
 import org.junit.Test;
 

@@ -2,7 +2,7 @@ package it.ck.cyberdeck.model;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import it.ck.cyberdeck.persistance.FileSystemLibraryCardGateway;
+import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
 import java.util.List;
 
