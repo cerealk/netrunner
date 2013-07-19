@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Identity implements Serializable {
 	
   private static final long serialVersionUID = 1L;
+  private String code;
 	private String name;
 	private Integer minDeckSize;
 	private Side side;
@@ -23,6 +24,7 @@ public class Identity implements Serializable {
 	}
 	
 	public Identity(Card identityCard){
+		this.code = identityCard.getCardCode(); 
 		this.name = identityCard.getName();
 		this.side = identityCard.getSide();
 		this.faction = identityCard.getFaction();
@@ -64,5 +66,9 @@ public class Identity implements Serializable {
 	  		return true;
 	  return false;
   }
+	
+	public String code(){
+		return code;
+	}
 
 }

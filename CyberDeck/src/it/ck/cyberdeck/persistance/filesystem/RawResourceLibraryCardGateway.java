@@ -62,4 +62,10 @@ public class RawResourceLibraryCardGateway extends JsonLibraryCardGateway
 		return resources;
 	}
 
+	@Override
+  protected void persist(String destinationName, String deckDataString) {
+	  // TODO Auto-generated method stub
+	  
+  }
+
 }

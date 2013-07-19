@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class CardEntry implements Serializable {
   private static final long serialVersionUID = 1L;
 	private Card card;
-	private int count;
+	private Integer count;
 	
-	public CardEntry(Card card, int count) {
+	public CardEntry(Card card, Integer count) {
 	  this.card = card;
 	  this.count = count;
   }
@@ -16,7 +16,7 @@ public class CardEntry implements Serializable {
 		return card;
 	}
 
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 

@@ -5,5 +5,5 @@ import java.util.List;
 public interface LibraryCardGateway {
 
   List<Card> loadCards();
-
+  void saveDeck(Deck deck);
 }
