@@ -1,18 +1,20 @@
 package it.ck.cyberdeck.persistance.filesystem;
 
+import it.ck.cyberdeck.model.CardKey;
+
 
 public class CardRef {
-	private String cardCode;
+	private CardKey key;
 	private Integer count;
 	
-	public CardRef(String card, Integer count) {
+	public CardRef(CardKey card, Integer count) {
 	  super();
-	  this.cardCode = card;
+	  this.key = card;
 	  this.count = count;
   }
 	
-	public String getCard(){
-		return cardCode;
+	public CardKey getCard(){
+		return key;
 	}
 	
 	public Integer getCount(){

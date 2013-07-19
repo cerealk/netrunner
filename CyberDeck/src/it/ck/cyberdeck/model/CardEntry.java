@@ -20,6 +20,8 @@ public class CardEntry implements Serializable {
 		return count;
 	}
 
-
+	public CardKey getKey(){
+		return card.getKey();
+	}
 	
 }

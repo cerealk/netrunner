@@ -50,12 +50,10 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 	@Override
 	protected void persist(String destinationName, String deckDataString) {
 		try {
-
 			FileOutputStream fos = new FileOutputStream(new File(destinationName));
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			osw.append(deckDataString);
-			osw.flush();
-			osw.close();
+			fos.write(deckDataString.getBytes());
+			fos.flush();
+			fos.close();
 		} catch (IOException e) {
 		}
 

@@ -1,11 +1,13 @@
 package it.ck.cyberdeck.persistance.filesystem;
 
+import it.ck.cyberdeck.model.CardKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeckData {
 	private String name;
-	private String identity;
+	private CardKey identity;
 	private List<CardRef> cards = new ArrayList<CardRef>();
 	
 	public String getName() {
@@ -14,10 +16,10 @@ public class DeckData {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getIdentity() {
+	public CardKey getIdentity() {
 		return identity;
 	}
-	public void setIdentity(String identity) {
+	public void setIdentity(CardKey identity) {
 		this.identity = identity;
 	}
 	public List<CardRef> getCards() {
@@ -27,8 +29,8 @@ public class DeckData {
 		this.cards = cards;
 	}
 	
-	public void addCardRef(String cardCode, Integer count){
-		cards.add(new CardRef(cardCode, count));
+	public void addCardRef(CardKey cardKey, Integer count){
+		cards.add(new CardRef(cardKey, count));
 	}
 	
 }

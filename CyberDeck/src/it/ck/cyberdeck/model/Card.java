@@ -57,6 +57,9 @@ public class Card implements Serializable {
 		this.maxReputation= cardData.identitybottom ;
   }
 
+	public CardKey getKey(){
+		return this.key;
+	}
 	public Integer getMinDeckSize() {
 		return minDeckSize;
 	}

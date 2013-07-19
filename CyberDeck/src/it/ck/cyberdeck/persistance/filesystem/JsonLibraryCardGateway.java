@@ -44,11 +44,11 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		DeckData data = new DeckData();
 
 		data.setName(deck.name());
-		data.setIdentity(deck.getIdentity().code());
+		data.setIdentity(deck.getIdentity().key());
 
 		List<CardEntry> entries = deck.cards();
 		for (CardEntry cardEntry : entries) {
-			data.addCardRef(cardEntry.getCard().getCardCode(), cardEntry.getCount());
+			data.addCardRef(cardEntry.getKey(), cardEntry.getCount());
 		}
 		return data;
 	}
