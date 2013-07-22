@@ -1,11 +1,8 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.*;
-import it.ck.cyberdeck.persistance.filesystem.RawResourceLibraryCardGateway;
+import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryArrayAdapter;
-
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -62,7 +59,7 @@ public class CardListFragment extends ListFragment {
 		}
 	};
 
-	private List<Card> cardList;
+	private CardLibrary cardLibrary;
 	private LibraryCardGateway gateway;
 
 	/**
@@ -75,9 +72,9 @@ public class CardListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		gateway = new RawResourceLibraryCardGateway(getResources());
-		cardList = gateway.loadCards();
-		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardList);
+		gateway = new AndroidLibraryCardGateway(this.getActivity());
+		cardLibrary = gateway.getCardLibrary();
+		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
 		setListAdapter(adapter);
 	}
 
@@ -121,7 +118,7 @@ public class CardListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(cardList.get(position));
+		mCallbacks.onItemSelected(cardLibrary.getCardList().get(position));
 	}
 
 	@Override

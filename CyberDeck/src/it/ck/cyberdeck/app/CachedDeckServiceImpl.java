@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.app;
 
+import java.util.List;
+
 import it.ck.cyberdeck.model.*;
 
 public class CachedDeckServiceImpl implements DeckService{
@@ -23,6 +25,11 @@ public class CachedDeckServiceImpl implements DeckService{
 			cl = ds.loadCardLibrary();
 		}
 	  return cl;
+  }
+
+	@Override
+  public List<String> deckNames() {
+	  return ds.deckNames();
   }
 
 	

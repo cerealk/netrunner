@@ -4,13 +4,15 @@ import java.util.*;
 
 public class CardLibrary {
 
-  private List<Card> cards = new ArrayList<Card>();
+//  private List<Card> cards = new ArrayList<Card>();
 
+  private Map<CardKey, Card> cards = new HashMap<CardKey, Card>();
+  
   public CardLibrary() {
   }
 
   public List<Card> getCardList() {
-    return Collections.unmodifiableList(cards);
+    return Collections.unmodifiableList(new ArrayList<Card>(cards.values()));
   }
   
   public int size() {
@@ -20,7 +22,7 @@ public class CardLibrary {
 	public List<Identity> getIdentities() {
 	  
 		List<Identity> identities = new ArrayList<Identity>();
-		for(Card card : cards){
+		for(Card card : cards.values()){
 	  	if(card.isIdentity())
 	  		identities.add(new Identity(card));
 	  }
@@ -29,7 +31,7 @@ public class CardLibrary {
 
 	public List<Card> getCardList(Identity identity) {
 	  List<Card> result = new ArrayList<Card>();
-	  for(Card card : cards){
+	  for(Card card : cards.values()){
 	  	if(identity.isCompatibleWith(card)){
 	  		result.add(card);
 	  	}
@@ -38,12 +40,14 @@ public class CardLibrary {
   }
 
 	public void addAll(List<Card> cardList) {
-		this.cards.addAll(cardList);
+		for (Card card : cardList) {
+	    cards.put(card.getKey(), card);
+    }
   }
 
 	public List<CardGroup> getCardGroups(Side side) {
 	  Map<CardType, CardGroup> cardGroups = new HashMap<CardType,CardGroup>();
-	  for(Card card : cards){
+	  for(Card card : cards.values()){
 	  	if (card.getSide().equals(side)){
 	  		CardGroup cardGroup = cardGroups.get(card.getType());
 	  		if(cardGroup == null){
@@ -60,7 +64,7 @@ public class CardLibrary {
 
 	public List<CardGroup> getCardGroups(Identity identity) {
 	  Map<CardType, CardGroup> cardGroups = new HashMap<CardType,CardGroup>();
-	  for(Card card : cards){
+	  for(Card card : cards.values()){
 	  	if (card.getSide().equals(identity.side())){
 	  		CardGroup cardGroup = cardGroups.get(card.getType());
 	  		if(cardGroup == null){
@@ -75,4 +79,8 @@ public class CardLibrary {
 	  
 	  return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups.values()));
   }
+	
+	public Card getCard(CardKey key){
+		return cards.get(key);
+	}
 }

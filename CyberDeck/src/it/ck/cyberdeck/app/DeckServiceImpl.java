@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.app;
 
+import java.util.List;
+
 import it.ck.cyberdeck.model.*;
 
 public class DeckServiceImpl implements DeckService {
@@ -17,9 +19,14 @@ public class DeckServiceImpl implements DeckService {
 	
 	@Override
 	public CardLibrary loadCardLibrary(){
-		CardLibrary cl = new CardLibrary();
-		cl.addAll(loader.loadCards());
+		CardLibrary cl = loader.getCardLibrary();
 		return cl;
 	}
+
+	@Override
+  public List<String> deckNames() {
+	  // TODO Auto-generated method stub
+	  return null;
+  }
 
 }

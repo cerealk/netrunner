@@ -18,12 +18,24 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 	}
 
 	@Override
-	protected String readLibrarySource() {
+	protected void persist(String destinationName, String deckDataString) {
+		try {
+			FileOutputStream fos = new FileOutputStream(new File("test/resources/decks/"+ destinationName + ".js"));
+			fos.write(deckDataString.getBytes());
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+		}
+
+	}
+
+	@Override
+	protected String readSource(String name) {
 
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader reader = null;
 		try {
-			File jsData = new File(filePath);
+			File jsData = new File(name);
 
 			InputStream inputStream = new FileInputStream(jsData);
 			reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -48,15 +60,9 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 	}
 
 	@Override
-	protected void persist(String destinationName, String deckDataString) {
-		try {
-			FileOutputStream fos = new FileOutputStream(new File(destinationName));
-			fos.write(deckDataString.getBytes());
-			fos.flush();
-			fos.close();
-		} catch (IOException e) {
-		}
+  protected String readLibrarySource() {
+	  return readSource(filePath);
+  }
 
-	}
-
+	
 }

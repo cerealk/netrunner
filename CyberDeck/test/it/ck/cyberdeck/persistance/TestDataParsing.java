@@ -6,6 +6,7 @@ import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Before;
@@ -24,7 +25,7 @@ public class TestDataParsing {
 	
   private CardLibrary getCardLibrary() {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway(TEST_PATH);
-    List<Card> loadCards = loader.loadCards();
+    List<Card> loadCards = loader.getCardLibrary().getCardList();
     CardLibrary cl = new CardLibrary();
     cl.addAll(loadCards);
     return cl;
@@ -32,8 +33,8 @@ public class TestDataParsing {
 
   @Test
   public void testLoyalityRetreival() throws Exception {
-	  List<Card> cardList = cl.getCardList();
-	  Card card = cardList.get(0);
+	  Collection<Card> cardList = cl.getCardList();
+	  Card card = cardList.iterator().next();
 	  assertThat(card.getReputation(), is(not(nullValue())));
   }
   

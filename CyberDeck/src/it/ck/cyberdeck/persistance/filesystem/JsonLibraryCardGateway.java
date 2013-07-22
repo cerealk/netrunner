@@ -12,11 +12,33 @@ import com.google.gson.reflect.TypeToken;
 
 public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
+	private Gson gson;
+
 	public JsonLibraryCardGateway() {
+		this.gson = getGson();
 	}
 
 	@Override
-	public List<Card> loadCards() {
+  public Deck loadDeck(String name) {
+		DeckData data = gson.fromJson(readSource("test/resources/decks/" + name + ".js"), DeckData.class);
+		CardLibrary cl = getCardLibrary();
+		Card identityCard = cl.getCard(data.getIdentity());
+		Deck deck = new Deck(new Identity(identityCard), data.getName());
+		for (CardRef ref : data.getCards()) {
+	    deck.add(cl.getCard(ref.getCard()), ref.getCount());
+    }
+		return deck;
+  }
+	
+	@Override
+  public CardLibrary getCardLibrary() {
+	  CardLibrary cl = new CardLibrary();
+	  cl.addAll(loadCards());
+	  return cl;
+  }
+
+
+	protected List<Card> loadCards() {
 		List<CardData> data = loadRawData();
 		List<Card> cards = new ArrayList<Card>();
 		for (CardData cardData : data) {
@@ -30,8 +52,6 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		String destinationName = deck.name();
 
 		DeckData deckData = buildDeckData(deck);
-
-		Gson gson = getGson();
 
 		String deckDataString = gson.toJson(deckData);
 		persist(destinationName, deckDataString);
@@ -54,12 +74,13 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 	}
 
 	protected List<CardData> loadRawData() {
-		Gson gson = getGson();
 		return gson.fromJson(readLibrarySource(), getType());
 	}
 
 	protected abstract String readLibrarySource();
-
+	
+	protected abstract String readSource(String sourceName);
+	
 	private Type getType() {
 		Type collectionType = new TypeToken<Collection<CardData>>() {
 		}.getType();
@@ -76,5 +97,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		Gson gson = builder.create();
 		return gson;
 	}
+
+
 
 }
