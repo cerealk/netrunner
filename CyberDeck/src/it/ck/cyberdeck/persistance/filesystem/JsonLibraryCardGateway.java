@@ -20,7 +20,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
 	@Override
   public Deck loadDeck(String name) {
-		DeckData data = gson.fromJson(readSource("test/resources/decks/" + name + ".js"), DeckData.class);
+		DeckData data = gson.fromJson(readSource(getDeckUri(name)), DeckData.class);
 		CardLibrary cl = getCardLibrary();
 		Card identityCard = cl.getCard(data.getIdentity());
 		Deck deck = new Deck(new Identity(identityCard), data.getName());
@@ -29,6 +29,8 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
     }
 		return deck;
   }
+
+	protected abstract String getDeckUri(String name);
 	
 	@Override
   public CardLibrary getCardLibrary() {

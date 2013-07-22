@@ -22,28 +22,13 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 	@Override
 	protected String readLibrarySource() {
 
-		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader reader = null;
+		reader = getReader(R.raw.carddata);
 		try {
-			reader = getReader(R.raw.carddata);
-			String line = null;
-			String ls = getLineSeparator();
-
-			while ((line = reader.readLine()) != null) {
-				stringBuilder.append(line);
-				stringBuilder.append(ls);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null)
-				try {
-					reader.close();
-				} catch (IOException e) {
-				}
-		}
-		return stringBuilder.toString();
+	    return readSource(reader);
+    } catch (IOException e) {
+    }
+		return "";
 	}
 
 	private BufferedReader getReader(int resourceId) {
@@ -81,13 +66,10 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 	  return context.getDir("decks", Context.MODE_PRIVATE);
   }
 
-	@Override
-  protected String readSource(String name) {
-	  File deckSource = new File(getDestDir(), name);
+	
+	
+  protected String readSource(BufferedReader reader) throws IOException {
 	  StringBuilder stringBuilder = new StringBuilder();
-	  BufferedReader reader = null;
-	  try {
-			reader = getReader(deckSource);
 	    String line = null;
 			String ls = getLineSeparator();
 	    while ((line = reader.readLine()) != null) {
@@ -95,17 +77,13 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 				stringBuilder.append(ls);
 			}
 	    reader.close();
-    } catch (FileNotFoundException e) {
-    } catch (IOException e) {
-    }finally {
-    	if (reader != null)
-				try {
-					reader.close();
-				} catch (IOException e) {
-				}
-    }
 	  
 	  return stringBuilder.toString();
+  }
+
+	private File getDeckFile(String name) {
+	  File deckSource = new File(getDestDir(), name);
+	  return deckSource;
   }
 
 	private BufferedReader getReader(File deckSource)
@@ -113,6 +91,31 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 	  FileInputStream fis = new FileInputStream(deckSource);
 	  BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 	  return reader;
+  }
+
+	@Override
+  protected String readSource(String sourceName) {
+		BufferedReader reader = null;
+	  try {
+			reader = getReader(getDeckFile(sourceName));
+			return readSource(reader);
+    } catch (FileNotFoundException e) {
+    	e.printStackTrace();
+    } catch (IOException e) {
+    	e.printStackTrace();
+    }finally {
+    	if(reader!=null){
+    		try {
+	        reader.close();
+        } catch (IOException e) {}
+    	}
+    }
+	  return "";
+  }
+
+	@Override
+  protected String getDeckUri(String name) {
+	  return name + ".js";
   }
 
 }

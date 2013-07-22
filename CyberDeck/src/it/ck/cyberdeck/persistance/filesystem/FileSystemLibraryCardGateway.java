@@ -64,5 +64,8 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 	  return readSource(filePath);
   }
 
+	protected String getDeckUri(String name) {
+	  return "test/resources/decks/" + name + ".js";
+  }
 	
 }
