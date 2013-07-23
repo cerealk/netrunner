@@ -6,6 +6,7 @@ import it.ck.cyberdeck.CardListActivity;
 import it.ck.cyberdeck.model.*;
 
 import java.io.*;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,6 +56,14 @@ public class RawResourceLibraryCardGatewayTest {
 		assertThat(deck.size(), is(3));
 		assertThat(deck.getIdentity().key().getCardCode(), is("01001"));
 
+	}
+	
+	@Test
+	public void iCanGetTheDeckList(){
+		copyDeckFile("testDeck");
+		List<String> deckNames = gw.deckNames();
+		assertThat(deckNames.size(), is(1));
+		
 	}
 
 	private void copyDeckFile(String targetName) {

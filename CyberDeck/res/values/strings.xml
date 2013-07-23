@@ -18,5 +18,7 @@
     <string name="add_cards">Add...</string>
     <string name="title_activity_add_card">Add...</string>
     <string name="title_activity_add_expandable_card">AddExpandableCardActivity</string>
+    <string name="title_activity_deck_list">DeckListActivity</string>
+    <string name="deckList">Deck List</string>
 
 </resources>

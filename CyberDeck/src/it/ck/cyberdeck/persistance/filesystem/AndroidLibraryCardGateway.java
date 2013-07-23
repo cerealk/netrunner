@@ -50,7 +50,7 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 
 	@Override
   protected void persist(String destinationName, String deckDataString) {
-	  File destDir = getDestDir();
+	  File destDir = getDeckDir();
 	  File deckFile = new File(destDir, destinationName);
 	  try {
 	    FileOutputStream fos = new FileOutputStream(deckFile);
@@ -62,7 +62,8 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 	  
   }
 
-	private File getDestDir() {
+	@Override
+	protected File getDeckDir() {
 	  return context.getDir("decks", Context.MODE_PRIVATE);
   }
 
@@ -82,7 +83,7 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
   }
 
 	private File getDeckFile(String name) {
-	  File deckSource = new File(getDestDir(), name);
+	  File deckSource = new File(getDeckDir(), name);
 	  return deckSource;
   }
 

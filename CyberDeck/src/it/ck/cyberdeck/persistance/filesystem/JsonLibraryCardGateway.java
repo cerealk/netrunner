@@ -3,6 +3,7 @@ package it.ck.cyberdeck.persistance.filesystem;
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.persistance.*;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -12,12 +13,24 @@ import com.google.gson.reflect.TypeToken;
 
 public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
+
 	private Gson gson;
 
 	public JsonLibraryCardGateway() {
 		this.gson = getGson();
 	}
 
+	@Override
+	public List<String> deckNames() {
+		List<String> deckNames = new ArrayList<String>();
+		File deckDir = getDeckDir();
+		File[] files = deckDir.listFiles();
+		for(File deckFile : files){
+			deckNames.add(deckFile.getName());
+		}
+		return deckNames;
+	}
+	
 	@Override
   public Deck loadDeck(String name) {
 		DeckData data = gson.fromJson(readSource(getDeckUri(name)), DeckData.class);
@@ -31,6 +44,8 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
   }
 
 	protected abstract String getDeckUri(String name);
+	
+	protected abstract File getDeckDir();
 	
 	@Override
   public CardLibrary getCardLibrary() {

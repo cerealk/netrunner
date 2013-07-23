@@ -11,12 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 public class JsonCardDataGatewayTest {
+	
+	private FileSystemLibraryCardGateway gw = new FileSystemLibraryCardGateway();
 
 	@Test
 	public void givenADataFileICanGetTheCardData() {
-		FileSystemLibraryCardGateway gateway = new FileSystemLibraryCardGateway();
 
-		List<CardData> cards = gateway.loadRawData();
+		List<CardData> cards = gw.loadRawData();
 
 		assertThat(cards.size(), is(233));
 
@@ -29,5 +30,12 @@ public class JsonCardDataGatewayTest {
 			assertThat(card.type, is(not(nullValue())));
 			assertThat(card.set, is(not(nullValue())));
 		}
+	}
+	
+	@Test
+	public void iCanGetTheDeckList(){
+		List<String> deckNames = gw.deckNames();
+		assertThat(deckNames.size(), is(2));
+		
 	}
 }

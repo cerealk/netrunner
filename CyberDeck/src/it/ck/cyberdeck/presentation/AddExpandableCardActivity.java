@@ -1,6 +1,7 @@
 package it.ck.cyberdeck.presentation;
 
 import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryExpandableListAdapter;
 
@@ -17,12 +18,15 @@ import android.widget.ExpandableListView.OnChildClickListener;
 public class AddExpandableCardActivity extends Activity {
 
 	private Deck deck;
+	private DeckService deckService;
 	private CardLibraryExpandableListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_expandable_card);
+		
+		deckService = ((CyberDeckApp)getApplication()).getDeckService();
 		
 		ExpandableListView expListView = (ExpandableListView) findViewById(R.id.expandableListView1);
 		CardLibrary cl = ((CyberDeckApp) getApplication()).getDeckService().loadCardLibrary();
@@ -43,6 +47,7 @@ public class AddExpandableCardActivity extends Activity {
 	      
 			  Card cardToBeAdded = (Card) getListAdapter().getChild(groupPosition, childPosition);
 			  deck.add(cardToBeAdded);
+			  deckService.saveDeck(deck);
 				return true;
       }
     });

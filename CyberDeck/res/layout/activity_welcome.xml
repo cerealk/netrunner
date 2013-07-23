@@ -26,4 +26,13 @@
         android:layout_marginTop="39dp"
         android:text="@string/new_deck" />
 
+    <Button
+        android:id="@+id/deckListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_new_deck"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="@string/deckList" />
+
 </RelativeLayout>

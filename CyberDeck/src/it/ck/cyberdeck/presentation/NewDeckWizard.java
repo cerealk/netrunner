@@ -22,7 +22,7 @@ public class NewDeckWizard extends Activity {
 	private Button createDeck;
 	private DeckService deckService;
 	private List<Identity> identities;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,31 +32,30 @@ public class NewDeckWizard extends Activity {
 
 		this.deckNameText = (EditText) findViewById(R.id.field_deck_name);
 		this.deckIdentity = (Spinner) findViewById(R.id.deck_identity_spinner);
-SpinnerAdapter dataAdapter = new IdentityAdapter(getApplicationContext(), identities);
-		//		ArrayAdapter<Identity> dataAdapter = new ArrayAdapter<Identity>(this,
-//				android.R.layout.simple_spinner_item, identities);
-//			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		SpinnerAdapter dataAdapter = new IdentityAdapter(getApplicationContext(),
+		    identities);
 		deckIdentity.setAdapter(dataAdapter);
-			
+
 		this.createDeck = (Button) findViewById(R.id.create_deck);
 
-		
-		this.createDeck.setOnClickListener(new View.OnClickListener(){
+		this.createDeck.setOnClickListener(new View.OnClickListener() {
 			@Override
-      public void onClick(View v) {
-				Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText.getText().toString());
-	      Intent intent = new Intent(NewDeckWizard.this, DeckActivity.class);
-	      intent.putExtra("deck", deck);
-	      startActivity(intent);
-      }
-			
+			public void onClick(View v) {
+				Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText
+				    .getText().toString());
+				deckService.saveDeck(deck);
+				Intent intent = new Intent(NewDeckWizard.this, DeckActivity.class);
+				intent.putExtra("deck", deck);
+				startActivity(intent);
+			}
+
 		});
 	}
 
 	protected Identity getSelectedIdentity() {
 		int position = deckIdentity.getSelectedItemPosition();
-	  return identities.get(position);
-  }
+		return identities.get(position);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

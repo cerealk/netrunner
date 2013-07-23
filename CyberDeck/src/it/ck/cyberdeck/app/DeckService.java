@@ -11,5 +11,7 @@ public interface DeckService {
 	CardLibrary loadCardLibrary();
 	
 	List<String> deckNames();
+	
+	void saveDeck(Deck deck);
 
 }

@@ -1,8 +1,8 @@
 package it.ck.cyberdeck.app;
 
-import java.util.List;
-
 import it.ck.cyberdeck.model.*;
+
+import java.util.List;
 
 public class DeckServiceImpl implements DeckService {
 
@@ -25,8 +25,13 @@ public class DeckServiceImpl implements DeckService {
 
 	@Override
   public List<String> deckNames() {
-	  // TODO Auto-generated method stub
-	  return null;
+	  return loader.deckNames();
+  }
+
+	@Override
+  public void saveDeck(Deck deck) {
+	  loader.saveDeck(deck);
+	  
   }
 
 }

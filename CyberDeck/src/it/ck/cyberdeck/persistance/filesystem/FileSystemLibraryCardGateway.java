@@ -7,6 +7,7 @@ import java.io.*;
 public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
     implements LibraryCardGateway {
 
+	private static final String DECK_BASE_PATH = "test/resources/decks/";
 	private String filePath;
 
 	public FileSystemLibraryCardGateway() {
@@ -20,7 +21,7 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 	@Override
 	protected void persist(String destinationName, String deckDataString) {
 		try {
-			FileOutputStream fos = new FileOutputStream(new File("test/resources/decks/"+ destinationName + ".js"));
+			FileOutputStream fos = new FileOutputStream(new File(DECK_BASE_PATH+ destinationName + ".js"));
 			fos.write(deckDataString.getBytes());
 			fos.flush();
 			fos.close();
@@ -65,7 +66,14 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
   }
 
 	protected String getDeckUri(String name) {
-	  return "test/resources/decks/" + name + ".js";
+	  return DECK_BASE_PATH + name + ".js";
   }
+
+	@Override
+  protected File getDeckDir() {
+			return new File(DECK_BASE_PATH);
+  }
+	
+	
 	
 }

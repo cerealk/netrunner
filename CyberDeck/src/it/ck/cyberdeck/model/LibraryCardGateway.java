@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.model;
 
+import java.util.List;
+
 
 public interface LibraryCardGateway {
 
@@ -8,4 +10,6 @@ public interface LibraryCardGateway {
   void saveDeck(Deck deck);
   
   Deck loadDeck(String name);
+
+	List<String> deckNames();
 }
