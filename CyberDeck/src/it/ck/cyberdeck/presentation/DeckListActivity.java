@@ -3,6 +3,8 @@ package it.ck.cyberdeck.presentation;
 import java.util.List;
 
 import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.app.DeckService;
+import it.ck.cyberdeck.model.Deck;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +14,13 @@ import android.widget.*;
 
 public class DeckListActivity extends Activity {
 
+	private DeckService service;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck_list);
-		
+		service = ((CyberDeckApp)getApplication()).getDeckService();
 		ListView deckListview = (ListView) findViewById(R.id.listViewDecks);
 		
 		CyberDeckApp app = (CyberDeckApp) getApplication();
@@ -29,7 +33,20 @@ public class DeckListActivity extends Activity {
 				deckNames);
 		deckListview.setAdapter(adapter);
 		
-		Button newDeckButton = (Button) findViewById(R.id.button_new_deck);
+		deckListview.setOnItemClickListener(new ListView.OnItemClickListener(){
+
+			@Override
+      public void onItemClick(AdapterView<?> parent, View view, int pos,
+          long id) {
+	      String deckName = (String) parent.getItemAtPosition(pos);
+	      Deck deck = service.loadDeck(deckName);
+	      Intent intent = new Intent(DeckListActivity.this, NewDeckWizard.class);
+	      intent.putExtra("deck", deck);
+	      startActivity(intent);
+	      
+      }});
+		
+		Button newDeckButton = (Button) findViewById(R.id.button1);
 		newDeckButton.setOnClickListener(new View.OnClickListener(){
 
 			@Override

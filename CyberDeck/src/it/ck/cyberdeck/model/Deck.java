@@ -52,7 +52,7 @@ public class Deck implements Serializable {
 		if (cards.getCount(card) >= 3) {
 			throw new TooManyCardOfTheSameTypeException();
 		}
-		if(!(card.sameFactionAs(this.getIdentity())&& card.isNeutral()) && !card.canBeAttached()){
+		if(!(card.sameFactionAs(this.getIdentity())&& card.isNeutral()) || !card.canBeAttached()){
 			throw new CantBeAttachedException();
 		}
 		if (!checkReputation(card)) {

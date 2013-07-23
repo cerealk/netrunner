@@ -14,4 +14,6 @@ public interface DeckService {
 	
 	void saveDeck(Deck deck);
 
+	Deck loadDeck(String deckName);
+
 }

@@ -1,11 +1,14 @@
 package it.ck.cyberdeck.model;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import org.apache.commons.lang3.builder.*;
 
-public class CardKey {
-	private CardSet set;
+public class CardKey implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  private CardSet set;
 	private Integer num;
 
 	public CardKey(CardSet set, Integer num) {

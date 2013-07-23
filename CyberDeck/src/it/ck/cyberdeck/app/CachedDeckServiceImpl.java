@@ -36,5 +36,10 @@ public class CachedDeckServiceImpl implements DeckService{
 	public void saveDeck(Deck deck) {
 		ds.saveDeck(deck);
 	}
+
+	@Override
+  public Deck loadDeck(String deckName) {
+	  return ds.loadDeck(deckName);
+  }
 	
 }

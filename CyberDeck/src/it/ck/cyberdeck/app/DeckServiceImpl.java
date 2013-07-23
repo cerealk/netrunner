@@ -34,4 +34,9 @@ public class DeckServiceImpl implements DeckService {
 	  
   }
 
+	@Override
+  public Deck loadDeck(String deckName) {
+	  return loader.loadDeck(deckName);
+  }
+
 }
