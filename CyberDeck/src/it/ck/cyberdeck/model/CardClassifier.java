@@ -1,7 +1,11 @@
 package it.ck.cyberdeck.model;
 
-public class CardClassifier {
-	private Side side;
+import java.io.Serializable;
+
+public class CardClassifier implements Serializable{
+  private static final long serialVersionUID = 1L;
+
+  private Side side;
 	private Faction faction;
 	private CardType type;
 	private String subtype;

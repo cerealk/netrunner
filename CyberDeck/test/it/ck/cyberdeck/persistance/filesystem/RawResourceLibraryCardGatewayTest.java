@@ -78,7 +78,7 @@ public class RawResourceLibraryCardGatewayTest {
 			    .buildActivity(CardListActivity.class).create().get();
 			File dir = activity.getApplicationContext().getDir("decks",
 			    Context.MODE_PRIVATE);
-			File bfile = new File(dir, targetName + ".js");
+			File bfile = new File(dir, targetName);
 
 			inStream = new FileInputStream(afile);
 			outStream = new FileOutputStream(bfile);

@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
+import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
 import it.ck.cyberdeck.model.Deck.TooManyOutOfFactionCardsException;
 import it.ck.cyberdeck.model.Deck.WrongSideException;
@@ -94,14 +95,20 @@ public class DeckTest {
 
   @Test(expected = TooManyOutOfFactionCardsException.class)
   public void aDeckCanHaveOutOfFactionCardsUpToTheReputationOfTheIdentity() throws Exception {
-    Card card1 = new Card("card1", Side.RUNNER, Faction.ANARCH, 5, new CardKey(CardSet.CORE, 1));
-    Card card2 = new Card("card2", Side.RUNNER, Faction.ANARCH, 5, new CardKey(CardSet.CORE, 2));
-    Card card3 = new Card("card3", Side.RUNNER, Faction.ANARCH,5, new CardKey(CardSet.CORE, 3));
-    Card card4 = new Card("card4", Side.RUNNER,Faction.ANARCH, 5, new CardKey(CardSet.CORE, 4));
+    Card card1 = getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5);
+    Card card2 = getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5);
+    Card card3 = getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5);;
+    Card card4 = getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5);;
     deck.add(card1);
     deck.add(card2);
     deck.add(card3);
     deck.add(card4);
+  }
+
+	private Card getCard(String name, Side side, Faction anarch, int num,
+      int reputation) {
+	  Card card1 = new Card(name, side, anarch, reputation, new CardKey(CardSet.CORE, num));
+	  return card1;
   }
   
   @Test
@@ -113,6 +120,66 @@ public class DeckTest {
   @Test
   public void iCanAddMoreCopiesOfACard(){
     deck.add(getCard(), 2);
+  }
+  
+  @Test
+  public void givenADeckICanAddACardOfTheSameFaction(){
+  	Deck deck = new Deck(getIdentity(45), "testDeck");
+  	CardData cardData = new CardData();
+  	cardData.set = CardSet.CORE;
+  	cardData.identity = Faction.SHAPER;
+  	cardData.side = Side.RUNNER;
+  	cardData.loyalty = 2;
+  	cardData.num =3;
+  	
+		Card card = new Card(cardData );
+  	deck.add(card);
+  	assertThat(deck.cardCount(card), is(1));
+  }
+  
+  @Test
+  public void givenACardOutOfFactionICanAddItIfItCanBeAttached() throws Exception {
+  	Deck deck = new Deck(getIdentity(45), "testDeck");
+  	CardData cardData = new CardData();
+  	cardData.set = CardSet.CORE;
+  	cardData.identity = Faction.ANARCH;
+  	cardData.side = Side.RUNNER;
+  	cardData.loyalty = 2;
+  	cardData.num =3;
+  	
+		Card card = new Card(cardData );
+  	deck.add(card);
+  	assertThat(deck.cardCount(card), is(1));
+  }
+  
+  @Test(expected=CantBeAttachedException.class)
+  public void givenACardOutOfFactionICantAddItIfITCantBeAttached() throws Exception {
+  	Deck deck = new Deck(getIdentity(45), "testDeck");
+  	CardData cardData = new CardData();
+  	cardData.set = CardSet.CORE;
+  	cardData.identity = Faction.ANARCH;
+  	cardData.side = Side.RUNNER;
+  	cardData.loyalty = null;
+  	cardData.num =3;
+  	
+		Card card = new Card(cardData );
+  	deck.add(card);
+  	assertThat(deck.cardCount(card), is(1));
+  }
+  
+  @Test(expected=CantBeAttachedException.class)
+  public void givenANeutralCardICantAddItIfITCantBeAttached() throws Exception {
+  	Deck deck = new Deck(getIdentity(45), "testDeck");
+  	CardData cardData = new CardData();
+  	cardData.set = CardSet.CORE;
+  	cardData.identity = Faction.ANARCH;
+  	cardData.side = Side.RUNNER;
+  	cardData.loyalty = null;
+  	cardData.num =3;
+  	
+		Card card = new Card(cardData );
+  	deck.add(card);
+  	assertThat(deck.cardCount(card), is(1));
   }
 
   private Deck getDeck(Identity identity) {
@@ -139,5 +206,6 @@ public class DeckTest {
   private Identity getIdentity() {
     return getIdentity(2);
   }
+  
 
 }
