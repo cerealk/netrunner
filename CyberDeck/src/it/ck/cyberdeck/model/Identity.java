@@ -60,12 +60,6 @@ public class Identity implements Serializable {
 	public String name() {
 		return this.name;
 	}
-
-	public boolean isCompatibleWith(Card card) {
-	  if((this.side().equals(card.getSide()) || card.getReputation() != null) && !card.isIdentity())
-	  		return true;
-	  return false;
-  }
 	
 	public CardKey key(){
 		return key;

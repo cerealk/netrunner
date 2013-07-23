@@ -13,7 +13,7 @@ public class Card implements Serializable {
 	private CardClassifier classifier;
 
 	private String cost;
-	private Integer reputation = 0;
+	private Integer reputation;
 	private String strength;
 	private Integer agendapoints;
 	private Integer memory;
@@ -40,7 +40,7 @@ public class Card implements Serializable {
 	public Card(CardData cardData) {
 		key = new CardKey(cardData.set, cardData.num);
 		this.name= cardData.name ;
-		this.classifier = new CardClassifier(cardData.side,cardData.identity,cardData.type, cardData.subtype);
+		this.classifier = new CardClassifier(cardData.side,cardData.identity, cardData.type, cardData.subtype);
 		this.cost= cardData.cost ;
 		this.reputation= cardData.loyalty ;
 		this.strength= cardData.strength ;
@@ -119,7 +119,7 @@ public class Card implements Serializable {
 	public String getText() {
 		return text;
 	}
-
+	
 	public Integer calculateInfluenceCost(Identity identity) {
 		if (sameFactionAs(identity) || isNeutral())
 			return 0;
@@ -138,6 +138,10 @@ public class Card implements Serializable {
 	
 	public boolean sameSideAs(Identity identity){
 		return this.classifier.sameSideAs(identity);
+	}
+	
+	public boolean isAgenda(){
+		return this.classifier.isAgenda();
 	}
 	
 	public boolean canBeAttached() {
@@ -184,4 +188,8 @@ public class Card implements Serializable {
 		protected CardType getType() {
 	    return this.classifier.getType();
     }
+    
+		public boolean isCompatibleWith(Identity identity) {
+		  return this.sameFactionAs(identity) || this.isNeutral() || this.canBeAttached();
+	  }
 }

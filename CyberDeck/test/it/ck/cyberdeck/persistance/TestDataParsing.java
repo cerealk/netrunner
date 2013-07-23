@@ -16,15 +16,16 @@ public class TestDataParsing {
 
 
   private static final String TEST_PATH = "test/carddata.js";
+  private static final String RAW_PATH = "res/raw/carddata.js";
 	private CardLibrary cl;
 
   @Before
   public void setup() {
-    cl = getCardLibrary();
+    cl = getCardLibrary(TEST_PATH);
   }
 	
-  private CardLibrary getCardLibrary() {
-    FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway(TEST_PATH);
+  private CardLibrary getCardLibrary(String path) {
+    FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway(path);
     List<Card> loadCards = loader.getCardLibrary().getCardList();
     CardLibrary cl = new CardLibrary();
     cl.addAll(loadCards);
@@ -39,7 +40,12 @@ public class TestDataParsing {
   }
   
 	@Test
-	public void test() {
-  	}
+	public void theAgendasArewithLoialtyZero() {
+		Collection<Card> cards = getCardLibrary(RAW_PATH).getCardList();
+		for(Card card : cards){
+			if(card.isAgenda())
+				System.out.println(card.getName() + " " + card.getReputation() + " " + card.canBeAttached());
+		}
+  }
 
 }

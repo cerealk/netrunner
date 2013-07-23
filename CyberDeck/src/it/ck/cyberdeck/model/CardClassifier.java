@@ -45,4 +45,9 @@ public class CardClassifier implements Serializable{
 	protected CardType getType() {
 	  return type;
   }
+
+	public boolean isAgenda() {
+	  
+	  return CardType.AGENDA.equals(type);
+  }
 }

@@ -52,7 +52,7 @@ public class Deck implements Serializable {
 		if (cards.getCount(card) >= 3) {
 			throw new TooManyCardOfTheSameTypeException();
 		}
-		if(!(card.sameFactionAs(getIdentity()) || card.isNeutral() || card.canBeAttached())){
+		if(!card.isCompatibleWith( getIdentity())){
 			throw new CantBeAttachedException();
 		}
 		if (!checkReputation(card)) {
@@ -60,6 +60,8 @@ public class Deck implements Serializable {
 		}
 		cards.add(card);
 	}
+
+
 
 	public void remove(Card card) {
 		cards.remove(card);
