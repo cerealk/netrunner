@@ -40,7 +40,7 @@ public class DeckListActivity extends Activity {
           long id) {
 	      String deckName = (String) parent.getItemAtPosition(pos);
 	      Deck deck = service.loadDeck(deckName);
-	      Intent intent = new Intent(DeckListActivity.this, NewDeckWizard.class);
+	      Intent intent = new Intent(DeckListActivity.this, DeckActivity.class);
 	      intent.putExtra("deck", deck);
 	      startActivity(intent);
 	      
@@ -51,7 +51,7 @@ public class DeckListActivity extends Activity {
 
 			@Override
       public void onClick(View v) {
-	      Intent intent = new Intent(DeckListActivity.this, DeckActivity.class);
+	      Intent intent = new Intent(DeckListActivity.this, NewDeckWizard.class);
 	      startActivity(intent);
 	      
       }
