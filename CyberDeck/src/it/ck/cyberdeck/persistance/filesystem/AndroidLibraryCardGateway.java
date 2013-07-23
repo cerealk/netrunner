@@ -27,6 +27,7 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 		try {
 	    return readSource(reader);
     } catch (IOException e) {
+    	e.printStackTrace();
     }
 		return "";
 	}
@@ -57,7 +58,9 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 	    fos.write(deckDataString.getBytes());
 	    fos.close();
     } catch (FileNotFoundException e) {
+    	e.printStackTrace();
     } catch (IOException e) {
+    	e.printStackTrace();
     }
 	  
   }
@@ -116,7 +119,7 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 
 	@Override
   protected String getDeckUri(String name) {
-	  return name + ".js";
+	  return name;
   }
 
 }

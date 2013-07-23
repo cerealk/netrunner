@@ -1,1 +1,1 @@
-{"name":"testDeck","identity":{"set":"CORE","num":1},"cards":[{"key":{"set":"CORE","num":3},"count":1},{"key":{"set":"CORE","num":2},"count":2}]}
+{"name":"testDeck","identity":{"set":"Core","num":1},"cards":[{"key":{"set":"Core","num":3},"count":1},{"key":{"set":"Core","num":2},"count":2}]}

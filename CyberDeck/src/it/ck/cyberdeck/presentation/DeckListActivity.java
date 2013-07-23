@@ -51,7 +51,7 @@ public class DeckListActivity extends Activity {
 
 			@Override
       public void onClick(View v) {
-	      Intent intent = new Intent(DeckListActivity.this, NewDeckWizard.class);
+	      Intent intent = new Intent(DeckListActivity.this, DeckActivity.class);
 	      startActivity(intent);
 	      
       }
