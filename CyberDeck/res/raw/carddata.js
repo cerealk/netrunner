@@ -456,7 +456,7 @@
       "identity": "Jinteki",
       "type": "Agenda",
       "subtype": "Research",
-      "loyalty": "0",
+      "loyalty": "",
       "totalcost": 3,
       "strength": "",
       "agendapoints": "2",
