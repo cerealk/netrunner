@@ -5,6 +5,8 @@ import it.ck.cyberdeck.model.LibraryCardGateway;
 
 import java.io.*;
 
+import com.google.gson.stream.JsonReader;
+
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -20,24 +22,14 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 	}
 
 	@Override
-	protected String readLibrarySource() {
-
-		BufferedReader reader = null;
-		reader = getReader(R.raw.carddata);
-		try {
-	    return readSource(reader);
-    } catch (IOException e) {
-    	e.printStackTrace();
-    }
-		return "";
+	protected JsonReader readLibrarySource() {
+		return getReader(R.raw.carddata);
 	}
 
-	private BufferedReader getReader(int resourceId) {
-		BufferedReader reader;
+	private JsonReader getReader(int resourceId) {
 		InputStream inputStream = getResources().openRawResource(
 				resourceId);
-		reader = new BufferedReader(new InputStreamReader(inputStream));
-		return reader;
+		return new JsonReader(new InputStreamReader(inputStream));
 	}
 
 	private String getLineSeparator() {
@@ -98,23 +90,11 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
   }
 
 	@Override
-  protected String readSource(String sourceName) {
+  protected JsonReader readSource(String sourceName) throws FileNotFoundException {
 		BufferedReader reader = null;
-	  try {
 			reader = getReader(getDeckFile(sourceName));
-			return readSource(reader);
-    } catch (FileNotFoundException e) {
-    	e.printStackTrace();
-    } catch (IOException e) {
-    	e.printStackTrace();
-    }finally {
-    	if(reader!=null){
-    		try {
-	        reader.close();
-        } catch (IOException e) {}
-    	}
-    }
-	  return "";
+			return new JsonReader(reader);
+  
   }
 
 	@Override

@@ -4,6 +4,8 @@ import it.ck.cyberdeck.model.LibraryCardGateway;
 
 import java.io.*;
 
+import com.google.gson.stream.JsonReader;
+
 public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
     implements LibraryCardGateway {
 
@@ -31,37 +33,19 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 	}
 
 	@Override
-	protected String readSource(String name) {
+	protected JsonReader readSource(String name) throws FileNotFoundException {
 
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader reader = null;
-		try {
+		
 			File jsData = new File(name);
 
 			InputStream inputStream = new FileInputStream(jsData);
-			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String line = null;
-			String ls = System.getProperty("line.separator");
+			return new JsonReader(new InputStreamReader(inputStream));
 
-			while ((line = reader.readLine()) != null) {
-				stringBuilder.append(line);
-				stringBuilder.append(ls);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null)
-				try {
-					reader.close();
-				} catch (IOException e) {
-				}
-		}
-		return stringBuilder.toString();
+		
 	}
 
 	@Override
-  protected String readLibrarySource() {
+  protected JsonReader readLibrarySource() throws FileNotFoundException {
 	  return readSource(filePath);
   }
 

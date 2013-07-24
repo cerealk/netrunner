@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
+import com.google.gson.stream.JsonReader;
+
 import android.content.Context;
 
 @RunWith(RobolectricTestRunner.class)
@@ -22,11 +24,11 @@ public class RawResourceLibraryCardGatewayTest {
 	    Robolectric.buildActivity(CardListActivity.class).create().get());
 
 	@Test
-	public void theRawResourceCanBeLoaded() {
-		String source = gw.readLibrarySource();
+	public void theRawResourceCanBeLoaded() throws Exception {
+		JsonReader source = gw.readLibrarySource();
 
 		assertThat(source, is(notNullValue()));
-		assertThat(source, is(not(equalTo(""))));
+		assertThat(Boolean.valueOf(source.hasNext()), is(true));
 		System.out.println(source);
 	}
 

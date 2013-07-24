@@ -1,6 +1,7 @@
 package it.ck.cyberdeck.presentation;
 
 import it.ck.cyberdeck.app.*;
+import it.ck.cyberdeck.persistance.CachedGateway;
 import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;
 import android.app.Application;
 
@@ -16,7 +17,7 @@ public class CyberDeckApp extends Application {
 		return ds;
 	}
 	private DeckService createDeckService() {
-	  return new CachedDeckServiceImpl(new DeckServiceImpl(new AndroidLibraryCardGateway(this)));
+	  return new DeckServiceImpl(new CachedGateway(new AndroidLibraryCardGateway(this)));
   }
 	
 }

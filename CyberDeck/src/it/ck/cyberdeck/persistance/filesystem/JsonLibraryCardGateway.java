@@ -4,15 +4,15 @@ import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.persistance.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
-
 
 	private Gson gson;
 
@@ -25,35 +25,47 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		List<String> deckNames = new ArrayList<String>();
 		File deckDir = getDeckDir();
 		File[] files = deckDir.listFiles();
-		for(File deckFile : files){
+		for (File deckFile : files) {
 			deckNames.add(deckFile.getName());
 		}
 		return deckNames;
 	}
-	
+
 	@Override
-  public Deck loadDeck(String name) {
-		DeckData data = gson.fromJson(readSource(getDeckUri(name)), DeckData.class);
-		CardLibrary cl = getCardLibrary();
-		Card identityCard = cl.getCard(data.getIdentity());
-		Deck deck = new Deck(new Identity(identityCard), data.getName());
-		for (CardRef ref : data.getCards()) {
-	    deck.add(cl.getCard(ref.getCard()), ref.getCount());
-    }
-		return deck;
-  }
+	public Deck loadDeck(String name) {
+		DeckData data;
+		try {
+			data = gson.fromJson(readSource(getDeckUri(name)), DeckData.class);
+			CardLibrary cl = getCardLibrary();
+			Card identityCard = cl.getCard(data.getIdentity());
+			Deck deck = new Deck(new Identity(identityCard), data.getName());
+			for (CardRef ref : data.getCards()) {
+				deck.add(cl.getCard(ref.getCard()), ref.getCount());
+			}
+			return deck;
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	protected abstract String getDeckUri(String name);
-	
-	protected abstract File getDeckDir();
-	
-	@Override
-  public CardLibrary getCardLibrary() {
-	  CardLibrary cl = new CardLibrary();
-	  cl.addAll(loadCards());
-	  return cl;
-  }
 
+	protected abstract File getDeckDir();
+
+	@Override
+	public CardLibrary getCardLibrary() {
+		CardLibrary cl = new CardLibrary();
+		cl.addAll(loadCards());
+		return cl;
+	}
 
 	protected List<Card> loadCards() {
 		List<CardData> data = loadRawData();
@@ -76,7 +88,6 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
 	protected abstract void persist(String destinationName, String deckDataString);
 
-
 	private DeckData buildDeckData(Deck deck) {
 		DeckData data = new DeckData();
 
@@ -91,13 +102,27 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 	}
 
 	protected List<CardData> loadRawData() {
-		return gson.fromJson(readLibrarySource(), getType());
+		try {
+	    return gson.fromJson(readLibrarySource(), getType());
+    } catch (JsonIOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+    } catch (JsonSyntaxException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+    } catch (FileNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+    }
+		return Collections.emptyList();
 	}
 
-	protected abstract String readLibrarySource();
-	
-	protected abstract String readSource(String sourceName);
-	
+	protected abstract JsonReader readLibrarySource()
+	    throws FileNotFoundException;
+
+	protected abstract JsonReader readSource(String sourceName)
+	    throws FileNotFoundException;
+
 	private Type getType() {
 		Type collectionType = new TypeToken<Collection<CardData>>() {
 		}.getType();
@@ -115,7 +140,5 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		Gson gson = builder.create();
 		return gson;
 	}
-
-
 
 }
