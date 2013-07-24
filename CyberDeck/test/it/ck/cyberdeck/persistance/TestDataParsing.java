@@ -6,8 +6,7 @@ import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,10 +41,17 @@ public class TestDataParsing {
 	@Test
 	public void theAgendasArewithLoialtyZero() {
 		Collection<Card> cards = getCardLibrary(RAW_PATH).getCardList();
+		List<Card> agendas = new ArrayList<Card>(); 
 		for(Card card : cards){
-			if(card.isAgenda())
-				System.out.println(card.getName() + " " + card.getReputation() + " " + card.canBeAttached());
+			if(card.isAgenda()){
+				if(!card.isNeutral()){
+					assertThat(card.getReputation(), is(nullValue()));
+				}
+				agendas.add(card);
+			}
 		}
+		
+		assertThat(Integer.valueOf(agendas.size()), is(19));
   }
 
 }
