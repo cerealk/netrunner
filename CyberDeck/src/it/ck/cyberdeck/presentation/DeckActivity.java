@@ -6,17 +6,15 @@ import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
 import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.*;
 
 public class DeckActivity extends Activity implements DeckPublisher{
 
