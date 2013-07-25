@@ -51,7 +51,7 @@ public class TestDataParsing {
 			}
 		}
 		
-		assertThat(Integer.valueOf(agendas.size()), is(19));
+		assertThat(Integer.valueOf(agendas.size()), is(24));
   }
 
 }

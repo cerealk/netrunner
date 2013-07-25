@@ -19,12 +19,6 @@ public class CardLibraryTest {
     cl = getCardLibrary();
   }
 
-  @Test
-  public void test() throws Exception {
-    assertThat(cl.size(), is(equalTo(233)));
-    assertThat(cl.getCardList().size(), is(equalTo(233)));
-  }
-
   private CardLibrary getCardLibrary() {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway();
     CardLibrary cl = loader.getCardLibrary();
