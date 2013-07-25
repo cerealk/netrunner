@@ -104,6 +104,8 @@ public class DeckTest {
     deck.add(card3);
     deck.add(card4);
   }
+  
+  
 
 	private Card getCard(String name, Side side, Faction anarch, int num,
       int reputation) {

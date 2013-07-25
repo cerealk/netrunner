@@ -10,19 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
+import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.*;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class DeckActivity extends Activity implements DeckPublisher{
+
+	@Override
+  protected void onSaveInstanceState(Bundle outState) {
+		outState.putSerializable("deck", deck);
+		super.onSaveInstanceState(outState);
+  }
 
 	protected static final int REQUEST_CODE = 42;
 	private TextView deckName;
 	private TextView identityName;
 	private ListView cardList;
-	private List<CardEntry> deckEntries = new ArrayList<CardEntry>();
 	private CardEntryListViewAdapter listViewAdapter;
 	private DeckAdapter adapter;
 	private Deck deck;
@@ -41,11 +48,13 @@ public class DeckActivity extends Activity implements DeckPublisher{
 			deck = (Deck) getIntent().getSerializableExtra("deck");
 		}
 		
-		listViewAdapter = new CardEntryListViewAdapter(this.getApplicationContext(), deckEntries); 
+		listViewAdapter = new CardEntryListViewAdapter(this.getApplicationContext(), deck.cards()); 
 		
 		cardList = (ListView) findViewById(R.id.deck_cards);
 		
 		cardList.setAdapter(listViewAdapter);
+		
+		registerForContextMenu(cardList);
 		
 		adapter = new DeckAdapter(deck);
 		adapter.adapt(this);
@@ -53,8 +62,6 @@ public class DeckActivity extends Activity implements DeckPublisher{
 		Button addButton = (Button) findViewById(R.id.add_card_button);
 		
 		addButton.setOnClickListener(new View.OnClickListener(){
-
-
 			@Override
       public void onClick(View v) {
 				
@@ -73,6 +80,34 @@ public class DeckActivity extends Activity implements DeckPublisher{
 	}
 
 	@Override
+  public void onCreateContextMenu(ContextMenu menu, View v,
+      ContextMenuInfo menuInfo) {
+	  super.onCreateContextMenu(menu, v, menuInfo);
+	  getMenuInflater().inflate(R.menu.deck_popoup_menu, menu);
+	}
+	
+	@Override
+  public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.removeCard:
+			removeCard(info.position);
+			return true;
+		default:
+			break;
+		}
+	  return super.onContextItemSelected(item);
+  }
+
+	private void removeCard(int position) {
+	  CardEntry cardEntry = deck.cards().get(position);
+	  deck.remove(cardEntry.getCard());
+	  CyberDeckApp application = (CyberDeckApp) getApplication();
+	  application.getDeckService().saveDeck(deck);
+	  publishCardList(deck.cards());
+  }
+
+	@Override
 	public void publishIdentityName(String identityName) {
 		this.identityName.setText(identityName);
 		
@@ -85,7 +120,6 @@ public class DeckActivity extends Activity implements DeckPublisher{
 
 	@Override
   public void publishCardList(List<CardEntry> cards) {
-	  this.deckEntries= cards;
 	  listViewAdapter.clear();
 	  listViewAdapter.addAll(cards);
 //	  listViewAdapter.notifyDataSetChanged();

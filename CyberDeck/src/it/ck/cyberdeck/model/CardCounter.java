@@ -32,7 +32,12 @@ public class CardCounter implements Serializable{
     if (cardCount.intValue() == 0){
     	throw new CardNotFoundException();
     }
-    count.put(card, --cardCount);
+    cardCount--;
+    if(cardCount == 0){
+    	count.remove(card);
+    }else {
+    	count.put(card, cardCount);
+    }
   }
 
   public Integer size() {
