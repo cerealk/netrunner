@@ -22,5 +22,7 @@
     <string name="deckList">Deck List</string>
     <string name="removeCard">Remove</string>
     <string name="addDeck">New Deck...</string>
+    <string name="removeAll">Remove all</string>
+    <string name="deleteDeck">Delete deck</string>
 
 </resources>

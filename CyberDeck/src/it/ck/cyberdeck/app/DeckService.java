@@ -16,4 +16,6 @@ public interface DeckService {
 
 	Deck loadDeck(String deckName);
 
+	void deleteDeck(String deckName);
+
 }

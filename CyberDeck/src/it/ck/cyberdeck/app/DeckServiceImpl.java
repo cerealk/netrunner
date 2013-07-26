@@ -39,4 +39,10 @@ public class DeckServiceImpl implements DeckService {
 	  return loader.loadDeck(deckName);
   }
 
+	@Override
+  public void deleteDeck(String deckName) {
+	  loader.deleteDeck(deckName);
+	  
+  }
+
 }

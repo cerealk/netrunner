@@ -18,12 +18,6 @@ import android.widget.*;
 
 public class DeckActivity extends Activity implements DeckPublisher{
 
-	@Override
-  protected void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable("deck", deck);
-		super.onSaveInstanceState(outState);
-  }
-
 	protected static final int REQUEST_CODE = 42;
 	private TextView deckName;
 	private TextView identityName;
@@ -78,6 +72,12 @@ public class DeckActivity extends Activity implements DeckPublisher{
 	}
 
 	@Override
+  protected void onSaveInstanceState(Bundle outState) {
+		outState.putSerializable("deck", deck);
+		super.onSaveInstanceState(outState);
+  }
+	
+	@Override
   public void onCreateContextMenu(ContextMenu menu, View v,
       ContextMenuInfo menuInfo) {
 	  super.onCreateContextMenu(menu, v, menuInfo);
@@ -91,6 +91,9 @@ public class DeckActivity extends Activity implements DeckPublisher{
 		case R.id.removeCard:
 			removeCard(info.position);
 			return true;
+		case R.id.reoveAll:
+			removeAll(info.position);
+			return true;
 		default:
 			break;
 		}
@@ -98,13 +101,28 @@ public class DeckActivity extends Activity implements DeckPublisher{
   }
 
 	private void removeCard(int position) {
-	  CardEntry cardEntry = deck.cards().get(position);
+	  CardEntry cardEntry = getEntry(position);
 	  deck.remove(cardEntry.getCard());
-	  CyberDeckApp application = (CyberDeckApp) getApplication();
-	  application.getDeckService().saveDeck(deck);
+	  saveDeck();
 	  publishCardList(deck.cards());
   }
 
+	private void removeAll(int position) {
+	  CardEntry cardEntry = getEntry(position);
+	  deck.removeAll(cardEntry.getCard());
+	  saveDeck();
+	  publishCardList(deck.cards());
+  }
+
+	private CardEntry getEntry(int position) {
+	  return deck.cards().get(position);
+  }
+
+	private void saveDeck() {
+	  CyberDeckApp application = (CyberDeckApp) getApplication();
+	  application.getDeckService().saveDeck(deck);
+  }
+	
 	@Override
 	public void publishIdentityName(String identityName) {
 		this.identityName.setText(identityName);

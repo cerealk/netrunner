@@ -12,4 +12,6 @@ public interface LibraryCardGateway {
   Deck loadDeck(String name);
 
 	List<String> deckNames();
+
+	void deleteDeck(String deckName);
 }

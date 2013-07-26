@@ -135,5 +135,11 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		Gson gson = builder.create();
 		return gson;
 	}
-
+	@Override
+	public void deleteDeck(String deckName){
+		File deckFile = new File(getDeckDir(), deckName);
+		if(deckFile.exists()){
+			deckFile.delete();
+		}
+	}
 }

@@ -37,4 +37,9 @@ public class CachedGateway implements LibraryCardGateway{
 	  return delegate.deckNames();
   }
 
+	@Override
+  public void deleteDeck(String deckName) {
+		delegate.deleteDeck(deckName);	  
+  }
+
 }

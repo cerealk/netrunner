@@ -41,5 +41,10 @@ public class CachedDeckServiceImpl implements DeckService{
   public Deck loadDeck(String deckName) {
 	  return ds.loadDeck(deckName);
   }
+
+	@Override
+  public void deleteDeck(String deckName) {
+		ds.deleteDeck(deckName);
+  }
 	
 }
