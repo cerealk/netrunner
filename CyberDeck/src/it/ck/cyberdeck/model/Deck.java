@@ -72,6 +72,11 @@ public class Deck implements Serializable {
 	public void remove(Card card) {
 		cards.remove(card);
 	}
+	
+
+	public void removeAll(Card card) {
+		cards.removeAll(card);
+  }
 
 	public int size() {
 		return cards.size();
@@ -127,6 +132,7 @@ public class Deck implements Serializable {
   public int hashCode() {
 	  return new HashCodeBuilder().append(identity).append(name).hashCode();
   }
+
 	
 	
 }

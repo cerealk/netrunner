@@ -65,4 +65,8 @@ public class CardCounter implements Serializable{
     }
 	  return entries;
   }
+
+	public void removeAll(Card card) {
+	  count.remove(card);
+  }
 }

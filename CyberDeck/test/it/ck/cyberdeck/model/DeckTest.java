@@ -28,7 +28,7 @@ public class DeckTest {
   }
 
   @Test
-  public void anEptyDeckHasJustItsIdentity() throws Exception {
+  public void anmEptyDeckHasJustItsIdentity() throws Exception {
     assertThat(deck.size(), is(equalTo(0)));
   }
 
@@ -78,7 +78,16 @@ public class DeckTest {
     assertThat(deck.cardCount(getCard("card1", Side.RUNNER)), is(equalTo(2)));
     deck.remove(getCard("card1", Side.RUNNER));
     assertThat(deck.cardCount(getCard("card1", Side.RUNNER)), is(equalTo(1)));
-
+  }
+  
+  @Test
+  public void iCanRemoveAllTheCopiesOfACard() throws Exception {
+  	Card card = getCard("card1", Side.RUNNER);
+		deck.add(card);
+    deck.add(card);
+    assertThat(deck.cardCount(card), is(equalTo(2)));
+    deck.removeAll(card);
+    assertThat(deck.cardCount(card), is(equalTo(0)));
   }
 
   @Test(expected = CardNotFoundException.class)
