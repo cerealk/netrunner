@@ -44,13 +44,10 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 			}
 			return deck;
 		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -106,13 +103,10 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		try {
 	    return gson.fromJson(readLibrarySource(), getType());
     } catch (JsonIOException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
     } catch (JsonSyntaxException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
     } catch (FileNotFoundException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
     }
 		return Collections.emptyList();
