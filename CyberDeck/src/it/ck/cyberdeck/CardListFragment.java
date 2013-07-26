@@ -9,8 +9,7 @@ import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.*;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 /**
  * A list fragment representing a list of CardLibrary. This fragment also
@@ -65,7 +64,7 @@ public class CardListFragment extends ListFragment {
 	private CardLibrary cardLibrary;
 	private LibraryCardGateway gateway;
 
-	private TextView tv;
+	private TextView filterText;
 	private CardLibraryArrayAdapter adapter;
 
 	/**
@@ -82,8 +81,20 @@ public class CardListFragment extends ListFragment {
 		cardLibrary = gateway.getCardLibrary();
 		adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
 		setListAdapter(adapter);
-		
-		tv.addTextChangedListener(new TextWatcher() {
+
+	}
+
+	
+	
+	@Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+		 ViewGroup result = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
+		filterText = new EditText(this.getActivity());
+		filterText.setHint("Card Filter");
+    ListView lv = (ListView) result.findViewById(android.R.id.list);
+    lv.addHeaderView(filterText);
+		filterText.addTextChangedListener(new TextWatcher() {
 
 	    @Override
 	    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
@@ -95,18 +106,6 @@ public class CardListFragment extends ListFragment {
 	    @Override
 	    public void afterTextChanged(Editable arg0) {}
 	});
-	}
-
-	
-	
-	@Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-		 ViewGroup result = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
-		tv = new TextView(this.getActivity());
-    tv.setText("lalala");
-    ListView lv = (ListView) result.findViewById(android.R.id.list);
-    lv.addHeaderView(tv);
     return result;
   }
 
