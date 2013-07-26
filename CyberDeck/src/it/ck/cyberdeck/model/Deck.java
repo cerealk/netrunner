@@ -9,18 +9,15 @@ public class Deck implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public class CantBeAttachedException extends RuntimeException {
+	public class CantBeAttachedException extends DeckException {
 		private static final long serialVersionUID = 1L;
 	}
 
-	
-	public static class TooManyOutOfFactionCardsException extends
-			DeckException {
+	public static class TooManyOutOfFactionCardsException extends DeckException {
 		private static final long serialVersionUID = -413205268787698514L;
 	}
 
-	public static class TooManyCardOfTheSameTypeException extends
-	DeckException {
+	public static class TooManyCardOfTheSameTypeException extends DeckException {
 		private static final long serialVersionUID = -1394260444077910210L;
 	}
 
