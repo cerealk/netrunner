@@ -121,7 +121,7 @@ public class Card implements Serializable {
 	}
 	
 	public Integer calculateInfluenceCost(Identity identity) {
-		if (sameFactionAs(identity) || isNeutral())
+		if (sameFactionAs(identity))
 			return 0;
 
 		return reputation;
