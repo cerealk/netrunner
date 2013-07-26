@@ -73,6 +73,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		for (CardData cardData : data) {
 			cards.add(new Card(cardData));
 		}
+		Collections.sort(cards);
 		return cards;
 	}
 

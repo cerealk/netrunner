@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.*;
 
-public class Card implements Serializable {
+public class Card implements Serializable, Comparable<Card> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -192,4 +192,10 @@ public class Card implements Serializable {
 		public boolean isCompatibleWith(Identity identity) {
 		  return this.sameFactionAs(identity) || this.isNeutral() || this.canBeAttached();
 	  }
+
+
+		@Override
+    public int compareTo(Card another) {
+	    return this.key.compareTo(another.key);
+    }
 }

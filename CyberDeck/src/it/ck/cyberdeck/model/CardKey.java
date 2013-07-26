@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 
 import org.apache.commons.lang3.builder.*;
 
-public class CardKey implements Serializable {
+public class CardKey implements Serializable, Comparable<CardKey> {
   private static final long serialVersionUID = 1L;
 
   private CardSet set;
@@ -34,6 +34,15 @@ public String getCardCode(){
   @Override
   public String toString(){
 	  return ToStringBuilder.reflectionToString(this);
+  }
+
+	public int compareTo(CardKey that) {
+	  if(Integer.valueOf(this.set.getCode()) < Integer.valueOf(that.set.getCode()))
+	  	return -1;
+	  if(Integer.valueOf(this.set.getCode()) > Integer.valueOf(that.set.getCode()))
+	  	return 1;
+	  
+	  return this.num.compareTo(that.num);
   }
 	
 }
