@@ -6,8 +6,11 @@ import it.ck.cyberdeck.presentation.adapter.CardLibraryArrayAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.*;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A list fragment representing a list of CardLibrary. This fragment also
@@ -62,6 +65,9 @@ public class CardListFragment extends ListFragment {
 	private CardLibrary cardLibrary;
 	private LibraryCardGateway gateway;
 
+	private TextView tv;
+	private CardLibraryArrayAdapter adapter;
+
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -74,9 +80,35 @@ public class CardListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		gateway = new AndroidLibraryCardGateway(this.getActivity());
 		cardLibrary = gateway.getCardLibrary();
-		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
+		adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
 		setListAdapter(adapter);
+		
+		tv.addTextChangedListener(new TextWatcher() {
+
+	    @Override
+	    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+	        CardListFragment.this.adapter.getFilter().filter(cs);
+	    }
+	    @Override
+	    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+	            int arg3) { }
+	    @Override
+	    public void afterTextChanged(Editable arg0) {}
+	});
 	}
+
+	
+	
+	@Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+		 ViewGroup result = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
+		tv = new TextView(this.getActivity());
+    tv.setText("lalala");
+    ListView lv = (ListView) result.findViewById(android.R.id.list);
+    lv.addHeaderView(tv);
+    return result;
+  }
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
