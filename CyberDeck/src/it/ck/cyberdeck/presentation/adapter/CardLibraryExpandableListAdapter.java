@@ -46,7 +46,7 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 		} else 
 			childView = convertView;
 		
-		TextView label = (TextView) childView.findViewById(R.id.label);
+		TextView label = (TextView) childView.findViewById(R.id.cardName);
 		label.setText(card.getName());
 		
 		ImageView icon = (ImageView) childView.findViewById(R.id.icon);

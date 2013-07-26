@@ -15,10 +15,10 @@ android:orientation="horizontal" >
     </ImageView>
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/cardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/label"
+        android:text="@+id/cardName"
         android:textSize="20sp" >
     </TextView>
 

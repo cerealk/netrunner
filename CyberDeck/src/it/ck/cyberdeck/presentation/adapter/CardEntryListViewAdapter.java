@@ -28,7 +28,7 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 		
 		View rowView = inflater.inflate(R.layout.deck_entry_layout, parent, false);
 		
-		TextView textView = (TextView) rowView.findViewById(R.id.label);
+		TextView textView = (TextView) rowView.findViewById(R.id.cardName);
 		TextView countText = (TextView) rowView.findViewById(R.id.countText);
 		CardEntry card = values.get(position);
 		textView.setText(card.getCard().getName());

@@ -49,7 +49,7 @@ public class IdentityAdapter extends BaseAdapter implements SpinnerAdapter {
 			spinView = convertView;
 		}
 
-		TextView textView = (TextView) spinView.findViewById(R.id.label);
+		TextView textView = (TextView) spinView.findViewById(R.id.cardName);
 
 		ImageView imageView = (ImageView) spinView.findViewById(R.id.icon);
 		
