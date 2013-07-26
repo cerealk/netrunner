@@ -15,10 +15,19 @@ public class Deck implements Serializable {
 
 	public static class TooManyOutOfFactionCardsException extends DeckException {
 		private static final long serialVersionUID = -413205268787698514L;
+		@Override
+    public String getMessage() {
+	    return "reputation limit exceeded";
+    }
 	}
 
 	public static class TooManyCardOfTheSameTypeException extends DeckException {
 		private static final long serialVersionUID = -1394260444077910210L;
+		@Override
+    public String getMessage() {
+	    return "card limit exceeded";
+    }
+		
 	}
 
 	public static class WrongSideException extends DeckException {

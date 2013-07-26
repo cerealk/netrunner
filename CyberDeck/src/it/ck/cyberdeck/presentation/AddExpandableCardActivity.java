@@ -12,7 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ExpandableListView;
+import android.widget.*;
 import android.widget.ExpandableListView.OnChildClickListener;
 
 public class AddExpandableCardActivity extends Activity {
@@ -46,8 +46,13 @@ public class AddExpandableCardActivity extends Activity {
           int groupPosition, int childPosition, long id) {
 	      
 			  Card cardToBeAdded = (Card) getListAdapter().getChild(groupPosition, childPosition);
-			  deck.add(cardToBeAdded);
-			  deckService.saveDeck(deck);
+			  try{
+			  	deck.add(cardToBeAdded);
+			  	deckService.saveDeck(deck);
+			  }catch (DeckException e){
+			  	Toast toast = Toast.makeText(AddExpandableCardActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+			  	toast.show();
+			  }
 				return true;
       }
     });
