@@ -21,5 +21,6 @@
     <string name="title_activity_deck_list">DeckListActivity</string>
     <string name="deckList">Deck List</string>
     <string name="removeCard">Remove</string>
+    <string name="addDeck">New Deck...</string>
 
 </resources>

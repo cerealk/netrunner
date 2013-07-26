@@ -13,8 +13,10 @@
         android:id="@+id/listViewDecks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
+
     </ListView>
 
     <Button
@@ -23,6 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/listViewDecks"
-        android:text="Button" />
+        android:text="@string/addDeck" />
 
 </RelativeLayout>
