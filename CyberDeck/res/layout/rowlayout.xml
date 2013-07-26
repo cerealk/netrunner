@@ -18,8 +18,7 @@ android:orientation="horizontal" >
         android:id="@+id/cardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/cardName"
-        android:textSize="20sp" >
+        android:text="@+id/cardName">
     </TextView>
 
 </LinearLayout> 
