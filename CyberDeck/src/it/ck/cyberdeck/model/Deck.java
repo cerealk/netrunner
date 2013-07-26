@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.*;
 
 public class Deck implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public class CantBeAttachedException extends RuntimeException {
@@ -15,16 +15,16 @@ public class Deck implements Serializable {
 
 	
 	public static class TooManyOutOfFactionCardsException extends
-			RuntimeException {
+			DeckException {
 		private static final long serialVersionUID = -413205268787698514L;
 	}
 
 	public static class TooManyCardOfTheSameTypeException extends
-			RuntimeException {
+	DeckException {
 		private static final long serialVersionUID = -1394260444077910210L;
 	}
 
-	public static class WrongSideException extends RuntimeException {
+	public static class WrongSideException extends DeckException {
 		private static final long serialVersionUID = 8630797373356331560L;
 	}
 
