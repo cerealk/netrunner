@@ -55,7 +55,7 @@ public class Deck implements Serializable {
 		if (!(card.sameSideAs(identity))) {
 			throw new WrongSideException();
 		}
-		if (cards.getCount(card) >= 3) {
+		if (cards.getCount(card) >= 3 || (card.isUnique() && cards.getCount(card)>=1)) {
 			throw new TooManyCardOfTheSameTypeException();
 		}
 		if(!card.isCompatibleWith( getIdentity())){

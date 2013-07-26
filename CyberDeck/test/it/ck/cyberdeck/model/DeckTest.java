@@ -1,8 +1,7 @@
 package it.ck.cyberdeck.model;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
@@ -64,6 +63,12 @@ public class DeckTest {
     deck.add(getCard());
     deck.add(getCard());
   }
+  
+  @Test(expected = TooManyCardOfTheSameTypeException.class)
+  public void testName() throws Exception {
+	  deck.add(getUniqueCard());
+	  deck.add(getUniqueCard());
+  }
 
   @Test
   public void whenIAddACardItsCountIsUpdated() {
@@ -118,7 +123,15 @@ public class DeckTest {
 
 	private Card getCard(String name, Side side, Faction anarch, int num,
       int reputation) {
-	  Card card1 = new Card(name, side, anarch, reputation, new CardKey(CardSet.CORE, num));
+  	CardData cardData = new CardData();
+  	cardData.name = name;
+  	cardData.set = CardSet.CORE;
+  	cardData.identity = anarch;
+  	cardData.side = side;
+  	cardData.loyalty = reputation;
+  	cardData.num =num;
+  	cardData.unique = false;
+	  Card card1 = new Card(cardData);
 	  return card1;
   }
   
@@ -142,8 +155,9 @@ public class DeckTest {
   	cardData.side = Side.RUNNER;
   	cardData.loyalty = 2;
   	cardData.num =3;
+  	cardData.unique = false;
   	
-		Card card = new Card(cardData );
+		Card card = new Card(cardData);
   	deck.add(card);
   	assertThat(deck.cardCount(card), is(1));
   }
@@ -157,7 +171,7 @@ public class DeckTest {
   	cardData.side = Side.RUNNER;
   	cardData.loyalty = 2;
   	cardData.num =3;
-  	
+  	cardData.unique = false;
 		Card card = new Card(cardData );
   	deck.add(card);
   	assertThat(deck.cardCount(card), is(1));
@@ -172,7 +186,7 @@ public class DeckTest {
   	cardData.side = Side.RUNNER;
   	cardData.loyalty = null;
   	cardData.num =3;
-  	
+  	cardData.unique = false;
 		Card card = new Card(cardData );
   	deck.add(card);
   	assertThat(deck.cardCount(card), is(1));
@@ -187,7 +201,7 @@ public class DeckTest {
   	cardData.side = Side.RUNNER;
   	cardData.loyalty = null;
   	cardData.num =3;
-  	
+  	cardData.unique = false;
 		Card card = new Card(cardData );
   	deck.add(card);
   	assertThat(deck.cardCount(card), is(1));
@@ -204,9 +218,26 @@ public class DeckTest {
   private Card getCard() {
     return getCard("std", Side.RUNNER);
   }
+  
+  private Card getUniqueCard(){
+  	CardData data = new CardData();
+  	data.name = "name";
+  	data.side = Side.RUNNER;
+  	data.identity = Faction.SHAPER;
+  	data.loyalty = 1;
+  	data.unique = true;
+  	Card card = new Card(data);
+  	return card;
+  }
 
   private Card getCard(String name, Side side) {
-    Card card = new Card(name, side,Faction.SHAPER, 1, new CardKey(CardSet.CORE, 1));
+  	CardData data = new CardData();
+  	data.name = name;
+  	data.side = side;
+  	data.identity = Faction.SHAPER;
+  	data.loyalty = 1;
+  	data.unique = false;
+    Card card = new Card(data);
     return card;
   }
 
