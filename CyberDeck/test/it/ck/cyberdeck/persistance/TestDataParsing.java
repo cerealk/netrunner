@@ -25,7 +25,7 @@ public class TestDataParsing {
 	
   private CardLibrary getCardLibrary(String path) {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway(path);
-    List<Card> loadCards = loader.getCardLibrary().getCardList();
+    List<Card> loadCards = loader.loadCardLibrary().getCardList();
     CardLibrary cl = new CardLibrary();
     cl.addAll(loadCards);
     return cl;

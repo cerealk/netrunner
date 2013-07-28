@@ -36,7 +36,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		DeckData data;
 		try {
 			data = gson.fromJson(readSource(getDeckUri(name)), DeckData.class);
-			CardLibrary cl = getCardLibrary();
+			CardLibrary cl = loadCardLibrary();
 			Card identityCard = cl.getCard(data.getIdentity());
 			Deck deck = new Deck(new Identity(identityCard), data.getName());
 			for (CardRef ref : data.getCards()) {
@@ -58,7 +58,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 	protected abstract File getDeckDir();
 
 	@Override
-	public CardLibrary getCardLibrary() {
+	public CardLibrary loadCardLibrary() {
 		CardLibrary cl = new CardLibrary();
 		cl.addAll(loadCards());
 		return cl;
@@ -70,7 +70,6 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		for (CardData cardData : data) {
 			cards.add(new Card(cardData));
 		}
-		Collections.sort(cards);
 		return cards;
 	}
 

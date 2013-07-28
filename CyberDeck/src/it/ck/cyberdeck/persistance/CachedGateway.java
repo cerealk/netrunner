@@ -15,9 +15,9 @@ public class CachedGateway implements LibraryCardGateway{
   }
 
 	@Override
-  public CardLibrary getCardLibrary() {
+  public CardLibrary loadCardLibrary() {
 	  if(this.cl == null){
-	  	cl = delegate.getCardLibrary();
+	  	cl = delegate.loadCardLibrary();
 	  }
 	  return cl;
   }

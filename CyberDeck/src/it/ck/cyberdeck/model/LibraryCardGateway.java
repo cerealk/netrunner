@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface LibraryCardGateway {
 
-	CardLibrary getCardLibrary();
+	CardLibrary loadCardLibrary();
 	
   void saveDeck(Deck deck);
   

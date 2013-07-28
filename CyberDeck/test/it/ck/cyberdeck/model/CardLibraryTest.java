@@ -21,7 +21,7 @@ public class CardLibraryTest {
 
   private CardLibrary getCardLibrary() {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway();
-    CardLibrary cl = loader.getCardLibrary();
+    CardLibrary cl = loader.loadCardLibrary();
     return cl;
   }
 

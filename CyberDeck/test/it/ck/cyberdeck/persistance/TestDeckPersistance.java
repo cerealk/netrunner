@@ -15,7 +15,7 @@ public class TestDeckPersistance {
 	@Test
 	public void givenADeckICanpersistIt() {
 
-		CardLibrary cl = gw.getCardLibrary();
+		CardLibrary cl = gw.loadCardLibrary();
 
 		Identity identity = new Identity(cl.getCard(new CardKey(CardSet.CORE, 1)));
 		Deck deck = new Deck(identity, "testDeck");

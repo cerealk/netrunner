@@ -2,6 +2,7 @@ package it.ck.cyberdeck.persistance.filesystem;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardData;
 import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
@@ -30,6 +31,13 @@ public class JsonCardDataGatewayTest {
 			assertThat(card.type, is(not(nullValue())));
 			assertThat(card.set, is(not(nullValue())));
 		}
+	}
+	
+	@Test
+	public void theCardsAreLoadedOrderedBySetAndNum(){
+		List<Card> cards = gw.loadCards();
+		
+		assertThat(cards.get(0).getKey().getCardCode(), is("01001"));
 	}
 	
 	@Test

@@ -78,7 +78,7 @@ public class CardListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		gateway = new AndroidLibraryCardGateway(this.getActivity());
-		cardLibrary = gateway.getCardLibrary();
+		cardLibrary = gateway.loadCardLibrary();
 		adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
 		setListAdapter(adapter);
 

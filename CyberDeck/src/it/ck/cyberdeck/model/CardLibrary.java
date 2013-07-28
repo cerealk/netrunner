@@ -4,15 +4,16 @@ import java.util.*;
 
 public class CardLibrary {
 
-//  private List<Card> cards = new ArrayList<Card>();
-
   private Map<CardKey, Card> cards = new HashMap<CardKey, Card>();
   
   public CardLibrary() {
   }
 
   public List<Card> getCardList() {
-    return Collections.unmodifiableList(new ArrayList<Card>(cards.values()));
+  	List<Card> cardList = new ArrayList<Card>();
+  	cardList.addAll(cards.values());
+  	Collections.sort(cardList);
+    return Collections.unmodifiableList(cardList);
   }
   
   public int size() {
