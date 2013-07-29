@@ -34,13 +34,6 @@ public class JsonCardDataGatewayTest {
 	}
 	
 	@Test
-	public void theCardsAreLoadedOrderedBySetAndNum(){
-		List<Card> cards = gw.loadCards();
-		
-		assertThat(cards.get(0).getKey().getCardCode(), is("01001"));
-	}
-	
-	@Test
 	public void iCanGetTheDeckList(){
 		List<String> deckNames = gw.deckNames();
 		assertThat(deckNames.size(), is(2));
