@@ -52,6 +52,10 @@ public class Identity implements Serializable {
 		return this.minDeckSize <= size;
 	}
 
+	public boolean isCorp(){
+		return Side.CORP.equals(side);
+	}
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

@@ -138,22 +138,34 @@ public class Deck implements Serializable {
 
 	private void checkSize() {
 		Boolean checkresult = identity.checkSize(size());
-		if (!checkresult){
-		 this.deckStatus = DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_CARDS).build();
-		}else {
-			this.deckStatus = DeckStatus.VALID;
-		}
+		handleCheckResult(checkresult);
 	}
+
+	private void handleCheckResult(Boolean checkresult) {
+	  if (checkresult)
+			this.deckStatus = DeckStatus.VALID;
+		else 
+			this.deckStatus = DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_CARDS).build();
+  }
 	
 	private void checkAgendaPoints() {
-		if(this.identity.side().equals(Side.CORP)&& size()>=MIN_DECK_SIZE){
+		if(requiresAgendaPointCheck()){
 			int ap = countAgendaPoints();
-			Range<Integer> pointRange = getPointRange();
-			if(!(pointRange.contains(ap)))
-				this.deckStatus= DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_AGENDA_POINTS).build();
-			else
+			
+			boolean correctPointRange = checkPointRange(ap);
+			if(correctPointRange)
 				this.deckStatus = DeckStatus.VALID;
+			else
+				this.deckStatus= DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_AGENDA_POINTS).build();
 		}
+  }
+
+	private boolean checkPointRange(int ap) {
+		return getPointRange().contains(ap);
+  }
+
+	private boolean requiresAgendaPointCheck() {
+	  return this.identity.isCorp()&& size()>=MIN_DECK_SIZE;
   }
 
 	private Range<Integer> getPointRange() {
