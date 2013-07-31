@@ -69,4 +69,13 @@ public class CardCounter implements Serializable{
 	public void removeAll(Card card) {
 	  count.remove(card);
   }
+
+	public int countAgendaPoints() {
+    int ap = 0;
+    Set<Card> cards = count.keySet();
+    for (Card card : cards) {
+      ap += card.getAgendapoints() * getCount(card);
+    }
+    return ap;
+  }
 }

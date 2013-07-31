@@ -97,7 +97,7 @@ public class Card implements Serializable, Comparable<Card> {
 	}
 
 	public Integer getAgendapoints() {
-		return agendapoints;
+		return agendapoints == null? 0 :agendapoints;
 	}
 
 	public Integer getMemory() {

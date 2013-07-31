@@ -53,5 +53,25 @@ public class TestDataParsing {
 		
 		assertThat(Integer.valueOf(agendas.size()), is(24));
   }
+	
+	@Test
+	public void eachAgendaHasAnAgendaPointValue(){
+		Collection<Card> cards = getCardLibrary(RAW_PATH).getCardList();
+		for(Card card : cards){
+			if(card.isAgenda()){
+					assertThat(card.getAgendapoints(), is(not(nullValue())));
+			}
+		}
+	}
+	
+	@Test
+	public void eachNonAgendaCardsHas0AgendaPoints(){
+		Collection<Card> cards = getCardLibrary(RAW_PATH).getCardList();
+		for(Card card : cards){
+			if(!card.isAgenda()){
+					assertThat(card.getAgendapoints(), is(0));
+			}
+		}
+	}
 
 }

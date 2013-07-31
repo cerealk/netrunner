@@ -3,11 +3,14 @@ package it.ck.cyberdeck.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.builder.*;
 
 public class Deck implements Serializable {
 
+	private static final int MIN_DECK_SIZE = 40;
 	private static final long serialVersionUID = 1L;
+	private static final int MAX_DECK_SIZE = 100;
 
 	public class CantBeAttachedException extends DeckException {
 		private static final long serialVersionUID = 1L;
@@ -37,9 +40,11 @@ public class Deck implements Serializable {
 	private final Identity identity;
 	private final CardCounter cards = new CardCounter();
 	private String name;
+	private DeckStatus deckStatus;
 
 	public Deck(Identity identity) {
 		this.identity = identity;
+		this.deckStatus = DeckStatus.INVALID;
 	}
 
 	public Deck(Identity identity, String name) {
@@ -82,10 +87,6 @@ public class Deck implements Serializable {
 		return cards.size();
 	}
 
-	public Boolean isValid() {
-		return checkSize();
-	}
-
 	public Integer cardCount(Card card) {
 		return cards.getCount(card);
 	}
@@ -94,10 +95,6 @@ public class Deck implements Serializable {
 		Integer reputation = cards.calculateReputation(identity);
 		reputation += card.calculateInfluenceCost(identity);
 		return reputation <= identity.reputationCap();
-	}
-
-	private boolean checkSize() {
-		return identity.checkSize(size());
 	}
 
 	public void add(Card card, int numberOfCopies) {
@@ -131,6 +128,55 @@ public class Deck implements Serializable {
 	@Override
   public int hashCode() {
 	  return new HashCodeBuilder().append(identity).append(name).hashCode();
+  }
+
+	public DeckStatus checkStatus() {
+		checkSize();
+		checkAgendaPoints();
+	  return this.deckStatus;
+  }
+
+	private void checkSize() {
+		Boolean checkresult = identity.checkSize(size());
+		if (!checkresult){
+		 this.deckStatus = DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_CARDS).build();
+		}else {
+			this.deckStatus = DeckStatus.VALID;
+		}
+	}
+	
+	private void checkAgendaPoints() {
+		if(this.identity.side().equals(Side.CORP)&& size()>=MIN_DECK_SIZE){
+			int ap = countAgendaPoints();
+			Range<Integer> pointRange = getPointRange();
+			if(!(pointRange.contains(ap)))
+				this.deckStatus= DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_AGENDA_POINTS).build();
+			else
+				this.deckStatus = DeckStatus.VALID;
+		}
+  }
+
+	private Range<Integer> getPointRange() {
+		int minRange = MIN_DECK_SIZE;
+		int maxRange = MIN_DECK_SIZE +4;
+		int minAp = 18;
+		int maxAp = 19;
+		while (minRange < MAX_DECK_SIZE){
+	  			if(Range.between(minRange, maxRange).contains(size())) {
+						return Range.between(minAp, maxAp);
+          }
+	  minRange +=5;
+	  maxRange = minRange +4;
+	  minAp +=2;
+	  maxAp = minAp+1;
+		}			
+	  return null;
+	  			
+  }
+
+	private int countAgendaPoints() {
+	  
+	  return cards.countAgendaPoints();
   }
 
 	
