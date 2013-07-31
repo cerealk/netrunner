@@ -138,14 +138,14 @@ public class Deck implements Serializable {
 
 	private void checkSize() {
 		Boolean checkresult = identity.checkSize(size());
-		handleCheckResult(checkresult);
+		handleCheckResult(checkresult, Reason.FEW_CARDS);
 	}
 
-	private void handleCheckResult(Boolean checkresult) {
+	private void handleCheckResult(Boolean checkresult, Reason reason) {
 	  if (checkresult)
 			this.deckStatus = DeckStatus.VALID;
 		else 
-			this.deckStatus = DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_CARDS).build();
+			this.deckStatus = DeckStatus.StatusBuilder.instance().invalid().withReason(reason).build();
   }
 	
 	private void checkAgendaPoints() {
@@ -153,10 +153,7 @@ public class Deck implements Serializable {
 			int ap = countAgendaPoints();
 			
 			boolean correctPointRange = checkPointRange(ap);
-			if(correctPointRange)
-				this.deckStatus = DeckStatus.VALID;
-			else
-				this.deckStatus= DeckStatus.StatusBuilder.instance().invalid().withReason(Reason.FEW_AGENDA_POINTS).build();
+			handleCheckResult(correctPointRange, Reason.FEW_AGENDA_POINTS);
 		}
   }
 
