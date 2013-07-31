@@ -18,7 +18,7 @@ public class TestDeckPersistance {
 		CardLibrary cl = gw.loadCardLibrary();
 
 		Identity identity = new Identity(cl.getCard(new CardKey(CardSet.CORE, 1)));
-		Deck deck = new Deck(identity, "testDeck");
+		Deck deck = new Deck(identity, "testDeck1");
 		
 		deck.add(cl.getCard(new CardKey(CardSet.CORE, 2)));
 		deck.add(cl.getCard(new CardKey(CardSet.CORE, 2)));
