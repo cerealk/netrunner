@@ -34,7 +34,7 @@ public class JsonCardDataGatewayTest {
 	@Test
 	public void iCanGetTheDeckList(){
 		List<String> deckNames = gw.deckNames();
-		assertThat(deckNames.size(), is(3));
+		assertThat(deckNames.size()>0, is(true));
 		
 	}
 }
