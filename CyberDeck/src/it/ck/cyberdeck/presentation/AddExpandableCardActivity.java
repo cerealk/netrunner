@@ -49,6 +49,8 @@ public class AddExpandableCardActivity extends Activity {
 			  try{
 			  	deck.add(cardToBeAdded);
 			  	deckService.saveDeck(deck);
+			  	Toast toast = Toast.makeText(AddExpandableCardActivity.this, "Card " + cardToBeAdded.getName() + " added succesfully", Toast.LENGTH_SHORT);
+			  	toast.show();
 			  }catch (DeckException e){
 			  	Toast toast = Toast.makeText(AddExpandableCardActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
 			  	toast.show();
