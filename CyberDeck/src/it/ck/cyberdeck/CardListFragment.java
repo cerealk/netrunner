@@ -1,30 +1,15 @@
 package it.ck.cyberdeck;
 
-import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.CardSet;
-import it.ck.cyberdeck.model.Faction;
-import it.ck.cyberdeck.persistance.CardSetDeserializer;
-import it.ck.cyberdeck.persistance.FactionDeserializer;
-import it.ck.cyberdeck.persistance.IntegerDeserializer;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
-
+import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;
+import it.ck.cyberdeck.presentation.adapter.CardLibraryArrayAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.view.View;
-import android.widget.ListView;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.*;
+import android.widget.*;
 
 /**
  * A list fragment representing a list of CardLibrary. This fragment also
@@ -72,11 +57,15 @@ public class CardListFragment extends ListFragment {
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {
 		@Override
-		public void onItemSelected(Card id) {
+		public void onItemSelected(Card card) {
 		}
 	};
 
-	private List<Card> cardList;
+	private CardLibrary cardLibrary;
+	private LibraryCardGateway gateway;
+
+	private TextView filterText;
+	private CardLibraryArrayAdapter adapter;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -88,10 +77,37 @@ public class CardListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		cardList = loadCards();
-		CardLibraryArrayAdapter adapter = new CardLibraryArrayAdapter(getActivity(), cardList);
+		gateway = new AndroidLibraryCardGateway(this.getActivity());
+		cardLibrary = gateway.loadCardLibrary();
+		adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
 		setListAdapter(adapter);
+
 	}
+
+	
+	
+	@Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+		 ViewGroup result = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
+		filterText = new EditText(this.getActivity());
+		filterText.setHint("Card Filter");
+    ListView lv = (ListView) result.findViewById(android.R.id.list);
+    lv.addHeaderView(filterText);
+		filterText.addTextChangedListener(new TextWatcher() {
+
+	    @Override
+	    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+	        CardListFragment.this.adapter.getFilter().filter(cs);
+	    }
+	    @Override
+	    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+	            int arg3) { }
+	    @Override
+	    public void afterTextChanged(Editable arg0) {}
+	});
+    return result;
+  }
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -133,7 +149,7 @@ public class CardListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(cardList.get(position));
+		mCallbacks.onItemSelected(adapter.getItem(position-1));
 	}
 
 	@Override
@@ -165,54 +181,6 @@ public class CardListFragment extends ListFragment {
 		}
 
 		mActivatedPosition = position;
-	}
-	
-	public List<Card> loadCards() {
-		Gson gson = getGson();
-		return gson.fromJson(readLibrarySource(), getType());
-	}
-
-	private Type getType() {
-		Type collectionType = new TypeToken<Collection<Card>>() {
-		}.getType();
-		return collectionType;
-	}
-
-	private Gson getGson() {
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Integer.class, new IntegerDeserializer());
-		builder.registerTypeAdapter(Faction.class, new FactionDeserializer());
-		builder.registerTypeAdapter(CardSet.class, new CardSetDeserializer());
-		Gson gson = builder.create();
-		return gson;
-	}
-
-	private String readLibrarySource() {
-
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader reader = null;
-		try {
-			InputStream inputStream = getResources().openRawResource(
-					R.raw.carddata);
-			reader = new BufferedReader(new InputStreamReader(inputStream));
-			String line = null;
-			String ls = System.getProperty("line.separator");
-
-			while ((line = reader.readLine()) != null) {
-				stringBuilder.append(line);
-				stringBuilder.append(ls);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null)
-				try {
-					reader.close();
-				} catch (IOException e) {
-				}
-		}
-		return stringBuilder.toString();
 	}
 
 }

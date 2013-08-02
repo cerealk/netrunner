@@ -1,18 +1,19 @@
 package it.ck.cyberdeck.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 
-public class Card implements Serializable {
+import org.apache.commons.lang3.builder.*;
+
+public class Card implements Serializable, Comparable<Card> {
+
 	private static final long serialVersionUID = 1L;
 	
+	private CardKey key;
 	private String name;
+	private CardClassifier classifier;
+
 	private String cost;
-	private Side side;
-	private Faction identity;
-	private String type;
-	private String subtype;
-	private Integer loyality = 0;
+	private Integer reputation;
 	private String strength;
 	private Integer agendapoints;
 	private Integer memory;
@@ -20,182 +21,181 @@ public class Card implements Serializable {
 	private String errata;
 	private Boolean unique;
 	private String text;
-	private CardSet set;
-	private Integer num;
+
 	private Integer count;
 	private Integer link;
 	private String illustrator;
+	private Integer minDeckSize;
+	private Integer maxReputation;
 	
+
+	public Card(String name, Side side, Faction faction, int reputation, CardKey key) {
+		this.name = name;
+		this.key = key;
+		this.classifier = new CardClassifier(side, faction, null, null);
+		this.reputation = reputation;
+	}
+
+	
+	public Card(CardData cardData) {
+		key = new CardKey(cardData.set, cardData.num);
+		this.name= cardData.name ;
+		this.classifier = new CardClassifier(cardData.side,cardData.identity, cardData.type, cardData.subtype);
+		this.cost= cardData.cost ;
+		this.reputation= cardData.loyalty ;
+		this.strength= cardData.strength ;
+		this.agendapoints= cardData.agendapoints ;
+		this.memory= cardData.memory ;
+		this.trash= cardData.trash ;
+		this.errata= cardData.errata ;
+		this.unique= cardData.unique ;
+		this.text= cardData.text ;
+		this.count= cardData.count ;
+		this.link= cardData.link ;
+		this.illustrator= cardData.illustrator ;
+		this.minDeckSize= cardData.identitytop ;
+		this.maxReputation= cardData.identitybottom ;
+  }
+
+	public CardKey getKey(){
+		return this.key;
+	}
+	public Integer getMinDeckSize() {
+		return minDeckSize;
+	}
+
+	public Integer getMaxReputation() {
+		return maxReputation;
+	}
 
 	public Integer getCount() {
 		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
 	}
 
 	public Integer getLink() {
 		return link;
 	}
 
-	public void setLink(Integer link) {
-		this.link = link;
-	}
-
 	public String getIllustrator() {
 		return illustrator;
-	}
-
-	public void setIllustrator(String illustrator) {
-		this.illustrator = illustrator;
-	}
-
-	public void setNum(Integer num) {
-		this.num = num;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getCost() {
 		return cost;
 	}
 
-	public void setCost(String cost) {
-		this.cost = cost;
-	}
-
-	public Side getSide() {
-		return side;
-	}
-
-	public void setSide(Side side) {
-		this.side = side;
-	}
-
-	public Faction getIdentity() {
-		return identity;
-	}
-
-	public void setIdentity(Faction faction) {
-		this.identity = faction;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getSubtype() {
-		return subtype;
-	}
-
-	public void setSubtype(String subtype) {
-		this.subtype = subtype;
-	}
-
-	public Integer getLoyality() {
-		return loyality;
-	}
-
-	public void setLoyality(Integer loyality) {
-		this.loyality = loyality;
+	public Integer getReputation() {
+		return reputation;
 	}
 
 	public String getStrength() {
 		return strength;
 	}
 
-	public void setStrength(String strength) {
-		this.strength = strength;
-	}
-
 	public Integer getAgendapoints() {
-		return agendapoints;
-	}
-
-	public void setAgendapoints(Integer agendaPoints) {
-		this.agendapoints = agendaPoints;
+		return agendapoints == null? 0 :agendapoints;
 	}
 
 	public Integer getMemory() {
 		return memory;
 	}
 
-	public void setMemory(Integer memory) {
-		this.memory = memory;
-	}
-
 	public Integer getTrash() {
 		return trash;
-	}
-
-	public void setTrash(Integer trash) {
-		this.trash = trash;
 	}
 
 	public String getErrata() {
 		return errata;
 	}
 
-	public void setErrata(String errata) {
-		this.errata = errata;
-	}
-
-	public Boolean getUnique() {
+	public Boolean isUnique() {
 		return unique;
-	}
-
-	public void setUnique(Boolean unique) {
-		this.unique = unique;
 	}
 
 	public String getText() {
 		return text;
 	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public CardSet getSet() {
-		return set;
-	}
-
-	public Integer getNum() {
-		return num;
-	}
-
-
-	public void setSet(CardSet set) {
-		this.set = set;
-	}
-
-	public Card(String name, Side side, int influence) {
-		this.name = name;
-		this.side = side;
-		this.loyality = influence;
-	}
-
-	public Integer calculateInfluenceCost(Faction targetFaction) {
-		if (this.identity.equals(targetFaction)
-				|| this.identity.equals(Faction.NEUTRAL))
+	
+	public Integer calculateInfluenceCost(Identity identity) {
+		if (sameFactionAs(identity))
 			return 0;
-		return loyality;
 
+		return reputation;
+
+	}
+
+	public boolean isNeutral() {
+	  return this.classifier.isNeutral();
+  }
+
+	public boolean sameFactionAs(Identity identity) {
+	  return this.classifier.sameFactionAs(identity);
+  }
+	
+	public boolean sameSideAs(Identity identity){
+		return this.classifier.sameSideAs(identity);
 	}
 	
-	public String getImageName(){
-		DecimalFormat df = new DecimalFormat("000");
-		return set.getCode() + df.format(num);
+	public boolean isAgenda(){
+		return this.classifier.isAgenda();
 	}
+	
+	public boolean canBeAttached() {
+	  return reputation != null;
+  }
+
+	public String getCardCode(){
+		return key.getCardCode();
+	}
+	
+	  @Override
+	  public int hashCode() {
+	    return HashCodeBuilder.reflectionHashCode(this.key);
+	  }
+
+	  @Override
+	  public boolean equals(Object obj) {
+	  	if(!(obj instanceof Card)){
+	  		return false;
+	  	}
+	    return this.key.equals(((Card)obj).key);
+	  }
+	  
+	  @Override
+	  public String toString(){
+		  return ToStringBuilder.reflectionToString(this);
+	  }
+
+		public boolean isIdentity() {
+	    return this.classifier.isIdentity();
+    }
+
+
+		protected Side getSide() {
+	    return this.classifier.getSide();
+    }
+
+
+		public Faction getFaction() {
+	    return this.classifier.getFaction();
+    }
+
+
+		protected CardType getType() {
+	    return this.classifier.getType();
+    }
+    
+		public boolean isCompatibleWith(Identity identity) {
+		  return this.sameFactionAs(identity) || this.isNeutral() || this.canBeAttached();
+	  }
+
+
+		@Override
+    public int compareTo(Card another) {
+	    return this.key.compareTo(another.key);
+    }
 }

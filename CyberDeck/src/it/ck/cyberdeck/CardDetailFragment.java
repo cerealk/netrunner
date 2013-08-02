@@ -4,9 +4,7 @@ import it.ck.cyberdeck.model.Card;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ImageView;
 
 /**
@@ -54,12 +52,10 @@ public class CardDetailFragment extends Fragment {
 		// Show the dummy content as text in a TextView.
 		if (card != null) {
 			ImageView iView = (ImageView) rootView.findViewById(R.id.card_detail);
-			String imageName = "_" + card.getImageName();
+			String imageName = "_" + card.getCardCode();
 			int resId = getResources().getIdentifier(imageName, "drawable", "it.ck.cyberdeck");
 		    Log.d("detailFragment", "Img Name: " + imageName + ", resId: " + String.valueOf(resId) );
 		    iView.setImageResource(resId);
-//			((TextView) rootView.findViewById(R.id.card_detail))
-//					.setText(card.getImageName());
 		}
 
 		return rootView;

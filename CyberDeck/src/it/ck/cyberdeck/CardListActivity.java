@@ -1,6 +1,5 @@
 package it.ck.cyberdeck;
 
-import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,5 +74,6 @@ public class CardListActivity extends FragmentActivity implements
 			detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, card);
 			startActivity(detailIntent);
 		}
+		
 	}
 }
