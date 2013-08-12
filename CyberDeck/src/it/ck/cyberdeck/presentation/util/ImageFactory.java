@@ -2,6 +2,7 @@ package it.ck.cyberdeck.presentation.util;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Faction;
+import it.ck.cyberdeck.model.Side;
 import android.content.Context;
 
 public final class ImageFactory {
@@ -10,7 +11,7 @@ public final class ImageFactory {
 
 	private static final String PACKAGE_NAME = "it.ck.cyberdeck";
 
-	public static int gefFactionImageId(Context context, Faction identity) {
+	public static int gefFactionImageId(Context context, Side side, Faction identity) {
 		int resImg = R.drawable.ic_launcher;
 		switch (identity) {
 		case ANARCH:
@@ -40,6 +41,15 @@ public final class ImageFactory {
 		case NBN:
 			resImg = context.getResources().getIdentifier("nbn", "drawable",
 			    PACKAGE_NAME);
+			break;
+		case NEUTRAL:
+			if(Side.CORP.equals(side)) {
+				resImg = context.getResources().getIdentifier("n_blue", "drawable",
+				    PACKAGE_NAME);
+			}else{
+				resImg = context.getResources().getIdentifier("n_red", "drawable",
+							    PACKAGE_NAME);
+			};
 			break;
 		default:
 			break;

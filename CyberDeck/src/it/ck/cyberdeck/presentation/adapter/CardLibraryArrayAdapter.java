@@ -2,7 +2,6 @@ package it.ck.cyberdeck.presentation.adapter;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.Faction;
 import it.ck.cyberdeck.presentation.util.ImageFactory;
 
 import java.util.ArrayList;
@@ -10,8 +9,13 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 @SuppressLint("DefaultLocale")
 public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
@@ -40,8 +44,7 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		Card card = getItem(position);
 		textView.setText(card.getName());
 
-		Faction identity = card.getFaction();
-		int resImg = ImageFactory.gefFactionImageId(context, identity);
+		int resImg = ImageFactory.gefFactionImageId(context, card.getSide(), card.getFaction());
 
 		imageView.setImageResource(resImg);
 

@@ -50,7 +50,7 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 		label.setText(card.getName());
 		
 		ImageView icon = (ImageView) childView.findViewById(R.id.icon);
-		icon.setImageResource(ImageFactory.gefFactionImageId(context, card.getFaction()));
+		icon.setImageResource(ImageFactory.gefFactionImageId(context, card.getSide(), card.getFaction()));
 		return childView;
 	}
 

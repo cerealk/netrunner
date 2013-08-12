@@ -56,7 +56,7 @@ public class IdentityAdapter extends BaseAdapter implements SpinnerAdapter {
 		Identity identity = getIdentity(position);
 		
 		textView.setText(identity.name());
-		int resImg = ImageFactory.gefFactionImageId(context, identity.faction());
+		int resImg = ImageFactory.gefFactionImageId(context, identity.side(), identity.faction());
 		imageView.setImageResource(resImg );
 		return spinView;
 	}
