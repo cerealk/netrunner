@@ -32,10 +32,6 @@ public class Identity implements Serializable {
 		this.reputationCap = identityCard.getMaxReputation();
 	}
 
-	public Integer getMinDeckSize() {
-		return minDeckSize;
-	}
-
 	public Side side() {
 		return side;
 	}
