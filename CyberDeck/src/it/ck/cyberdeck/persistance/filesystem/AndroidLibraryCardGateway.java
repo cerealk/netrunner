@@ -32,11 +32,6 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 		return new JsonReader(new InputStreamReader(inputStream));
 	}
 
-	private String getLineSeparator() {
-		String ls = System.getProperty("line.separator");
-		return ls;
-	}
-
 	private Resources getResources() {
 		return context.getResources();
 	}
@@ -63,20 +58,6 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
   }
 
 	
-	
-  protected String readSource(BufferedReader reader) throws IOException {
-	  StringBuilder stringBuilder = new StringBuilder();
-	    String line = null;
-			String ls = getLineSeparator();
-	    while ((line = reader.readLine()) != null) {
-				stringBuilder.append(line);
-				stringBuilder.append(ls);
-			}
-	    reader.close();
-	  
-	  return stringBuilder.toString();
-  }
-
 	private File getDeckFile(String name) {
 	  File deckSource = new File(getDeckDir(), name);
 	  return deckSource;
