@@ -22,6 +22,7 @@ public class RawResourceLibraryCardGatewayTest {
 
 	private AndroidLibraryCardGateway gw = new AndroidLibraryCardGateway(
 	    Robolectric.buildActivity(CardListActivity.class).create().get());
+	private CardListActivity activity = Robolectric.buildActivity(CardListActivity.class).create().get();;
 
 	@Test
 	public void theRawResourceCanBeLoaded() throws Exception {
@@ -68,6 +69,18 @@ public class RawResourceLibraryCardGatewayTest {
 		
 	}
 
+	@Test
+	public void givenADeckICanDeleteIt(){
+		String deckToBeDeleted = "deckToBeDeleted";
+		copyDeckFile(deckToBeDeleted);
+		gw.deleteDeck(deckToBeDeleted);
+		
+		File deletedDeck = new File(getDeckDir(), deckToBeDeleted);
+		
+		assertThat(deletedDeck.exists(), is(false));
+		
+	}
+	
 	private void copyDeckFile(String targetName) {
 
 		InputStream inStream = null;
@@ -76,10 +89,8 @@ public class RawResourceLibraryCardGatewayTest {
 		try {
 
 			File afile = new File("test/resources/decks/testDeck.js");
-			CardListActivity activity = Robolectric
-			    .buildActivity(CardListActivity.class).create().get();
-			File dir = activity.getApplicationContext().getDir("decks",
-			    Context.MODE_PRIVATE);
+			
+			File dir = getDeckDir();
 			File bfile = new File(dir, targetName);
 
 			inStream = new FileInputStream(afile);
@@ -103,6 +114,11 @@ public class RawResourceLibraryCardGatewayTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private File getDeckDir() {
+		return activity.getApplicationContext().getDir("decks",
+		    Context.MODE_PRIVATE);
 	}
 
 }
