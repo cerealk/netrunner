@@ -25,10 +25,6 @@ public class DeckData {
 	public List<CardRef> getCards() {
 		return cards;
 	}
-	public void setCards(List<CardRef> cards) {
-		this.cards = cards;
-	}
-	
 	public void addCardRef(CardKey cardKey, Integer count){
 		cards.add(new CardRef(cardKey, count));
 	}
