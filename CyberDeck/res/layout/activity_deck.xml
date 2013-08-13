@@ -44,7 +44,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/deck_cards"
-        android:layout_marginBottom="19dp"
         android:text="@string/add_cards" />
+
+    <TextView
+        android:id="@+id/deckStatusLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/add_card_button"
+        android:layout_alignBottom="@+id/add_card_button"
+        android:layout_alignLeft="@+id/deck_cards"
+        android:layout_toLeftOf="@+id/add_card_button"
+        android:text="" />
 
 </RelativeLayout>

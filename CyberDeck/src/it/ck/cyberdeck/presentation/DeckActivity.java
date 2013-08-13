@@ -3,6 +3,9 @@ package it.ck.cyberdeck.presentation;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.model.DeckStatus;
+import it.ck.cyberdeck.model.Reason;
+import it.ck.cyberdeck.model.StatusCode;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
 import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
 
@@ -21,6 +24,7 @@ public class DeckActivity extends Activity implements DeckPublisher{
 	protected static final int REQUEST_CODE = 42;
 	private TextView deckName;
 	private TextView identityName;
+	private TextView deckStatusLine;
 	private ListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
 	private DeckAdapter adapter;
@@ -34,6 +38,7 @@ public class DeckActivity extends Activity implements DeckPublisher{
 
 		deckName = (TextView) findViewById(R.id.deck_name);
 		identityName = (TextView) findViewById(R.id.deck_identity);
+		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
 		if (savedInstanceState != null){
 			deck = (Deck) savedInstanceState.getSerializable("deck");
 		}	else {
@@ -104,14 +109,16 @@ public class DeckActivity extends Activity implements DeckPublisher{
 	  CardEntry cardEntry = getEntry(position);
 	  deck.remove(cardEntry.getCard());
 	  saveDeck();
-	  publishCardList(deck.cards());
+//	  publishCardList(deck.cards());
+	  adapter.adapt(this);
   }
 
 	private void removeAll(int position) {
 	  CardEntry cardEntry = getEntry(position);
 	  deck.removeAll(cardEntry.getCard());
 	  saveDeck();
-	  publishCardList(deck.cards());
+//	  publishCardList(deck.cards());
+	  adapter.adapt(this);
   }
 
 	private CardEntry getEntry(int position) {
@@ -141,7 +148,7 @@ public class DeckActivity extends Activity implements DeckPublisher{
 //	  listViewAdapter.notifyDataSetChanged();
   }
 
-	@Override
+  @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == REQUEST_CODE){
 			if(resultCode == RESULT_OK){
@@ -149,8 +156,23 @@ public class DeckActivity extends Activity implements DeckPublisher{
 			}
 		}
 		
+//		adapter.adapt(this);
 		publishCardList(this.deck.cards());
   }
+
+	@Override
+	public void publishDeckStatus(DeckStatus deckStatus) {
+		
+		String statusLine = "";
+		if(deckStatus.status().equals(StatusCode.INVALID)){
+			if(deckStatus.reason().equals(Reason.FEW_CARDS))
+				statusLine = "There are not enough cards";
+			if(deckStatus.reason().equals(Reason.FEW_AGENDA_POINTS))
+				statusLine ="there are not enough agenda points";
+		}
+		deckStatusLine.setText(statusLine );
+		
+	}
 
 	
 	

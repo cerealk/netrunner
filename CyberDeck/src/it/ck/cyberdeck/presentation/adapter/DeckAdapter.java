@@ -15,6 +15,7 @@ public class DeckAdapter {
 		target.publishDeckName(deck.name());
 		target.publishIdentityName(deck.getIdentity().name());
 		target.publishCardList(deck.cards());
+		target.publishDeckStatus(deck.checkStatus());
 	}
 	
 }

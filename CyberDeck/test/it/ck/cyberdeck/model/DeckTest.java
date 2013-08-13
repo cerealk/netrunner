@@ -110,9 +110,7 @@ public class DeckTest {
 		Card card1 = getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5);
 		Card card2 = getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5);
 		Card card3 = getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5);
-		;
 		Card card4 = getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5);
-		;
 		deck.add(card1);
 		deck.add(card2);
 		deck.add(card3);
