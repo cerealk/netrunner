@@ -9,7 +9,7 @@ import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
 import org.junit.Test;
 
-public class DeckServicetest {
+public class DeckServiceTest {
 
 	 
 	
