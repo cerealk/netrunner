@@ -14,7 +14,7 @@ public class DeckServiceTest {
 	 
 	
 	private LibraryCardGateway gw = new FileSystemLibraryCardGateway();
-	private DeckService ds = new DeckServiceImpl(gw );
+	private DeckService ds = new DeckServiceImpl(gw);
 	
 	@Test
   public void withTheDeckServiceICanCreateADeck() throws Exception {
