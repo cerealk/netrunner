@@ -30,6 +30,15 @@ public class CardDetailFragment extends Fragment {
 	 */
 	public CardDetailFragment() {
 	}
+	
+	public static CardDetailFragment newInstance(Card card){
+		CardDetailFragment fragment = new CardDetailFragment();
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(ARG_ITEM_ID, card);
+		fragment.setArguments(bundle);
+		
+		return fragment;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

@@ -24,5 +24,6 @@
     <string name="addDeck">New Deck...</string>
     <string name="removeAll">Remove all</string>
     <string name="deleteDeck">Delete deck</string>
+    <string name="title_activity_card_gallery">Gallery</string>
 
 </resources>

@@ -41,8 +41,8 @@
         </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.NewDeckWizard"
-            android:label="@string/title_activity_new_deck_wizard" 
-            android:noHistory="true">
+            android:label="@string/title_activity_new_deck_wizard"
+            android:noHistory="true" >
         </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.AddExpandableCardActivity"
@@ -51,6 +51,10 @@
         <activity
             android:name="it.ck.cyberdeck.presentation.DeckListActivity"
             android:label="@string/title_activity_deck_list" >
+        </activity>
+        <activity
+            android:name="it.ck.cyberdeck.presentation.CardGalleryActivity"
+            android:label="@string/title_activity_card_gallery" >
         </activity>
     </application>
 
