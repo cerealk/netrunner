@@ -1,7 +1,11 @@
 package it.ck.cyberdeck.model;
 
+import java.io.Serializable;
 
-public class DeckStatus {
+
+public class DeckStatus implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	public static class StatusBuilder {
 		
 		private DeckStatus status;
