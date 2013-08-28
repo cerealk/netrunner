@@ -1,5 +1,6 @@
 package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.CardDetailFragment;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.adapter.GalleryPageAdapter;
@@ -8,22 +9,33 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 public class CardGalleryActivity extends FragmentActivity {
 
-	private PagerAdapter galleryPagerAdapter;
+	private GalleryPageAdapter galleryPagerAdapter;
 	private ViewPager gallery;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Card card = null;
+		if(savedInstanceState == null){
+			card = (Card) getIntent().getExtras().getSerializable(CardDetailFragment.ARG_ITEM_ID);
+		}else {
+			card = (Card) savedInstanceState.getSerializable(CardDetailFragment.ARG_ITEM_ID);
+		}
 		setContentView(R.layout.activity_card_gallery);
 		galleryPagerAdapter = new GalleryPageAdapter(getCardList(), getSupportFragmentManager());
+		
 		gallery = (ViewPager) findViewById(R.id.gallery);
 		gallery.setAdapter(galleryPagerAdapter);
+		gallery.setCurrentItem(getCardByOrdinal(card));
+	}
+
+	private int getCardByOrdinal(Card card) {
+		return galleryPagerAdapter.getCardOrdinal(card);
 	}
 
 	private List<Card> getCardList() {

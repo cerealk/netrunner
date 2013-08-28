@@ -1,6 +1,7 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.presentation.CardGalleryActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -70,7 +71,7 @@ public class CardListActivity extends FragmentActivity implements
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, CardDetailActivity.class);
+			Intent detailIntent = new Intent(this, CardGalleryActivity.class);
 			detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, card);
 			startActivity(detailIntent);
 		}

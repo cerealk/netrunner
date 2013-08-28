@@ -28,4 +28,8 @@ public class GalleryPageAdapter extends FragmentStatePagerAdapter {
 		return cards.size();
 	}
 
+	public int getCardOrdinal(Card card) {
+		return cards.indexOf(card);
+	}
+
 }
