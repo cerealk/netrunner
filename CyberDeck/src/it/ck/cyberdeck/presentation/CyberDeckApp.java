@@ -4,7 +4,7 @@ import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.app.DeckServiceImpl;
 import it.ck.cyberdeck.persistance.CachedGateway;
 import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;
-import it.ck.cyberdeck.presentation.service.FileImageService;
+import it.ck.cyberdeck.presentation.service.ResourceImageService;
 import it.ck.cyberdeck.presentation.service.ImageService;
 import android.app.Application;
 
@@ -26,7 +26,7 @@ public class CyberDeckApp extends Application {
 	}
 
 	public ImageService getImageService() {
-		return new FileImageService(this);
+		return new ResourceImageService(this);
 	}
 
 }

@@ -6,11 +6,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public class FileImageService implements ImageService {
+public class ResourceImageService implements ImageService {
 
 	private Context context;
 
-	public FileImageService(Context context){
+	public ResourceImageService(Context context){
 		this.context = context;
 	}
 	
