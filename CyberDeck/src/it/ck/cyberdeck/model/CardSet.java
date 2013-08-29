@@ -8,7 +8,8 @@ public enum CardSet {
 	A_STUDY_IN_STATIC("A Study in Static", "02"),
 	HUMANITYS_SHADOW("Humanity's Shadow", "02"),
 	FUTURE_PROOF("Future Proof", "02"),
-	CREATION_AND_CONTROL("Creation and Control", "03");
+	CREATION_AND_CONTROL("Creation and Control", "03"),
+	OPENING_MOVES("Opening Moves", "04");
 	
 	private String name;
 	private String code;

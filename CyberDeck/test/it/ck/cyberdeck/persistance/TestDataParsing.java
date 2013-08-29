@@ -41,17 +41,14 @@ public class TestDataParsing {
 	@Test
 	public void theAgendasArewithLoialtyZero() {
 		Collection<Card> cards = getCardLibrary(RAW_PATH).getCardList();
-		List<Card> agendas = new ArrayList<Card>(); 
 		for(Card card : cards){
 			if(card.isAgenda()){
 				if(!card.isNeutral()){
 					assertThat(card.getReputation(), is(nullValue()));
 				}
-				agendas.add(card);
 			}
 		}
 		
-		assertThat(Integer.valueOf(agendas.size()), is(24));
   }
 	
 	@Test
