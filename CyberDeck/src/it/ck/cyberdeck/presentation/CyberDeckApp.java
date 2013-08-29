@@ -1,12 +1,12 @@
 package it.ck.cyberdeck.presentation;
 
-import it.ck.cyberdeck.app.*;
+import it.ck.cyberdeck.app.DeckService;
+import it.ck.cyberdeck.app.DeckServiceImpl;
 import it.ck.cyberdeck.persistance.CachedGateway;
 import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;
 import it.ck.cyberdeck.presentation.service.FileImageService;
 import it.ck.cyberdeck.presentation.service.ImageService;
 import android.app.Application;
-import android.content.Context;
 
 public class CyberDeckApp extends Application {
 
@@ -26,7 +26,6 @@ public class CyberDeckApp extends Application {
 	}
 
 	public ImageService getImageService() {
-		// TODO Auto-generated method stub
 		return new FileImageService(this);
 	}
 
