@@ -56,4 +56,5 @@ public final class ImageFactory {
 		}
 		return resImg;
 	}
+	
 }

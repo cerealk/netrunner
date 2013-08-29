@@ -1,10 +1,13 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.presentation.CyberDeckApp;
+import it.ck.cyberdeck.presentation.service.ImageService;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 /**
@@ -61,12 +64,13 @@ public class CardDetailFragment extends Fragment {
 		// Show the dummy content as text in a TextView.
 		if (card != null) {
 			ImageView iView = (ImageView) rootView.findViewById(R.id.card_detail);
-			String imageName = "_" + card.getCardCode();
-			int resId = getResources().getIdentifier(imageName, "drawable", "it.ck.cyberdeck");
-		    Log.d("detailFragment", "Img Name: " + imageName + ", resId: " + String.valueOf(resId) );
-		    iView.setImageResource(resId);
+		    iView.setImageBitmap(getImageService().getCardImage(card.getKey()));
 		}
 
 		return rootView;
+	}
+	
+	public ImageService getImageService(){
+		return ((CyberDeckApp)getActivity().getApplication()).getImageService();
 	}
 }
