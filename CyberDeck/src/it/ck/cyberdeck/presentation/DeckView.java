@@ -5,7 +5,7 @@ import it.ck.cyberdeck.model.DeckStatus;
 
 import java.util.List;
 
-public interface DeckPublisher {
+public interface DeckView {
 	
 	void publishIdentityName(String identityName);
 	void publishDeckName(String deckName);

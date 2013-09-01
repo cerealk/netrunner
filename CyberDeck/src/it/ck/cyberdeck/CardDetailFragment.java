@@ -1,8 +1,11 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.presentation.CardDetailView;
 import it.ck.cyberdeck.presentation.CyberDeckApp;
+import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
 import it.ck.cyberdeck.presentation.service.ImageService;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,17 +18,16 @@ import android.widget.ImageView;
  * contained in a {@link CardListActivity} in two-pane mode (on tablets) or a
  * {@link CardDetailActivity} on handsets.
  */
-public class CardDetailFragment extends Fragment {
+public class CardDetailFragment extends Fragment implements CardDetailView{
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
 	 */
 	public static final String ARG_ITEM_ID = "item_id";
 
-	/**
-	 * The dummy content this fragment is presenting.
-	 */
-	private Card card;
+	private CardDetailPresenter presenter;
+
+	private View rootView;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,6 +36,11 @@ public class CardDetailFragment extends Fragment {
 	public CardDetailFragment() {
 	}
 	
+	/**
+	 * factory Method
+	 * @param card
+	 * @return
+	 */
 	public static CardDetailFragment newInstance(Card card){
 		CardDetailFragment fragment = new CardDetailFragment();
 		Bundle bundle = new Bundle();
@@ -47,30 +54,36 @@ public class CardDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			card =(Card) getArguments().getSerializable(ARG_ITEM_ID);
-		}
+		presenter = new CardDetailPresenter(this, getImageService());
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_card_detail,
+		rootView = inflater.inflate(R.layout.fragment_card_detail,
 				container, false);
 
-		// Show the dummy content as text in a TextView.
-		if (card != null) {
-			ImageView iView = (ImageView) rootView.findViewById(R.id.card_detail);
-		    iView.setImageBitmap(getImageService().getCardImage(card.getKey()));
-		}
-
+		presenter.populateView();
+		
 		return rootView;
 	}
+
+	@Override
+	public Card getCard() {
+		if (getArguments().containsKey(ARG_ITEM_ID)) {
+			
+			return (Card) getArguments().getSerializable(ARG_ITEM_ID);
+		}
+		throw new IllegalStateException("Card not found");
+	}
 	
-	public ImageService getImageService(){
+	@Override
+	public void setCardImage(Bitmap cardImage) {
+		ImageView iView = (ImageView) rootView.findViewById(R.id.card_detail);
+		iView.setImageBitmap(cardImage);
+	}
+	
+	private ImageService getImageService(){
 		return ((CyberDeckApp)getActivity().getApplication()).getImageService();
 	}
 }

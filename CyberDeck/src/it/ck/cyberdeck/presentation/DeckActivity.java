@@ -7,19 +7,24 @@ import it.ck.cyberdeck.model.DeckStatus;
 import it.ck.cyberdeck.model.Reason;
 import it.ck.cyberdeck.model.StatusCode;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
-import it.ck.cyberdeck.presentation.adapter.DeckAdapter;
+import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
 
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class DeckActivity extends Activity implements DeckPublisher{
+public class DeckActivity extends Activity implements DeckView{
 
 	protected static final int REQUEST_CODE = 42;
 	private TextView deckName;
@@ -27,7 +32,7 @@ public class DeckActivity extends Activity implements DeckPublisher{
 	private TextView deckStatusLine;
 	private ListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
-	private DeckAdapter adapter;
+	private DeckPresenter adapter;
 	private Deck deck;
 	
 	@Override
@@ -53,8 +58,8 @@ public class DeckActivity extends Activity implements DeckPublisher{
 		
 		registerForContextMenu(cardList);
 		
-		adapter = new DeckAdapter(deck);
-		adapter.adapt(this);
+		adapter = new DeckPresenter(deck, this);
+		adapter.adapt();
 		
 		Button addButton = (Button) findViewById(R.id.add_card_button);
 		
@@ -109,16 +114,14 @@ public class DeckActivity extends Activity implements DeckPublisher{
 	  CardEntry cardEntry = getEntry(position);
 	  deck.remove(cardEntry.getCard());
 	  saveDeck();
-//	  publishCardList(deck.cards());
-	  adapter.adapt(this);
+	  adapter.adapt();
   }
 
 	private void removeAll(int position) {
 	  CardEntry cardEntry = getEntry(position);
 	  deck.removeAll(cardEntry.getCard());
 	  saveDeck();
-//	  publishCardList(deck.cards());
-	  adapter.adapt(this);
+	  adapter.adapt();
   }
 
 	private CardEntry getEntry(int position) {
@@ -145,7 +148,6 @@ public class DeckActivity extends Activity implements DeckPublisher{
   public void publishCardList(List<CardEntry> cards) {
 	  listViewAdapter.clear();
 	  listViewAdapter.addAll(cards);
-//	  listViewAdapter.notifyDataSetChanged();
   }
 
   @Override
