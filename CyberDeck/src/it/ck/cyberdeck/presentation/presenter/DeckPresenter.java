@@ -1,7 +1,6 @@
 package it.ck.cyberdeck.presentation.presenter;
 
 import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.presentation.DeckActivity;
 import it.ck.cyberdeck.presentation.DeckView;
 
 public class DeckPresenter {
