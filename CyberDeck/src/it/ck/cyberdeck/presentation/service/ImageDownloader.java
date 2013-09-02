@@ -28,14 +28,12 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 	private FileOutputStream fos;
 	private DownloaderView dlv;
 	private Bitmap bmp;
-	private CardKey key;
-	private Context context;
+	private File targetFile;
 
 	public ImageDownloader(String url, DownloaderView dlv, CardKey key) {
 		this.url = url;
 		this.dlv = dlv;
-		this.context = dlv.getContext();
-		this.key = key;
+		this.targetFile =  new File(dlv.getContext().getDir("cards", Context.MODE_PRIVATE), key.getCardCode()+".png");
 	}
 	
 	@Override
@@ -81,14 +79,13 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		bmp.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-		File file = new File(context.getDir("cards", Context.MODE_PRIVATE), key.getCardCode() + ".png");
 		try {
-			file.createNewFile();
+			targetFile.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			fos = new FileOutputStream(file);
+			fos = new FileOutputStream(targetFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
