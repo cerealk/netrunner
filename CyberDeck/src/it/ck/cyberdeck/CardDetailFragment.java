@@ -3,8 +3,10 @@ package it.ck.cyberdeck;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.CardDetailView;
 import it.ck.cyberdeck.presentation.CyberDeckApp;
+import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
 import it.ck.cyberdeck.presentation.service.ImageService;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,13 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 /**
  * A fragment representing a single Card detail screen. This fragment is either
  * contained in a {@link CardListActivity} in two-pane mode (on tablets) or a
  * {@link CardDetailActivity} on handsets.
  */
-public class CardDetailFragment extends Fragment implements CardDetailView{
+public class CardDetailFragment extends Fragment implements CardDetailView, DownloaderView{
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
@@ -28,6 +31,10 @@ public class CardDetailFragment extends Fragment implements CardDetailView{
 	private CardDetailPresenter presenter;
 
 	private View rootView;
+
+	private ProgressBar pb;
+
+	private ImageView iView;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,7 +60,6 @@ public class CardDetailFragment extends Fragment implements CardDetailView{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		presenter = new CardDetailPresenter(this, getImageService());
 	}
 
@@ -63,8 +69,9 @@ public class CardDetailFragment extends Fragment implements CardDetailView{
 		rootView = inflater.inflate(R.layout.fragment_card_detail,
 				container, false);
 
+		iView = (ImageView) rootView.findViewById(R.id.card_detail);
+		pb = (ProgressBar) rootView.findViewById(R.id.progressBar1);
 		presenter.populateView();
-		
 		return rootView;
 	}
 
@@ -79,10 +86,28 @@ public class CardDetailFragment extends Fragment implements CardDetailView{
 	
 	@Override
 	public void setCardImage(Bitmap cardImage) {
-		ImageView iView = (ImageView) rootView.findViewById(R.id.card_detail);
 		iView.setImageBitmap(cardImage);
+		iView.setVisibility(View.VISIBLE);
+		pb.setVisibility(View.INVISIBLE);
 	}
 	
+
+	@Override
+	public Context getContext() {
+		return getActivity();
+	}
+
+	@Override
+	public void showProgress() {
+		pb.setVisibility(View.VISIBLE);
+		iView.setVisibility(View.INVISIBLE);
+	}
+	
+	@Override
+	public void setImage(Bitmap bmp) {
+		this.setCardImage(bmp);
+	}
+
 	private ImageService getImageService(){
 		return ((CyberDeckApp)getActivity().getApplication()).getImageService();
 	}

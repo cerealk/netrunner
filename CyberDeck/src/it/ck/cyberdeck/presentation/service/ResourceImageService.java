@@ -20,7 +20,6 @@ public class ResourceImageService implements ImageService {
 		Bitmap result = BitmapFactory.decodeResource(getResources(), resId);
 		key.getCardCode();
 		return result;
-
 	}
 
 	private Resources getResources() {
