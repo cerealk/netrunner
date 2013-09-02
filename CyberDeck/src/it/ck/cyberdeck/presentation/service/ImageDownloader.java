@@ -22,11 +22,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-/*
- * here we are going to use an AsyncTask to download the image 
- *      in background while showing the download progress
- * */
-
 public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 
 	private String url;
@@ -36,9 +31,7 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 	private CardKey key;
 	private Context context;
 
-	/*--- constructor ---*/
 	public ImageDownloader(String url, DownloaderView dlv, CardKey key) {
-	/*--- we need to pass some objects we are going to work with ---*/
 		this.url = url;
 		this.dlv = dlv;
 		this.context = dlv.getContext();
@@ -47,16 +40,13 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 	
 	@Override
 	protected void onPreExecute() {
-
 		dlv.showProgress();
-
 		super.onPreExecute();
 	}
 
 
 	@Override
 	protected Void doInBackground(Void... arg0) {
-
 		bmp = getBitmapFromURL(url);
 		return null;
 	}
@@ -69,7 +59,6 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 	}
 
 	public Bitmap getBitmapFromURL(String link) {
-
 		try {
 			URL url = new URL(link);
 			HttpURLConnection connection = (HttpURLConnection) url
