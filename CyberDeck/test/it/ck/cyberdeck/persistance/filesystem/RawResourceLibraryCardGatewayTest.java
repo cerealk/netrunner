@@ -30,7 +30,7 @@ public class RawResourceLibraryCardGatewayTest {
 
 		assertThat(source, is(notNullValue()));
 		assertThat(Boolean.valueOf(source.hasNext()), is(true));
-		System.out.println(source);
+//		System.out.println(source);
 	}
 
 	@Test
