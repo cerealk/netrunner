@@ -52,7 +52,7 @@ public class CardCounter implements Serializable{
     Integer reputation = 0;
     Set<Card> cards = count.keySet();
     for (Card card : cards) {
-      reputation += card.calculateInfluenceCost(identity) * getCount(card);
+      reputation += identity.calculateInfluenceCost(card, getCount(card));
     }
     return reputation;
   }

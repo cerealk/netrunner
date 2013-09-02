@@ -121,14 +121,6 @@ public class Card implements Serializable, Comparable<Card> {
 		return text;
 	}
 
-	public Integer calculateInfluenceCost(Identity identity) {
-		if (sameFactionAs(identity))
-			return 0;
-
-		return reputation;
-
-	}
-
 	public boolean isNeutral() {
 		return this.classifier.isNeutral();
 	}

@@ -65,4 +65,15 @@ public class Identity implements Serializable {
 		return key;
 	}
 
+	public Integer calculateInfluenceCost(Card card) {
+		if (card.sameFactionAs(this))
+			return 0;
+		return card.getReputation();
+
+	}
+	
+	public Integer calculateInfluenceCost(Card card, Integer count){
+		return calculateInfluenceCost(card) * count;
+	}
+	
 }
