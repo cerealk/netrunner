@@ -109,8 +109,6 @@ public class RawResourceLibraryCardGatewayTest {
 			inStream.close();
 			outStream.close();
 
-			System.out.println("File is copied successful!");
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
