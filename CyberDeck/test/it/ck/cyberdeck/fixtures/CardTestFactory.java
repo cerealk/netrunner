@@ -1,4 +1,8 @@
-package it.ck.cyberdeck.model;
+package it.ck.cyberdeck.fixtures;
+
+import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.Faction;
+import it.ck.cyberdeck.model.Side;
 
 public class CardTestFactory{
 	public static Card getAnarchCard() {

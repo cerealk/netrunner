@@ -1,5 +1,8 @@
 package it.ck.cyberdeck.model;
 
+import it.ck.cyberdeck.model.reputation.ReputationRule;
+import it.ck.cyberdeck.model.reputation.StandardReputationRule;
+
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;

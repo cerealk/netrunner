@@ -1,7 +1,12 @@
-package it.ck.cyberdeck.model;
+package it.ck.cyberdeck.model.reputation;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import it.ck.cyberdeck.fixtures.CardTestFactory;
+import it.ck.cyberdeck.fixtures.IdentityTestFactory;
+import it.ck.cyberdeck.model.Identity;
+import it.ck.cyberdeck.model.reputation.ReputationRule;
+import it.ck.cyberdeck.model.reputation.StandardReputationRule;
 
 import org.junit.Test;
 
