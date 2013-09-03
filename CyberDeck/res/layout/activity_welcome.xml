@@ -18,21 +18,31 @@
         android:text="@string/card_library" />
 
     <Button
+        android:id="@+id/deckListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_new_deck"
+        android:layout_alignRight="@+id/button_new_deck"
+        android:layout_below="@+id/button_new_deck"
+        android:layout_marginTop="26dp"
+        android:text="@string/deckList" />
+
+    <Button
         android:id="@+id/button_new_deck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_library"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="28dp"
         android:text="@string/new_deck" />
 
-    <Button
-        android:id="@+id/deckListButton"
+    <TextView
+        android:id="@+id/copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_new_deck"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="@string/deckList" />
+        android:layout_marginBottom="24dp"
+        android:text="@string/copy" />
 
 </RelativeLayout>
