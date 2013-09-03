@@ -9,15 +9,6 @@
     tools:context=".WelcomeActivity" >
 
     <Button
-        android:id="@+id/button_library"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp"
-        android:text="@string/card_library" />
-
-    <Button
         android:id="@+id/deckListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,5 +35,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:text="@string/copy" />
+
+    <Button
+        android:id="@+id/button_library"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_new_deck"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="56dp"
+        android:text="@string/card_library" />
 
 </RelativeLayout>
