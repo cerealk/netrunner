@@ -1,9 +1,11 @@
 package it.ck.cyberdeck.model.reputation;
 
+import java.io.Serializable;
+
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.Identity;
 
-public class StandardReputationRule implements ReputationRule {
+public class StandardReputationRule implements ReputationRule, Serializable {
 
 	private Identity identity;
 
