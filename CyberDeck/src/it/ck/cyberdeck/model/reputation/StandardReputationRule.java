@@ -7,6 +7,8 @@ import it.ck.cyberdeck.model.Identity;
 
 public class StandardReputationRule implements ReputationRule, Serializable {
 
+	private static final long serialVersionUID = -2773284353313528940L;
+
 	private Identity identity;
 
 	public StandardReputationRule(Identity identity) {
