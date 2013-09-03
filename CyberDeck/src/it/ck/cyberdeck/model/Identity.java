@@ -13,6 +13,7 @@ public class Identity implements Serializable {
 	private Side side;
 	private Faction faction;
 	private Integer reputationCap;
+	private ReputationRule reputationRule = new StandardReputationRule(this);
 
 	public Identity(String name, Side side, Faction faction,
 			Integer minDeckSize, Integer reputationCap) {
@@ -65,15 +66,14 @@ public class Identity implements Serializable {
 		return key;
 	}
 
-	public Integer calculateInfluenceCost(Card card) {
-		if (card.sameFactionAs(this))
-			return 0;
-		return card.getReputation();
+	public Integer calculateReputationCost(Card card) {
+		
+		return reputationRule.calculateReputationCost(card);
 
 	}
 	
-	public Integer calculateInfluenceCost(Card card, Integer count){
-		return calculateInfluenceCost(card) * count;
+	public Integer calculateReputationCost(Card card, Integer count){
+		return reputationRule.calculateReputationCost(card, count);
 	}
 	
 }

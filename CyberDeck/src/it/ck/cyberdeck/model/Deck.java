@@ -93,7 +93,7 @@ public class Deck implements Serializable {
 
 	private boolean checkReputation(Card card) {
 		Integer reputation = cards.calculateReputation(identity);
-		reputation += identity.calculateInfluenceCost(card);
+		reputation += identity.calculateReputationCost(card);
 		return reputation <= identity.reputationCap();
 	}
 
