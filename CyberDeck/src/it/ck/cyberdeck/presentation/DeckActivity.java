@@ -32,8 +32,7 @@ public class DeckActivity extends Activity implements DeckView{
 	private TextView deckStatusLine;
 	private ListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
-	private DeckPresenter adapter;
-	private Deck deck;
+	private DeckPresenter presenter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,33 +43,33 @@ public class DeckActivity extends Activity implements DeckView{
 		deckName = (TextView) findViewById(R.id.deck_name);
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
-		if (savedInstanceState != null){
-			deck = (Deck) savedInstanceState.getSerializable("deck");
-		}	else {
-			deck = (Deck) getIntent().getSerializableExtra("deck");
-		}
+	
 		
-		listViewAdapter = new CardEntryListViewAdapter(this.getApplicationContext(), deck.cards()); 
+		listViewAdapter = new CardEntryListViewAdapter(this.getApplicationContext()); 
 		
 		cardList = (ListView) findViewById(R.id.deck_cards);
 		
 		cardList.setAdapter(listViewAdapter);
 		
 		registerForContextMenu(cardList);
-		
-		adapter = new DeckPresenter(deck, this);
-		adapter.adapt();
+		Deck deck;
+		if (savedInstanceState != null){
+			deck = (Deck) savedInstanceState.getSerializable("deck");
+		}	else {
+			deck = (Deck) getIntent().getSerializableExtra("deck");
+		}
+		presenter = new DeckPresenter(deck, this);
+		presenter.publish();
 		
 		Button addButton = (Button) findViewById(R.id.add_card_button);
 		
 		addButton.setOnClickListener(new View.OnClickListener(){
 			@Override
-      public void onClick(View v) {
-				
-				Intent intent = new Intent(DeckActivity.this, AddCardActivity.class);
-				intent.putExtra("deck", deck);
-				startActivityForResult(intent, REQUEST_CODE);
-      }
+		    public void onClick(View v) {
+						Intent intent = new Intent(DeckActivity.this, AddCardActivity.class);
+						intent.putExtra("deck", presenter.getDeck());
+						startActivityForResult(intent, REQUEST_CODE);
+			}
 			
 		});
 	}
@@ -82,10 +81,10 @@ public class DeckActivity extends Activity implements DeckView{
 	}
 
 	@Override
-  protected void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable("deck", deck);
+    protected void onSaveInstanceState(Bundle outState) {
+		outState.putSerializable("deck", presenter.getDeck());
 		super.onSaveInstanceState(outState);
-  }
+    }
 	
 	@Override
   public void onCreateContextMenu(ContextMenu menu, View v,
@@ -112,25 +111,25 @@ public class DeckActivity extends Activity implements DeckView{
 
 	private void removeCard(int position) {
 	  CardEntry cardEntry = getEntry(position);
-	  deck.remove(cardEntry.getCard());
+	  presenter.remove(cardEntry.getCard());
 	  saveDeck();
-	  adapter.adapt();
+	  presenter.publish();
   }
 
 	private void removeAll(int position) {
 	  CardEntry cardEntry = getEntry(position);
-	  deck.removeAll(cardEntry.getCard());
+	  presenter.removeAll(cardEntry.getCard());
 	  saveDeck();
-	  adapter.adapt();
+	  presenter.publish();
   }
 
 	private CardEntry getEntry(int position) {
-	  return deck.cards().get(position);
-  }
+	  return presenter.get(position);
+	}
 
 	private void saveDeck() {
 	  CyberDeckApp application = (CyberDeckApp) getApplication();
-	  application.getDeckService().saveDeck(deck);
+	  application.getDeckService().saveDeck(presenter.getDeck());
   }
 	
 	@Override
@@ -154,12 +153,12 @@ public class DeckActivity extends Activity implements DeckView{
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == REQUEST_CODE){
 			if(resultCode == RESULT_OK){
-				this.deck = (Deck) data.getSerializableExtra("deck");
+				Deck deck = (Deck) data.getSerializableExtra("deck");
+				presenter = new DeckPresenter(deck, this);
 			}
 		}
 		
-//		adapter.adapt(this);
-		publishCardList(this.deck.cards());
+		presenter.publish();
   }
 
 	@Override
