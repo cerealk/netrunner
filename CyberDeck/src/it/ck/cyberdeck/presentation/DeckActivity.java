@@ -169,7 +169,7 @@ public class DeckActivity extends Activity implements DeckView{
 			if(deckStatus.reason().equals(Reason.FEW_CARDS))
 				statusLine = "There are not enough cards";
 			if(deckStatus.reason().equals(Reason.FEW_AGENDA_POINTS))
-				statusLine ="there are not enough agenda points";
+				statusLine ="The agenda points are not valid for the deck size";
 		}
 		deckStatusLine.setText(statusLine );
 		
