@@ -45,7 +45,7 @@
             android:noHistory="true" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.AddExpandableCardActivity"
+            android:name="it.ck.cyberdeck.presentation.AddCardActivity"
             android:label="@string/title_activity_add_expandable_card" >
         </activity>
         <activity

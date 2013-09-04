@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.*;
 import android.widget.ExpandableListView.OnChildClickListener;
 
-public class AddExpandableCardActivity extends Activity {
+public class AddCardActivity extends Activity {
 
 	private Deck deck;
 	private DeckService deckService;
@@ -49,10 +49,10 @@ public class AddExpandableCardActivity extends Activity {
 			  try{
 			  	deck.add(cardToBeAdded);
 			  	deckService.saveDeck(deck);
-			  	Toast toast = Toast.makeText(AddExpandableCardActivity.this, "Card " + cardToBeAdded.getName() + " added succesfully", Toast.LENGTH_SHORT);
+			  	Toast toast = Toast.makeText(AddCardActivity.this, "Card " + cardToBeAdded.getName() + " added succesfully", Toast.LENGTH_SHORT);
 			  	toast.show();
 			  }catch (DeckException e){
-			  	Toast toast = Toast.makeText(AddExpandableCardActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+			  	Toast toast = Toast.makeText(AddCardActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
 			  	toast.show();
 			  }
 				return true;

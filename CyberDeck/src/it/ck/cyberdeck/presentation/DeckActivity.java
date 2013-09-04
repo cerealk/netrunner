@@ -67,7 +67,7 @@ public class DeckActivity extends Activity implements DeckView{
 			@Override
       public void onClick(View v) {
 				
-				Intent intent = new Intent(DeckActivity.this, AddExpandableCardActivity.class);
+				Intent intent = new Intent(DeckActivity.this, AddCardActivity.class);
 				intent.putExtra("deck", deck);
 				startActivityForResult(intent, REQUEST_CODE);
       }
