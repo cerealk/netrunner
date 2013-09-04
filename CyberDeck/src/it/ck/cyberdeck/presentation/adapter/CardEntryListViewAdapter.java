@@ -3,8 +3,6 @@ package it.ck.cyberdeck.presentation.adapter;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.*;
 import android.widget.ArrayAdapter;
@@ -13,12 +11,10 @@ import android.widget.TextView;
 public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 
 	private Context context;
-	private List<CardEntry> values;
 
-	public CardEntryListViewAdapter(Context context, List<CardEntry> values){
-		super(context, R.layout.deck_entry_layout, values);
+	public CardEntryListViewAdapter(Context context){
+		super(context, R.layout.deck_entry_layout);
 		this.context = context;
-		this.values = values;
 	}
 	
 	@Override
@@ -30,7 +26,7 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 		
 		TextView textView = (TextView) rowView.findViewById(R.id.cardName);
 		TextView countText = (TextView) rowView.findViewById(R.id.countText);
-		CardEntry card = values.get(position);
+		CardEntry card = getItem(position);
 		textView.setText(card.getCard().getName());
 		countText.setText(String.valueOf(card.getCount()));
 
