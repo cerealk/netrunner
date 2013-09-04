@@ -79,6 +79,18 @@ public class CardLibraryTest {
 	  assertThat(list.size() > 0 , is(true));
   }
   
+  @Test
+  public void iCanGetTheCardsGroupedByTypePerIdentityIdentitiesExcluded() throws Exception {
+	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15);
+  	List<CardGroup> list = cl.getCardGroupsWithoutIdentities(identity);
+	  assertThat(list, is(not(nullValue())));
+	  assertThat(list.size() > 0 , is(true));
+	  for(CardGroup group: list){
+		  assertThat(group.getType(), is(not(equalTo(CardType.IDENTITY))));
+	  }
+		  
+  }
+  
   protected Matcher<? super String> emptyString() {
     return new TypeSafeMatcher<String>() {
 
