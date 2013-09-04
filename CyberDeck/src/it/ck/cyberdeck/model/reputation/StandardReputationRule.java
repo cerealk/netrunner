@@ -25,6 +25,9 @@ public class StandardReputationRule implements ReputationRule, Serializable {
 		if(card.sameFactionAs(identity)){
 			return 0;
 		}
+		if(card.isAgenda()){
+			return 0;
+		}
 		return card.getReputation() * cardCount;
 	}
 

@@ -35,5 +35,11 @@ public class StandardReputationRuleTest {
 		Integer cardCount = 2;
 		assertThat(rule.calculateReputationCost(CardTestFactory.getShaperCard(),cardCount), is(equalTo(10)));
 	}
+	
+	@Test 
+	public void anagendaneverAddsToReputation(){
+		ReputationRule rule = getReputationRule( IdentityTestFactory.getArarchIdentity());
+		assertThat(rule.calculateReputationCost(CardTestFactory.getHBAgendaCard()), is(equalTo(0)));
+	}
 
 }
