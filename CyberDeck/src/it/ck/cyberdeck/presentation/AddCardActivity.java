@@ -34,10 +34,9 @@ public class AddCardActivity extends Activity {
 		deck = (Deck) getIntent()
 				.getSerializableExtra("deck");
 		
-		List<CardGroup> values = cl.getCardGroups(deck.getIdentity());
+		List<CardGroup> values = cl.getCardGroupsWithoutIdentities(deck.getIdentity());
 		adapter = new CardLibraryExpandableListAdapter(this, values);
 		expListView.setAdapter(adapter);
-		
 
 	    expListView.setOnChildClickListener(new OnChildClickListener() {
 	
