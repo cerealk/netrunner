@@ -20,7 +20,7 @@ public class AddCardActivity extends Activity {
 	private Deck deck;
 	private DeckService deckService;
 	private CardLibraryExpandableListAdapter adapter;
-
+	private Toast toast;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,17 +49,23 @@ public class AddCardActivity extends Activity {
 			  try{
 			  	deck.add(cardToBeAdded);
 			  	deckService.saveDeck(deck);
-			  	Toast toast = Toast.makeText(AddCardActivity.this, "Card " + cardToBeAdded.getName() + " added succesfully", Toast.LENGTH_SHORT);
-			  	toast.show();
+			  	showToast("Card " + cardToBeAdded.getName() + " added succesfully");
 			  }catch (DeckException e){
-			  	Toast toast = Toast.makeText(AddCardActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
-			  	toast.show();
+			  	showToast(e.getMessage());
 			  }
 				return true;
       }
+
     });
 	}
 
+	private void showToast(String toastText) {
+		if (toast!=null)
+			toast.cancel();
+		toast = Toast.makeText(this, toastText, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+	
 	protected CardLibraryExpandableListAdapter getListAdapter() {
 		return adapter;
 	}
