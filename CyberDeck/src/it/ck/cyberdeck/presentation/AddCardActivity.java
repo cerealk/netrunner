@@ -39,24 +39,24 @@ public class AddCardActivity extends Activity {
 		expListView.setAdapter(adapter);
 		
 
-    expListView.setOnChildClickListener(new OnChildClickListener() {
-
-			@Override
-      public boolean onChildClick(ExpandableListView parent, View v,
-          int groupPosition, int childPosition, long id) {
-	      
-			  Card cardToBeAdded = (Card) getListAdapter().getChild(groupPosition, childPosition);
-			  try{
-			  	deck.add(cardToBeAdded);
-			  	deckService.saveDeck(deck);
-			  	showToast("Card " + cardToBeAdded.getName() + " added succesfully");
-			  }catch (DeckException e){
-			  	showToast(e.getMessage());
-			  }
-				return true;
-      }
-
-    });
+	    expListView.setOnChildClickListener(new OnChildClickListener() {
+	
+				@Override
+	      public boolean onChildClick(ExpandableListView parent, View v,
+	          int groupPosition, int childPosition, long id) {
+		      
+				  Card cardToBeAdded = (Card) getListAdapter().getChild(groupPosition, childPosition);
+				  try{
+				  	deck.add(cardToBeAdded);
+				  	deckService.saveDeck(deck);
+				  	showToast("Card " + cardToBeAdded.getName() + " added succesfully");
+				  }catch (DeckException e){
+				  	showToast(e.getMessage());
+				  }
+					return true;
+	      }
+	
+	    });
 	}
 
 	private void showToast(String toastText) {
