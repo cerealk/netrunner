@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="deck_name" type="id"/>
     <item name="deck_identity" type="id" />
 </resources>

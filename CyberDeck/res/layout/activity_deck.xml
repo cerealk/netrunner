@@ -11,31 +11,21 @@
     tools:context=".DeckActivity" >
 
     <TextView
-        android:id="@id/deck_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/hello_world" />
-
-    <TextView
         android:id="@id/deck_identity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/deck_cards"
-        android:layout_below="@id/deck_name"
-        android:layout_marginTop="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
         android:text="@string/hello_world" />
-
+        
     <ListView
         android:id="@+id/deck_cards"
         android:layout_width="match_parent"
         android:layout_height="248dp"
         android:layout_above="@+id/add_card_button"
-        android:layout_alignLeft="@id/deck_name"
         android:layout_below="@id/deck_identity"
         android:layout_marginTop="16dp" >
-
     </ListView>
 
     <Button
@@ -55,5 +45,7 @@
         android:layout_alignLeft="@+id/deck_cards"
         android:layout_toLeftOf="@+id/add_card_button"
         android:text="" />
+
+
 
 </RelativeLayout>

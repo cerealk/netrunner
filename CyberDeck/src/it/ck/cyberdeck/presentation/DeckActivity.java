@@ -27,7 +27,6 @@ import android.widget.TextView;
 public class DeckActivity extends Activity implements DeckView{
 
 	protected static final int REQUEST_CODE = 42;
-	private TextView deckName;
 	private TextView identityName;
 	private TextView deckStatusLine;
 	private ListView cardList;
@@ -38,12 +37,9 @@ public class DeckActivity extends Activity implements DeckView{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck);
-		
 
-		deckName = (TextView) findViewById(R.id.deck_name);
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
-	
 		
 		listViewAdapter = new CardEntryListViewAdapter(this.getApplicationContext()); 
 		
@@ -140,7 +136,7 @@ public class DeckActivity extends Activity implements DeckView{
 
 	@Override
 	public void publishDeckName(String deckName) {
-		this.deckName.setText(deckName);
+		this.setTitle(deckName);
 	}
 
 	@Override
