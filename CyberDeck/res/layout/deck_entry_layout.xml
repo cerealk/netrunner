@@ -23,6 +23,6 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/cardName"
         android:gravity="right"
-        android:paddingRight="4dp" />
+        android:paddingRight="8dp" />
 
 </RelativeLayout>
