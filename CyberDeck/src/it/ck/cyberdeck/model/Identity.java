@@ -78,5 +78,9 @@ public class Identity implements Serializable {
 	public Integer calculateReputationCost(Card card, Integer count){
 		return reputationRule.calculateReputationCost(card, count);
 	}
+
+	public Integer minSize() {
+		return minDeckSize;
+	}
 	
 }

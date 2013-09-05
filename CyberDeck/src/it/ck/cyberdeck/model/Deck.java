@@ -44,7 +44,7 @@ public class Deck implements Serializable {
 
 	public Deck(Identity identity) {
 		this.identity = identity;
-		this.deckStatus = DeckStatus.INVALID;
+		this.deckStatus = new DeckStatus(StatusCode.INVALID, identity.minSize());
 	}
 
 	public Deck(Identity identity, String name) {
@@ -139,13 +139,14 @@ public class Deck implements Serializable {
 	private void checkSize() {
 		Boolean checkresult = identity.checkSize(size());
 		handleCheckResult(checkresult, Reason.FEW_CARDS);
+		this.deckStatus.updateCardCount(size());
 	}
 
 	private void handleCheckResult(Boolean checkresult, Reason reason) {
 	  if (checkresult)
-			this.deckStatus = DeckStatus.VALID;
+			this.deckStatus.valid();
 		else 
-			this.deckStatus = DeckStatus.StatusBuilder.instance().invalid().withReason(reason).build();
+			this.deckStatus.invalid(reason);
   }
 	
 	private void checkAgendaPoints() {

@@ -2,6 +2,7 @@ package it.ck.cyberdeck.model;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import it.ck.cyberdeck.fixtures.CardTestFactory;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
@@ -46,23 +47,20 @@ public class DeckTest {
 	@Test
 	public void aValidDeckShouldContainAtLeastANumberOfCardsAsTheIdentityStates()
 	    throws Exception {
-		deck.add(getCard());
-		deck.add(getCard());
+		twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
 	public void aDeckCantHaveMoreThanThreeCopiesPerCard() throws Exception {
-		deck.add(getCard());
-		deck.add(getCard());
-		deck.add(getCard());
-		deck.add(getCard());
+		twoCardDeck();
+		twoCardDeck();
 	}
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
 	public void testName() throws Exception {
-		deck.add(getUniqueCard());
-		deck.add(getUniqueCard());
+		deck.add(CardTestFactory.getUniqueCard());
+		deck.add(CardTestFactory.getUniqueCard());
 	}
 
 	@Test
@@ -107,10 +105,10 @@ public class DeckTest {
 	@Test(expected = TooManyOutOfFactionCardsException.class)
 	public void aDeckCanHaveOutOfFactionCardsUpToTheReputationOfTheIdentity()
 	    throws Exception {
-		Card card1 = getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5);
-		Card card2 = getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5);
-		Card card3 = getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5);
-		Card card4 = getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5);
+		Card card1 = CardTestFactory.getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5);
+		Card card2 = CardTestFactory.getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5);
+		Card card3 = CardTestFactory.getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5);
+		Card card4 = CardTestFactory.getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5);
 		deck.add(card1);
 		deck.add(card2);
 		deck.add(card3);
@@ -118,7 +116,7 @@ public class DeckTest {
 	}
 
 	@Test
-	public void aDeckWithTooFewCardsHasAnInvalidStatus() {
+	public void aDeckWithNotEnoughCardsHasAnInvalidStatus() {
 		deck.add(getCard());
 		assertThat(deck.checkStatus().status(), is(StatusCode.INVALID));
 		assertThat(deck.checkStatus().reason(), is(Reason.FEW_CARDS));
@@ -126,31 +124,17 @@ public class DeckTest {
 
 	@Test
 	public void aDeckWithEnoughCardsHasAValidStatus(){
-		deck.add(getCard());
-		deck.add(getCard());
+		twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 	
 	@Test
 	public void aCorpDeckShouldHaveARequiredNumberOfAgendaPoints(){
-		deck.add(getCard());
-		deck.add(getCard());
+		twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 	
-	private Card getCard(String name, Side side, Faction anarch, int num,
-	    int reputation) {
-		CardData cardData = new CardData();
-		cardData.name = name;
-		cardData.set = CardSet.CORE;
-		cardData.identity = anarch;
-		cardData.side = side;
-		cardData.loyalty = reputation;
-		cardData.num = num;
-		cardData.unique = false;
-		Card card1 = new Card(cardData);
-		return card1;
-	}
+
 
 	@Test
 	public void iCanAddMoreCopiesOfACard() {
@@ -288,6 +272,23 @@ public class DeckTest {
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.VALID));
 		
 	}
+	
+	@Test
+	public void theDeckStatusContainsTheDeckSize(){
+		twoCardDeck();
+		
+		assertThat(deck.checkStatus().minDeckSize(), is(2));
+	}
+
+	private void twoCardDeck() {
+		deck.add(getCard());
+		deck.add(getCard());
+	}
+	
+	@Test
+	public void theDeckStatusContainsTheMinimumDeckSize(){
+		
+	}
 
 	private Card getCorpCardWithAgenda(String name, int agendapoints, int num) {
 		CardData data = new CardData();
@@ -331,17 +332,6 @@ public class DeckTest {
 
 	private Card getCard() {
 		return getCard("std", Side.RUNNER);
-	}
-
-	private Card getUniqueCard() {
-		CardData data = new CardData();
-		data.name = "name";
-		data.side = Side.RUNNER;
-		data.identity = Faction.SHAPER;
-		data.loyalty = 1;
-		data.unique = true;
-		Card card = new Card(data);
-		return card;
 	}
 
 	private Card getCard(String name, Side side) {

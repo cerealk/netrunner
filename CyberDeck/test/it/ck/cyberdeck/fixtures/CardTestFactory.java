@@ -9,16 +9,14 @@ import it.ck.cyberdeck.model.Side;
 
 public class CardTestFactory{
 	public static Card getAnarchCard() {
-		Faction faction = Faction.ANARCH;
-		return getCard(faction);
+		return getCard(Side.RUNNER,Faction.ANARCH);
 	}
 	public static Card getShaperCard() {
-		Faction shaper = Faction.SHAPER;
-		return getCard(shaper);
+		return getCard(Side.RUNNER,Faction.SHAPER);
 	}
 	
-	public static Card getCard(Faction faction) {
-		return new Card("Name", Side.RUNNER, faction, 5, null);
+	public static Card getCard(Side side, Faction faction) {
+		return getCard("name", side,faction, 1,5);
 	}
 	public static Card getHBAgendaCard() {
 		CardData cardData = new CardData();
@@ -32,4 +30,30 @@ public class CardTestFactory{
 		return new Card(cardData);
 	}
 	
+	
+	public static Card getCard(String name, Side side, Faction faction, int num,
+		    int reputation) {
+			CardData cardData = new CardData();
+			cardData.name = name;
+			cardData.set = CardSet.CORE;
+			cardData.identity = faction;
+			cardData.side = side;
+			cardData.loyalty = reputation;
+			cardData.num = num;
+			cardData.unique = false;
+			Card card1 = new Card(cardData);
+			return card1;
+		}
+	
+	
+	public static Card getUniqueCard() {
+		CardData data = new CardData();
+		data.name = "name";
+		data.side = Side.RUNNER;
+		data.identity = Faction.SHAPER;
+		data.loyalty = 1;
+		data.unique = true;
+		Card card = new Card(data);
+		return card;
+	}
 }
