@@ -15,23 +15,28 @@ import android.view.Menu;
 public class CardGalleryActivity extends FragmentActivity {
 
 	private GalleryPageAdapter galleryPagerAdapter;
-	private ViewPager gallery;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Card card = null;
+		card = getCard(savedInstanceState);
+		setContentView(R.layout.activity_card_gallery);
+		galleryPagerAdapter = new GalleryPageAdapter(getCardList(), getSupportFragmentManager());
+		
+		ViewPager gallery = (ViewPager) findViewById(R.id.gallery);
+		gallery.setAdapter(galleryPagerAdapter);
+		gallery.setCurrentItem(getCardByOrdinal(card));
+	}
+
+	private Card getCard(Bundle savedInstanceState) {
+		Card card;
 		if(savedInstanceState == null){
 			card = (Card) getIntent().getExtras().getSerializable(CardDetailFragment.ARG_ITEM_ID);
 		}else {
 			card = (Card) savedInstanceState.getSerializable(CardDetailFragment.ARG_ITEM_ID);
 		}
-		setContentView(R.layout.activity_card_gallery);
-		galleryPagerAdapter = new GalleryPageAdapter(getCardList(), getSupportFragmentManager());
-		
-		gallery = (ViewPager) findViewById(R.id.gallery);
-		gallery.setAdapter(galleryPagerAdapter);
-		gallery.setCurrentItem(getCardByOrdinal(card));
+		return card;
 	}
 
 	private int getCardByOrdinal(Card card) {

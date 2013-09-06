@@ -12,7 +12,12 @@ public class CardLibrary {
 	public List<Card> getCardList() {
 		List<Card> cardList = new ArrayList<Card>();
 		cardList.addAll(cards.values());
-		Collections.sort(cardList);
+		Collections.sort(cardList, new Comparator<Card>(){
+			@Override
+			public int compare(Card lhs, Card rhs) {
+				return lhs.getKey().compareTo(rhs.getKey());
+			}
+		});
 		return Collections.unmodifiableList(cardList);
 	}
 

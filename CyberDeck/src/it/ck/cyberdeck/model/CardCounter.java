@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 public class CardCounter implements Serializable{
   
   private static final long serialVersionUID = 1L;
-  private Map<Card, Integer> count = new HashMap<Card, Integer>();
+  private Map<Card, Integer> count = new TreeMap<Card, Integer>();
 
 
 	public class CardNotFoundException extends RuntimeException {

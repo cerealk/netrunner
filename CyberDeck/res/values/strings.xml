@@ -25,5 +25,6 @@
     <string name="deleteDeck">Delete deck</string>
     <string name="title_activity_card_gallery">Gallery</string>
     <string name="copy">Netrunner is a TM of R. Talsorian Games, Inc. Android is TM &amp; ©2012 Fantasy Flight Publishing, Inc. \nAll rights reserved. Netrunner is licensed by Wizards of the Coast LLC. ©2012 Wizards.</string>
+    <string name="title_activity_deck_detail">DeckDetailActivity</string>
 
 </resources>

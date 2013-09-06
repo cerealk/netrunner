@@ -186,6 +186,9 @@ public class Card implements Serializable, Comparable<Card> {
 
 	@Override
 	public int compareTo(Card another) {
-		return this.key.compareTo(another.key);
+		if (this.classifier.compareTo(another.classifier) == 0){
+			return this.name.compareTo(another.name);
+		}
+		return this.classifier.compareTo(another.classifier);
 	}
 }

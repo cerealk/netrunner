@@ -2,7 +2,7 @@ package it.ck.cyberdeck.model;
 
 import java.io.Serializable;
 
-public class CardClassifier implements Serializable{
+public class CardClassifier implements Serializable, Comparable<CardClassifier>{
   private static final long serialVersionUID = 1L;
 
   private Side side;
@@ -50,4 +50,10 @@ public class CardClassifier implements Serializable{
 	  
 	  return CardType.AGENDA.equals(type);
   }
+
+	@Override
+	public int compareTo(CardClassifier another) {
+		// TODO Auto-generated method stub
+		return this.type.compareTo(another.type);
+	}
 }

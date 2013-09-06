@@ -1,5 +1,6 @@
 package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.CardDetailFragment;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
@@ -19,7 +20,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,9 +49,7 @@ public class DeckActivity extends Activity implements DeckView{
 		cardList = (ListView) findViewById(R.id.deck_cards);
 		
 		cardList.setAdapter(listViewAdapter);
-		
-		registerForContextMenu(cardList);
-		Deck deck;
+		final Deck deck;
 		if (savedInstanceState != null){
 			deck = (Deck) savedInstanceState.getSerializable("deck");
 		}	else {
@@ -56,6 +57,22 @@ public class DeckActivity extends Activity implements DeckView{
 		}
 		presenter = new DeckPresenter(deck, this);
 		presenter.publish();
+		cardList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				CardEntry entry = listViewAdapter.getItem(position);
+				Intent detailIntent = new Intent(DeckActivity.this, DeckDetailActivity.class);
+				detailIntent.putExtra(DeckDetailActivity.DECK_ARG_ID, deck);
+				detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, entry);
+				startActivity(detailIntent);
+				
+			}
+		});
+		
+		registerForContextMenu(cardList);
+	
 		
 		Button addButton = (Button) findViewById(R.id.add_card_button);
 		
