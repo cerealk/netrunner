@@ -286,8 +286,9 @@ public class DeckTest {
 	}
 	
 	@Test
+	@Ignore
 	public void theDeckStatusContainsTheMinimumDeckSize(){
-		
+		fail("not yet implemented");
 	}
 
 	private Card getCorpCardWithAgenda(String name, int agendapoints, int num) {
