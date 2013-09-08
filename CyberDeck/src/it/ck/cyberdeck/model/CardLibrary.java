@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.model;
 
+import it.ck.cyberdeck.model.utils.CardKeyComparator;
+
 import java.util.*;
 
 public class CardLibrary {
@@ -12,12 +14,7 @@ public class CardLibrary {
 	public List<Card> getCardList() {
 		List<Card> cardList = new ArrayList<Card>();
 		cardList.addAll(cards.values());
-		Collections.sort(cardList, new Comparator<Card>(){
-			@Override
-			public int compare(Card lhs, Card rhs) {
-				return lhs.getKey().compareTo(rhs.getKey());
-			}
-		});
+		Collections.sort(cardList, new CardKeyComparator());
 		return Collections.unmodifiableList(cardList);
 	}
 

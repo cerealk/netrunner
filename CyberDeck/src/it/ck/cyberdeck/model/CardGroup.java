@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.model;
 
+import it.ck.cyberdeck.model.utils.CardKeyComparator;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -24,6 +26,7 @@ public class CardGroup implements Serializable {
   }
   
   public List<Card> getCards(){
+	Collections.sort(cards, new CardKeyComparator());
   	return Collections.unmodifiableList(cards);
   }
 
