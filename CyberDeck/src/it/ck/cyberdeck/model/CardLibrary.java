@@ -18,10 +18,6 @@ public class CardLibrary {
 		return Collections.unmodifiableList(cardList);
 	}
 
-	public int size() {
-		return cards.size();
-	}
-
 	public List<Identity> getIdentities() {
 
 		List<Identity> identities = new ArrayList<Identity>();

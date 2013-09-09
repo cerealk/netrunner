@@ -53,7 +53,6 @@ public class CardClassifier implements Serializable, Comparable<CardClassifier>{
 
 	@Override
 	public int compareTo(CardClassifier another) {
-		// TODO Auto-generated method stub
 		return this.type.compareTo(another.type);
 	}
 }

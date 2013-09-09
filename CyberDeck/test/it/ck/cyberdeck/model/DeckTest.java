@@ -2,7 +2,8 @@ package it.ck.cyberdeck.model;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import it.ck.cyberdeck.fixtures.CardTestFactory;
+import static it.ck.cyberdeck.model.CardType.*;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
@@ -59,8 +60,8 @@ public class DeckTest {
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
 	public void testName() throws Exception {
-		deck.add(CardTestFactory.getUniqueCard());
-		deck.add(CardTestFactory.getUniqueCard());
+		deck.add(getUniqueCard());
+		deck.add(getUniqueCard());
 	}
 
 	@Test
@@ -105,10 +106,10 @@ public class DeckTest {
 	@Test(expected = TooManyOutOfFactionCardsException.class)
 	public void aDeckCanHaveOutOfFactionCardsUpToTheReputationOfTheIdentity()
 	    throws Exception {
-		Card card1 = CardTestFactory.getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5);
-		Card card2 = CardTestFactory.getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5);
-		Card card3 = CardTestFactory.getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5);
-		Card card4 = CardTestFactory.getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5);
+		Card card1 = getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5, HARDWARE);
+		Card card2 = getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5, HARDWARE);
+		Card card3 = getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5, HARDWARE);
+		Card card4 = getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5, HARDWARE);
 		deck.add(card1);
 		deck.add(card2);
 		deck.add(card3);
@@ -145,12 +146,14 @@ public class DeckTest {
 	public void givenADeckICanAddACardOfTheSameFaction() {
 		Deck deck = new Deck(getIdentity(45), "testDeck");
 		CardData cardData = new CardData();
+		cardData.name="card";
 		cardData.set = CardSet.CORE;
 		cardData.identity = Faction.SHAPER;
 		cardData.side = Side.RUNNER;
 		cardData.loyalty = 2;
 		cardData.num = 3;
 		cardData.unique = false;
+		cardData.type = CardType.HARDWARE;
 
 		Card card = new Card(cardData);
 		deck.add(card);
@@ -161,14 +164,7 @@ public class DeckTest {
 	public void givenACardOutOfFactionICanAddItIfItCanBeAttached()
 	    throws Exception {
 		Deck deck = new Deck(getIdentity(45), "testDeck");
-		CardData cardData = new CardData();
-		cardData.set = CardSet.CORE;
-		cardData.identity = Faction.ANARCH;
-		cardData.side = Side.RUNNER;
-		cardData.loyalty = 2;
-		cardData.num = 3;
-		cardData.unique = false;
-		Card card = new Card(cardData);
+		Card card = getCard("test",Side.RUNNER, Faction.ANARCH, 3, 2, CardType.HARDWARE);
 		deck.add(card);
 		assertThat(deck.cardCount(card), is(1));
 	}
@@ -243,7 +239,7 @@ public class DeckTest {
 		corpDeck.add(getCorpCardWithNoAgenda("card11",11),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card12",12),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card13",13),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card13",14),3);
+		corpDeck.add(getCorpCardWithNoAgenda("card14",14),3);
 		corpDeck.add(getCorpCardWithAgenda("agenda1", 5, 15),3);
 		corpDeck.add(getCorpCardWithAgenda("agenda2",5, 16),1);
 		
@@ -276,7 +272,6 @@ public class DeckTest {
 	@Test
 	public void theDeckStatusContainsTheDeckSize(){
 		twoCardDeck();
-		
 		assertThat(deck.checkStatus().minDeckSize(), is(2));
 	}
 
@@ -291,33 +286,6 @@ public class DeckTest {
 		fail("not yet implemented");
 	}
 
-	private Card getCorpCardWithAgenda(String name, int agendapoints, int num) {
-		CardData data = new CardData();
-		data.name = name;
-		data.side = Side.CORP;
-		data.identity = Faction.HAAS_BIOROID;
-		data.loyalty = 1;
-		data.unique = false;
-		data.agendapoints = agendapoints;
-		data.num = num;
-		Card card = new Card(data);
-		
-		return card;
-  }
-
-	private Card getCorpCardWithNoAgenda(String name, int num) {
-		CardData data = new CardData();
-		data.name = name;
-		data.side = Side.CORP;
-		data.identity = Faction.HAAS_BIOROID;
-		data.loyalty = 1;
-		data.unique = false;
-		data.agendapoints = 0;
-		data.num = num;
-		Card card = new Card(data);
-		return card;
-  }
-
 	private Identity getCorpIdentity() {
 	  return new Identity("HB", Side.CORP, Faction.HAAS_BIOROID, 40, 15);
   }
@@ -329,21 +297,6 @@ public class DeckTest {
 	private Identity getIdentity(int minimumCardCount) {
 		return new Identity("identity: " + minimumCardCount, Side.RUNNER,
 		    Faction.SHAPER, minimumCardCount, 15);
-	}
-
-	private Card getCard() {
-		return getCard("std", Side.RUNNER);
-	}
-
-	private Card getCard(String name, Side side) {
-		CardData data = new CardData();
-		data.name = name;
-		data.side = side;
-		data.identity = Faction.SHAPER;
-		data.loyalty = 1;
-		data.unique = false;
-		Card card = new Card(data);
-		return card;
 	}
 
 	private Deck getDeck() {
