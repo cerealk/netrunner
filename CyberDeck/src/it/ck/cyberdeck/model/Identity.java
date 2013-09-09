@@ -17,12 +17,13 @@ public class Identity implements Serializable {
 	private ReputationRule reputationRule = new StandardReputationRule(this);
 
 	public Identity(String name, Side side, Faction faction,
-			Integer minDeckSize, Integer reputationCap) {
+			Integer minDeckSize, Integer reputationCap, CardKey key) {
 		this.name = name;
 		this.side = side;
 		this.minDeckSize = minDeckSize;
 		this.faction = faction;
 		this.reputationCap = reputationCap;
+		this.key = key;
 	}
 	
 	public Identity(Card identityCard){
@@ -80,5 +81,22 @@ public class Identity implements Serializable {
 		return card.sameFactionAs(this) || card.isNeutral()
 				|| card.canBeAttached();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		if (!(o instanceof Identity))
+			return false;
+		Identity other = (Identity) o;
+		return this.key.equals(other.key);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.key.hashCode();
+	}
+	
+	
 	
 }

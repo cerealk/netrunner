@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.fixtures;
 
+import it.ck.cyberdeck.model.CardKey;
+import it.ck.cyberdeck.model.CardSet;
 import it.ck.cyberdeck.model.Faction;
 import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.model.Side;
@@ -10,7 +12,7 @@ public class IdentityTestFactory{
 	}
 
 	public static Identity getTheProfessor() {
-		Identity theProfessor = new Identity("The Professor", Side.RUNNER, Faction.SHAPER, 45, 1);
+		Identity theProfessor = new Identity("The Professor", Side.RUNNER, Faction.SHAPER, 45, 1, null);
 		return theProfessor;
 	}
 	
@@ -19,7 +21,8 @@ public class IdentityTestFactory{
 	}
 
 	private static Identity getIdentity(Side side, Faction faction) {
-		Identity identity = new Identity("name", side, faction, 45, 15);
+		CardKey key = new CardKey(CardSet.CORE, 1);
+		Identity identity = new Identity("name", side, faction, 45, 15, key);
 		return identity;
 	}
 }

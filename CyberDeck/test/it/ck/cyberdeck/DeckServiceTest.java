@@ -18,7 +18,7 @@ public class DeckServiceTest {
 	
 	@Test
   public void withTheDeckServiceICanCreateADeck() throws Exception {
-	  Identity identity = new Identity("identity", Side.RUNNER, Faction.ANARCH, 45, 15);
+	  Identity identity = new Identity("identity", Side.RUNNER, Faction.ANARCH, 45, 15, null);
 		String deckName = "testDeck";
 		Deck deck = ds.createDeck(identity, deckName);
 		assertThat(deck, equalTo(new Deck(identity, deckName)));

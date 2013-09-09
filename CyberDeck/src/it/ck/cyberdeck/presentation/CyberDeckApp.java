@@ -26,7 +26,6 @@ public class CyberDeckApp extends Application {
 	}
 
 	public ImageService getImageService() {
-//		return new ResourceImageService(this);
 		return new AndroidFSImageService(this);
 	}
 

@@ -108,7 +108,7 @@ public class DeckTest {
 	public void aDeckCanHaveOnlyCardsOfTheSameSideOfItsIdentity()
 	    throws Exception {
 		Identity identity = new Identity("identity RUNNER", Side.RUNNER,
-		    Faction.SHAPER, 2, 15);
+		    Faction.SHAPER, 2, 15, null);
 		deck = getDeck(identity);
 		deck.add(getCard("name", Side.CORP));
 	}
@@ -297,7 +297,7 @@ public class DeckTest {
 	}
 
 	private Identity getCorpIdentity() {
-	  return new Identity("HB", Side.CORP, Faction.HAAS_BIOROID, 40, 15);
+	  return new Identity("HB", Side.CORP, Faction.HAAS_BIOROID, 40, 15, null);
   }
 
 	private Deck getDeck(Identity identity) {
@@ -306,7 +306,7 @@ public class DeckTest {
 
 	private Identity getIdentity(int minimumCardCount) {
 		return new Identity("identity: " + minimumCardCount, Side.RUNNER,
-		    Faction.SHAPER, minimumCardCount, 15);
+		    Faction.SHAPER, minimumCardCount, 15, null);
 	}
 
 	private Deck getDeck() {

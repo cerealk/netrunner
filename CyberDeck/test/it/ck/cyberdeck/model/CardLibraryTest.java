@@ -73,7 +73,7 @@ public class CardLibraryTest {
   
   @Test
   public void iCanGetTheCardsGroupedByTypePerIdentity() throws Exception {
-	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15);
+	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15, null);
   	List<CardGroup> list = cl.getCardGroups(identity);
 	  assertThat(list, is(not(nullValue())));
 	  assertThat(list.size() > 0 , is(true));
@@ -81,7 +81,7 @@ public class CardLibraryTest {
   
   @Test
   public void iCanGetTheCardsGroupedByTypePerIdentityIdentitiesExcluded() throws Exception {
-	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15);
+	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15, null);
   	List<CardGroup> list = cl.getCardGroupsWithoutIdentities(identity);
 	  assertThat(list, is(not(nullValue())));
 	  assertThat(list.size() > 0 , is(true));
