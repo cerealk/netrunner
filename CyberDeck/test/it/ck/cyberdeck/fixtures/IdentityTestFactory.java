@@ -12,7 +12,7 @@ public class IdentityTestFactory{
 	}
 
 	public static Identity getTheProfessor() {
-		Identity theProfessor = new Identity("The Professor", Side.RUNNER, Faction.SHAPER, 45, 1, null);
+		Identity theProfessor = new Identity("The Professor", Side.RUNNER, Faction.SHAPER, 45, 1, new CardKey(CardSet.CREATION_AND_CONTROL, 29));
 		return theProfessor;
 	}
 	
