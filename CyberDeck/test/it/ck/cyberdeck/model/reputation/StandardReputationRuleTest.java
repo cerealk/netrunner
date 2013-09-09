@@ -19,7 +19,8 @@ public class StandardReputationRuleTest {
 	}
 
 	private ReputationRule getReputationRule( Identity identity) {
-		ReputationRule rule = new StandardReputationRule(identity);
+		StandardReputationRule rule = new StandardReputationRule();
+		rule.setIdentity(identity);
 		return rule;
 	}
 

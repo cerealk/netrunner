@@ -11,7 +11,8 @@ public class StandardReputationRule implements ReputationRule, Serializable {
 
 	private Identity identity;
 
-	public StandardReputationRule(Identity identity) {
+
+	public void setIdentity(Identity identity) {
 		this.identity = identity;
 	}
 
@@ -22,6 +23,9 @@ public class StandardReputationRule implements ReputationRule, Serializable {
 
 	@Override
 	public Integer calculateReputationCost(Card card, Integer cardCount) {
+		if(identity == null){
+			throw new IllegalStateException("null identity");
+		}
 		if(card.sameFactionAs(identity)){
 			return 0;
 		}

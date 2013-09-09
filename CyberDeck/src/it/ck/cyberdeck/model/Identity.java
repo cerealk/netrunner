@@ -14,7 +14,7 @@ public class Identity implements Serializable {
 	private Side side;
 	private Faction faction;
 	private Integer reputationCap;
-	private ReputationRule reputationRule = new StandardReputationRule(this);
+	private ReputationRule reputationRule;
 
 	public Identity(String name, Side side, Faction faction,
 			Integer minDeckSize, Integer reputationCap, CardKey key) {
@@ -24,15 +24,21 @@ public class Identity implements Serializable {
 		this.faction = faction;
 		this.reputationCap = reputationCap;
 		this.key = key;
+		reputationRule = new StandardReputationRule();
+		reputationRule.setIdentity(this);
+		
+		
 	}
 	
-	public Identity(Card identityCard){
+	public Identity(Card identityCard, ReputationRule reputationRule){
 		this.key = identityCard.getKey(); 
 		this.name = identityCard.getName();
 		this.side = identityCard.getSide();
 		this.faction = identityCard.getFaction();
 		this.minDeckSize = identityCard.getMinDeckSize();
 		this.reputationCap = identityCard.getMaxReputation();
+		this.reputationRule = reputationRule;
+		reputationRule.setIdentity(this);
 	}
 
 	public Side side() {

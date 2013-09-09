@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
+import it.ck.cyberdeck.model.reputation.StandardReputationRuleFactory;
 import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
 import java.util.*;
@@ -26,7 +27,7 @@ public class TestDataParsing {
   private CardLibrary getCardLibrary(String path) {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway(path);
     List<Card> loadCards = loader.loadCardLibrary().getCardList();
-    CardLibrary cl = new CardLibrary();
+    CardLibrary cl = new CardLibrary(new StandardReputationRuleFactory());
     cl.addAll(loadCards);
     return cl;
   }

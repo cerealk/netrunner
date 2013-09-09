@@ -11,14 +11,14 @@ public class DefaultReputationFactoryTest {
 	@Test
 	public void givenACardKeyICanGetAReputationRule() {
 		ReputationRuleFactory rrf = new StandardReputationRuleFactory();
-		ReputationRule rule = rrf.createRule(getArarchIdentity());
+		ReputationRule rule = rrf.createRule(getArarchIdentity().key());
 		assertThat(rule instanceof StandardReputationRule, is(true));
 	}
 	
 	@Test 
 	public void theProfessorHasACustomReputationRule(){
 		ReputationRuleFactory rrf = new StandardReputationRuleFactory();
-		ReputationRule rule = rrf.createRule(getTheProfessor());
+		ReputationRule rule = rrf.createRule(getTheProfessor().key());
 		assertThat(rule instanceof TheProfessorReputationRule, is(true));
 	}
 	

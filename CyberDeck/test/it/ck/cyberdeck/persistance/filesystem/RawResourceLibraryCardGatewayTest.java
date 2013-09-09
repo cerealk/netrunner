@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.CardListActivity;
 import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.model.reputation.StandardReputationRule;
 
 import java.io.*;
 import java.util.List;
@@ -37,7 +38,7 @@ public class RawResourceLibraryCardGatewayTest {
 	public void givenADeckICanPersistIt() {
 		CardLibrary cl = gw.loadCardLibrary();
 
-		Identity identity = new Identity(cl.getCard(new CardKey(CardSet.CORE, 1)));
+		Identity identity = new Identity(cl.getCard(new CardKey(CardSet.CORE, 1)), new StandardReputationRule());
 		Deck deck = new Deck(identity, "testDeck");
 
 		deck.add(cl.getCard(new CardKey(CardSet.CORE, 2)));

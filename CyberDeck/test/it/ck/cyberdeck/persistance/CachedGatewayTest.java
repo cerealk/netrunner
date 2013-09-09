@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.LibraryCardGateway;
+import it.ck.cyberdeck.model.reputation.StandardReputationRuleFactory;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
@@ -57,7 +58,7 @@ public class CachedGatewayTest {
 	@Test
 	public void itCachesTheCallsToLoadLibrary(){
 		context.checking(new Expectations(){{
-			oneOf(delegate).loadCardLibrary();will(returnValue(new CardLibrary()));
+			oneOf(delegate).loadCardLibrary();will(returnValue(new CardLibrary(new StandardReputationRuleFactory())));
 		}});
 		
 		CardLibrary cardLibrary = gw.loadCardLibrary();

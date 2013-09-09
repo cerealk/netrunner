@@ -1,5 +1,8 @@
 package it.ck.cyberdeck.model;
 
+import it.ck.cyberdeck.model.reputation.ReputationRule;
+import it.ck.cyberdeck.model.reputation.ReputationRuleFactory;
+import it.ck.cyberdeck.model.reputation.StandardReputationRuleFactory;
 import it.ck.cyberdeck.model.utils.CardKeyComparator;
 
 import java.util.*;
@@ -7,8 +10,10 @@ import java.util.*;
 public class CardLibrary {
 
 	private Map<CardKey, Card> cards = new HashMap<CardKey, Card>();
+	private ReputationRuleFactory reputationRuleFactory;
 
-	public CardLibrary() {
+	public CardLibrary(ReputationRuleFactory reputationRuleFactory) {
+		this.reputationRuleFactory = reputationRuleFactory;
 	}
 
 	public List<Card> getCardList() {
@@ -22,10 +27,16 @@ public class CardLibrary {
 
 		List<Identity> identities = new ArrayList<Identity>();
 		for (Card card : cards.values()) {
-			if (card.isIdentity())
-				identities.add(new Identity(card));
+			if (card.isIdentity()){
+				CardKey key = card.getKey();
+				identities.add(new Identity(card, getReputationRule(key)));
+			}
 		}
 		return Collections.unmodifiableList(identities);
+	}
+
+	private ReputationRule getReputationRule(CardKey key) {
+		return reputationRuleFactory.createRule(key);
 	}
 
 	public List<Card> getCardList(Identity identity) {
@@ -93,5 +104,9 @@ public class CardLibrary {
 
 	public Card getCard(CardKey key) {
 		return cards.get(key);
+	}
+
+	public Identity getItentity(CardKey key) {
+		return new Identity(getCard(key), getReputationRule(key));
 	}
 }

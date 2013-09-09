@@ -1,6 +1,7 @@
 package it.ck.cyberdeck.persistance.filesystem;
 
 import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.model.reputation.StandardReputationRuleFactory;
 import it.ck.cyberdeck.persistance.*;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 			data = gson.fromJson(readSource(getDeckUri(name)), DeckData.class);
 			CardLibrary cl = loadCardLibrary();
 			Card identityCard = cl.getCard(data.getIdentity());
-			Deck deck = new Deck(new Identity(identityCard), data.getName());
+			Deck deck = new Deck(cl.getItentity(identityCard.getKey()), data.getName());
 			for (CardRef ref : data.getCards()) {
 				deck.add(cl.getCard(ref.getCard()), ref.getCount());
 			}
@@ -59,9 +60,13 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
 	@Override
 	public CardLibrary loadCardLibrary() {
-		CardLibrary cl = new CardLibrary();
+		CardLibrary cl = new CardLibrary(getRuleFactory());
 		cl.addAll(loadCards());
 		return cl;
+	}
+
+	private StandardReputationRuleFactory getRuleFactory() {
+		return new StandardReputationRuleFactory();
 	}
 
 	protected List<Card> loadCards() {

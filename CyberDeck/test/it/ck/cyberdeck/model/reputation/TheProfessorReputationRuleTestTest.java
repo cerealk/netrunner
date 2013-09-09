@@ -13,13 +13,19 @@ public class TheProfessorReputationRuleTestTest {
 
 	@Test
 	public void theFirstCardOfATypeNeverAddsToReputation() {
-		ReputationRule rule = new TheProfessorReputationRule(IdentityTestFactory.getTheProfessor());
+		TheProfessorReputationRule rule = getTheProfessorReputationRule();
 		assertThat(rule.calculateReputationCost(CardTestFactory.getAnarchCard()), is(equalTo(0)));
+	}
+
+	private TheProfessorReputationRule getTheProfessorReputationRule() {
+		TheProfessorReputationRule rule = new TheProfessorReputationRule();
+		rule.setIdentity(IdentityTestFactory.getTheProfessor());
+		return rule;
 	}
 	
 	@Test
 	public void theSecondCardOfATypeAddsItsCostToReputation() {
-		ReputationRule rule = new TheProfessorReputationRule(IdentityTestFactory.getTheProfessor());
+		ReputationRule rule = getTheProfessorReputationRule();
 		assertThat(rule.calculateReputationCost(CardTestFactory.getAnarchCard(),2), is(equalTo(5)));
 	}
 
