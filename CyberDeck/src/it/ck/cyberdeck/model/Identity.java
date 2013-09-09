@@ -5,8 +5,6 @@ import it.ck.cyberdeck.model.reputation.StandardReputationRule;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 public class Identity implements Serializable {
 	
   private static final long serialVersionUID = 1L;
@@ -56,11 +54,6 @@ public class Identity implements Serializable {
 		return Side.CORP.equals(side);
 	}
 	
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-
 	public String name() {
 		return this.name;
 	}
@@ -81,6 +74,11 @@ public class Identity implements Serializable {
 
 	public Integer minSize() {
 		return minDeckSize;
+	}
+
+	public boolean canUse(Card card) {
+		return card.sameFactionAs(this) || card.isNeutral()
+				|| card.canBeAttached();
 	}
 	
 }

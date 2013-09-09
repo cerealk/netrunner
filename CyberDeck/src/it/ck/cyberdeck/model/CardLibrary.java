@@ -31,7 +31,7 @@ public class CardLibrary {
 	public List<Card> getCardList(Identity identity) {
 		List<Card> result = new ArrayList<Card>();
 		for (Card card : cards.values()) {
-			if (card.isCompatibleWith(identity)) {
+			if (identity.canUse(card)) {
 				result.add(card);
 			}
 		}
@@ -82,7 +82,7 @@ public class CardLibrary {
 				if (cardGroup == null) {
 					cardGroup = new CardGroup(card.getType());
 				}
-				if (card.isCompatibleWith(identity)) {
+				if (identity.canUse(card)) {
 					cardGroup.add(card);
 					cardGroups.put(card.getType(), cardGroup);
 				}

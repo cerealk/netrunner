@@ -158,11 +158,6 @@ public class Card implements Serializable, Comparable<Card> {
 		return this.key.equals(((Card) obj).key);
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-
 	public boolean isIdentity() {
 		return this.classifier.isIdentity();
 	}
@@ -177,11 +172,6 @@ public class Card implements Serializable, Comparable<Card> {
 
 	protected CardType getType() {
 		return this.classifier.getType();
-	}
-
-	public boolean isCompatibleWith(Identity identity) {
-		return this.sameFactionAs(identity) || this.isNeutral()
-				|| this.canBeAttached();
 	}
 
 	@Override

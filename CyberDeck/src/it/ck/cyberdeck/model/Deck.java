@@ -66,7 +66,7 @@ public class Deck implements Serializable {
 				|| (card.isUnique() && cards.getCount(card) >= 1)) {
 			throw new TooManyCardOfTheSameTypeException();
 		}
-		if (!card.isCompatibleWith(getIdentity())) {
+		if (!getIdentity().canUse(card)) {
 			throw new CantBeAttachedException();
 		}
 		if (!checkReputation(card)) {
@@ -114,8 +114,6 @@ public class Deck implements Serializable {
 		return cards.getEntries();
 	}
 
-	// TODO: rivedere se al posto di questo equals è meglio utilizzare un
-	// oggetto "chiave"
 	@Override
 	public boolean equals(Object o) {
 		if (o == null)

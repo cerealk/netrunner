@@ -28,6 +28,7 @@ public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
 			fos.flush();
 			fos.close();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}
