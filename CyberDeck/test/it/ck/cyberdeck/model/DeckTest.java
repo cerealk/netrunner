@@ -88,6 +88,16 @@ public class DeckTest {
 		deck.removeAll(card);
 		assertThat(deck.cardCount(card), is(equalTo(0)));
 	}
+	
+	@Test
+	public void aCardWithCountZeroHasNoEntry(){
+		Card card = getCard("card1", Side.RUNNER);
+		deck.add(card);
+		assertThat(deck.cardCount(card), is(equalTo(1)));
+		deck.remove(card);
+		assertThat(deck.cardCount(card), is(equalTo(0)));
+		assertThat(deck.cards().size(), is(0));
+	}
 
 	@Test(expected = CardNotFoundException.class)
 	public void aCardNotInTheDeckCantBeRemoved() throws Exception {
