@@ -37,7 +37,13 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		LayoutInflater inflater = (LayoutInflater) context
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+		View rowView;
+		if(convertView != null){
+			rowView = convertView;
+		}else{
+			rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+		}
+		
 
 		TextView textView = (TextView) rowView.findViewById(R.id.cardName);
 
