@@ -7,6 +7,7 @@ import it.ck.cyberdeck.presentation.util.ImageFactory;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.*;
 import android.widget.*;
 
@@ -56,8 +57,8 @@ public class IdentityAdapter extends BaseAdapter implements SpinnerAdapter {
 		Identity identity = getIdentity(position);
 		
 		textView.setText(identity.name());
-		int resImg = ImageFactory.gefFactionImageId(context, identity.side(), identity.faction());
-		imageView.setImageResource(resImg );
+		Bitmap bmp = ImageFactory.getFactionImage(context, identity.side(), identity.faction());
+		imageView.setImageBitmap(bmp );
 		return spinView;
 	}
 
