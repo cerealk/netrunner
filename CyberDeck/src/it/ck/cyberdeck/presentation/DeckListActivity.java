@@ -38,7 +38,7 @@ public class DeckListActivity extends Activity {
 				String deckName = (String) parent.getItemAtPosition(pos);
 				Deck deck = service.loadDeck(deckName);
 				Intent intent = new Intent(DeckListActivity.this,
-						DeckGridViewActivity.class);
+						DeckActivity.class);
 				intent.putExtra("deck", deck);
 				startActivity(intent);
 
