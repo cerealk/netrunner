@@ -22,52 +22,58 @@ public class DeckListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck_list);
-		service = ((CyberDeckApp)getApplication()).getDeckService();
+		service = ((CyberDeckApp) getApplication()).getDeckService();
 		ListView deckListview = (ListView) findViewById(R.id.listViewDecks);
-		
+
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1);
 		loadDecks();
 		deckListview.setAdapter(adapter);
-		
-		deckListview.setOnItemClickListener(new ListView.OnItemClickListener(){
+
+		deckListview.setOnItemClickListener(new ListView.OnItemClickListener() {
 
 			@Override
-      public void onItemClick(AdapterView<?> parent, View view, int pos,
-          long id) {
-	      String deckName = (String) parent.getItemAtPosition(pos);
-	      Deck deck = service.loadDeck(deckName);
-	      Intent intent = new Intent(DeckListActivity.this, DeckActivity.class);
-	      intent.putExtra("deck", deck);
-	      startActivity(intent);
-	      
-      }});
+			public void onItemClick(AdapterView<?> parent, View view, int pos,
+					long id) {
+				String deckName = (String) parent.getItemAtPosition(pos);
+				Deck deck = service.loadDeck(deckName);
+				Intent intent = new Intent(DeckListActivity.this,
+						DeckGridViewActivity.class);
+				intent.putExtra("deck", deck);
+				startActivity(intent);
+
+			}
+		});
 		registerForContextMenu(deckListview);
 		Button newDeckButton = (Button) findViewById(R.id.button1);
-		newDeckButton.setOnClickListener(new View.OnClickListener(){
+		newDeckButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-      public void onClick(View v) {
-	      Intent intent = new Intent(DeckListActivity.this, NewDeckWizard.class);
-	      startActivity(intent);
-	      
-      }
-			
+			public void onClick(View v) {
+				Intent intent = new Intent(DeckListActivity.this,
+						NewDeckWizard.class);
+				startActivity(intent);
+
+			}
+
 		});
-		
+
 	}
 
 	private void loadDecks() {
-	  List<String> names = service.deckNames();
-		adapter.clear();		
-	  adapter.addAll(names);
-  }
+		List<String> names = service.deckNames();
+		adapter.clear();
+
+		for (String name : names) {
+			adapter.add(name);
+		}
+	}
 
 	@Override
-  protected void onStart() {
-	  super.onStart();
-	  loadDecks();
-  }
+	protected void onStart() {
+		super.onStart();
+		loadDecks();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,15 +82,16 @@ public class DeckListActivity extends Activity {
 	}
 
 	@Override
-  public void onCreateContextMenu(ContextMenu menu, View v,
-      ContextMenuInfo menuInfo) {
-	  super.onCreateContextMenu(menu, v, menuInfo);
-	  getMenuInflater().inflate(R.menu.deck_list_popoup_menu, menu);
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.deck_list_popoup_menu, menu);
 	}
-	
+
 	@Override
-  public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.deleteDeck:
 			deleteDeck(info.position);
@@ -92,12 +99,12 @@ public class DeckListActivity extends Activity {
 		default:
 			break;
 		}
-	  return super.onContextItemSelected(item);
-  }
+		return super.onContextItemSelected(item);
+	}
 
 	private void deleteDeck(int position) {
-	  service.deleteDeck(adapter.getItem(position));
-	  loadDecks();
-  }
+		service.deleteDeck(adapter.getItem(position));
+		loadDecks();
+	}
 
 }
