@@ -2,10 +2,8 @@ package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.CardDetailView;
-import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
-import it.ck.cyberdeck.presentation.service.ImageService;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -60,7 +58,7 @@ public class CardDetailFragment extends Fragment implements CardDetailView, Down
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		presenter = new CardDetailPresenter(this, getImageService());
+		presenter = new CardDetailPresenter(this);
 	}
 
 	@Override
@@ -108,7 +106,4 @@ public class CardDetailFragment extends Fragment implements CardDetailView, Down
 		this.setCardImage(bmp);
 	}
 
-	private ImageService getImageService(){
-		return ((CyberDeckApp)getActivity().getApplication()).getImageService();
-	}
 }
