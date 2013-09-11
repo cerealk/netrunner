@@ -1,11 +1,8 @@
 package it.ck.cyberdeck;
 
 import it.ck.cyberdeck.model.Card;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
-import android.view.MenuItem;
 
 /**
  * An activity representing a single Card detail screen. This activity is only
