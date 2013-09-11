@@ -7,12 +7,11 @@ package it.ck.cyberdeck.presentation.service;
 import it.ck.cyberdeck.model.CardKey;
 import it.ck.cyberdeck.presentation.DownloaderView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -25,7 +24,6 @@ import android.util.Log;
 public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 
 	private String url;
-	private FileOutputStream fos;
 	private DownloaderView dlv;
 	private Bitmap bmp;
 	private File targetFile;
@@ -45,18 +43,20 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected Void doInBackground(Void... arg0) {
-		bmp = getBitmapFromURL(url);
+		if (!targetFile.exists()){
+			saveBitmapFromURL(url);
+		}
+		bmp =  BitmapFactory.decodeFile(targetFile.getPath());
 		return null;
 	}
 
 	@Override
 	protected void onPostExecute(Void result) {
-		saveImage();
 		dlv.setImage(bmp);
 		super.onPostExecute(result);
 	}
 
-	public Bitmap getBitmapFromURL(String link) {
+	public void saveBitmapFromURL(String link) {
 		try {
 			URL url = new URL(link);
 			HttpURLConnection connection = (HttpURLConnection) url
@@ -64,40 +64,36 @@ public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
 			connection.setDoInput(true);
 			connection.connect();
 			InputStream input = connection.getInputStream();
-			Bitmap myBitmap = BitmapFactory.decodeStream(input);
-			
-			return myBitmap;
+			saveInputStream(input);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			Log.e("getBmpFromUrl error: ", e.getMessage().toString());
-			return null;
 		}
 	}
 	
-	private void saveImage() {
+	private void saveInputStream(InputStream input) throws IOException {
+		try {
+			final OutputStream output = new FileOutputStream(targetFile);
+		    try {
+		        try {
+		            final byte[] buffer = new byte[1024];
+		            int read;
 
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		bmp.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-		try {
-			targetFile.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			fos = new FileOutputStream(targetFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			fos.write(bytes.toByteArray());
-			fos.flush();
-			fos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		            while ((read = input.read(buffer)) != -1)
+		                output.write(buffer, 0, read);
 
+		            output.flush();
+		        } finally {
+		            output.close();
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		} finally {
+		    input.close();
+		}
+		
 	}
-
 
 }
