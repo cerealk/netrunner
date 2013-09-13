@@ -2,7 +2,6 @@ package it.ck.cyberdeck.model;
 
 import it.ck.cyberdeck.model.reputation.ReputationRule;
 import it.ck.cyberdeck.model.reputation.ReputationRuleFactory;
-import it.ck.cyberdeck.model.reputation.StandardReputationRuleFactory;
 import it.ck.cyberdeck.model.utils.CardKeyComparator;
 
 import java.util.*;
