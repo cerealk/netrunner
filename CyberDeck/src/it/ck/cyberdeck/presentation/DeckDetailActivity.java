@@ -25,7 +25,7 @@ public class DeckDetailActivity extends FragmentActivity {
 		CardEntry entry = getEntry(savedInstanceState);
 		deck = getDeck(savedInstanceState);
 		adapter = new DeckDetailPageAdapter(deck, getSupportFragmentManager());
-		
+		setTitle(deck.name());
 		ViewPager gallery = (ViewPager) findViewById(R.id.deck_gallery);
 		gallery.setAdapter(adapter);
 		gallery.setCurrentItem(getEntryByOrdinal(entry));
