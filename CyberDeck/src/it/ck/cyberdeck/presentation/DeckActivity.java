@@ -49,7 +49,7 @@ public class DeckActivity extends Activity implements DeckView{
 		cardList = (ListView) findViewById(R.id.deck_cards);
 		
 		cardList.setAdapter(listViewAdapter);
-		final Deck deck;
+		Deck deck;
 		if (savedInstanceState != null){
 			deck = (Deck) savedInstanceState.getSerializable("deck");
 		}	else {
@@ -64,7 +64,7 @@ public class DeckActivity extends Activity implements DeckView{
 					long id) {
 				CardEntry entry = listViewAdapter.getItem(position);
 				Intent detailIntent = new Intent(DeckActivity.this, DeckDetailActivity.class);
-				detailIntent.putExtra(DeckDetailActivity.DECK_ARG_ID, deck);
+				detailIntent.putExtra(DeckDetailActivity.DECK_ARG_ID, presenter.getDeck());
 				detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, entry);
 				startActivity(detailIntent);
 				
