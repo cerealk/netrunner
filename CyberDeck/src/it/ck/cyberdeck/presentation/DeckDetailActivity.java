@@ -63,7 +63,7 @@ public class DeckDetailActivity extends FragmentActivity {
 	
 	@Override
     protected void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable("deck", deck);
+		outState.putSerializable(DECK_ARG_ID, deck);
 		super.onSaveInstanceState(outState);
     }
 
