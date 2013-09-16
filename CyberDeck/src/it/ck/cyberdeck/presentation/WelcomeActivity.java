@@ -5,7 +5,6 @@ import it.ck.cyberdeck.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,7 +19,8 @@ public class WelcomeActivity extends Activity {
 
 		buttonLibrary.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(WelcomeActivity.this, CardListActivity.class);
+				Intent intent = new Intent(WelcomeActivity.this,
+						CardListActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -29,30 +29,25 @@ public class WelcomeActivity extends Activity {
 		buttonNewDeck.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(WelcomeActivity.this, NewDeckWizard.class);
+				Intent intent = new Intent(WelcomeActivity.this,
+						NewDeckWizard.class);
 				startActivity(intent);
 			}
 
 		});
 
-		final Button buttonDeckList = (Button) findViewById(R.id.deckListButton);
-		buttonDeckList.setOnClickListener(new View.OnClickListener(){
+		final Button buttonDeckList = (Button) findViewById(R.id.button_deck_ist);
+		buttonDeckList.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-      public void onClick(View v) {
-				Intent intent = new Intent(WelcomeActivity.this, DeckListActivity.class);
+			public void onClick(View v) {
+				Intent intent = new Intent(WelcomeActivity.this,
+						DeckListActivity.class);
 				startActivity(intent);
-	      
-      }
-			
-		});
-	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.welcome, menu);
-		return true;
+			}
+
+		});
 	}
 
 }
