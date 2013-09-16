@@ -23,7 +23,7 @@ public class StandardReputationRule implements ReputationRule, Serializable {
 
 	@Override
 	public Integer calculateReputationCost(Card card, Integer cardCount) {
-		if(identity == null){
+		if(identity == null || card ==null){
 			throw new IllegalStateException("null identity");
 		}
 		if(card.sameFactionAs(identity)){

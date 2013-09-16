@@ -42,5 +42,17 @@ public class StandardReputationRuleTest {
 		ReputationRule rule = getReputationRule( IdentityTestFactory.getArarchIdentity());
 		assertThat(rule.calculateReputationCost(CardTestFactory.getHBAgendaCard()), is(equalTo(0)));
 	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void ifTheCardPassedIsNullAnIllegalStateExcIsThrown(){
+		ReputationRule rule = getReputationRule( IdentityTestFactory.getArarchIdentity());
+		rule.calculateReputationCost(null);
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void ifTheIDentityIsNotSettedAnIllegalStateExcIsThrown(){
+		ReputationRule rule = getReputationRule(null);
+		rule.calculateReputationCost(null);
+	}
 
 }
