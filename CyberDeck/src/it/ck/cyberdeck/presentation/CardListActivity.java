@@ -47,8 +47,7 @@ public class CardListActivity extends FragmentActivity implements
 			((CardListFragment) getSupportFragmentManager().findFragmentById(
 					R.id.card_list)).setActivateOnItemClick(true);
 		}
-
-		// TODO: If exposing deep links into your app, handle intents here.
+		
 	}
 
 	/**
