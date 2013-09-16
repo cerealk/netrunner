@@ -9,7 +9,7 @@ public interface DeckView {
 	
 	void publishIdentityName(String identityName);
 	void publishDeckName(String deckName);
-	void publishCardList(List<CardEntry> cards);
+	void publishEntryList(List<CardEntry> cards);
 	void publishDeckStatus(DeckStatus checkStatus);
 	
 }

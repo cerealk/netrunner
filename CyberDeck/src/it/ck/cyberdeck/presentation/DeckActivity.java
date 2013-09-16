@@ -156,7 +156,7 @@ public class DeckActivity extends Activity implements DeckView{
 	}
 
 	@Override
-  public void publishCardList(List<CardEntry> cards) {
+  public void publishEntryList(List<CardEntry> cards) {
 	  listViewAdapter.clear();
 	  listViewAdapter.addAll(cards);
   }

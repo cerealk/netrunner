@@ -18,7 +18,7 @@ public class DeckPresenter {
 	public void publish(){
 		deckPublisher.publishDeckName(deck.name());
 		deckPublisher.publishIdentityName(deck.getIdentity().name());
-		deckPublisher.publishCardList(deck.cards());
+		deckPublisher.publishEntryList(deck.cards());
 		deckPublisher.publishDeckStatus(deck.checkStatus());
 	}
 
