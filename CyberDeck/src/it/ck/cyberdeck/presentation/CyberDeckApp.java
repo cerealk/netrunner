@@ -15,7 +15,6 @@ public class CyberDeckApp extends Application {
 	public DeckService getDeckService() {
 		if (ds == null) {
 			ds = createDeckService();
-
 		}
 
 		return ds;
