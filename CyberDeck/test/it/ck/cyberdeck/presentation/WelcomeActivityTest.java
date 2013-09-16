@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.robolectric.Robolectric.shadowOf;
-import it.ck.cyberdeck.CardListActivity;
 import it.ck.cyberdeck.R;
 
 import org.junit.Before;

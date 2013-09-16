@@ -1,8 +1,7 @@
-package it.ck.cyberdeck;
+package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.presentation.CardDetailView;
-import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package it.ck.cyberdeck;
+package it.ck.cyberdeck.presentation;
 
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;

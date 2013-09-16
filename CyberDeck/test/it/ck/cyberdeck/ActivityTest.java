@@ -1,6 +1,7 @@
 package it.ck.cyberdeck;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
+import it.ck.cyberdeck.presentation.CardListActivity;
 
 import org.junit.Ignore;
 import org.junit.Test;

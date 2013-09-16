@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/card_list"
-        android:name="it.ck.cyberdeck.CardListFragment"
+        android:name="it.ck.cyberdeck.presentation.CardListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

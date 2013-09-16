@@ -1,6 +1,5 @@
 package it.ck.cyberdeck.presentation;
 
-import it.ck.cyberdeck.CardDetailFragment;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;

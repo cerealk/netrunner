@@ -1,7 +1,7 @@
 package it.ck.cyberdeck.presentation.adapter;
 
-import it.ck.cyberdeck.CardDetailFragment;
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.presentation.CardDetailFragment;
 
 import java.util.List;
 

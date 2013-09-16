@@ -1,6 +1,5 @@
 package it.ck.cyberdeck.presentation;
 
-import it.ck.cyberdeck.CardListActivity;
 import it.ck.cyberdeck.R;
 import android.app.Activity;
 import android.content.Intent;

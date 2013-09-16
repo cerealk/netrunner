@@ -1,5 +1,6 @@
-package it.ck.cyberdeck;
+package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

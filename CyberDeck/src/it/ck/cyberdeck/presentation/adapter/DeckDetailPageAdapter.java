@@ -2,9 +2,9 @@ package it.ck.cyberdeck.presentation.adapter;
 
 import java.util.List;
 
-import it.ck.cyberdeck.CardDetailFragment;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.presentation.CardDetailFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
