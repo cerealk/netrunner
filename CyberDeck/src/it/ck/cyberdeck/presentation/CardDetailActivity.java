@@ -3,7 +3,6 @@ package it.ck.cyberdeck.presentation;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 /**
  * An activity representing a single Card detail screen. This activity is only
@@ -13,7 +12,7 @@ import android.support.v4.app.FragmentActivity;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link CardDetailFragment}.
  */
-public class CardDetailActivity extends FragmentActivity {
+public class CardDetailActivity extends BaseCyberDeckActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

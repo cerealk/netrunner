@@ -8,26 +8,28 @@ import it.ck.cyberdeck.presentation.adapter.IdentityAdapter;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
-public class NewDeckWizard extends Activity {
+public class NewDeckWizard extends BaseCyberDeckActivity {
 
 	private EditText deckNameText;
 	private Spinner deckIdentity;
 	private Button createDeck;
-	private DeckService deckService;
 	private List<Identity> identities;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_deck_wizard);
-		this.deckService = ((CyberDeckApp) getApplication()).getDeckService();
+		getDeckService();
+		final DeckService deckService = getDeckService();
 		this.identities = deckService.loadCardLibrary().getIdentities();
 
 		this.deckNameText = (EditText) findViewById(R.id.field_deck_name);
@@ -41,11 +43,12 @@ public class NewDeckWizard extends Activity {
 		this.createDeck.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
 				Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText
 				    .getText().toString());
 				deckService.saveDeck(deck);
 				Intent intent = new Intent(NewDeckWizard.this, DeckActivity.class);
-				intent.putExtra("deck", deck);
+				intent.putExtra(DeckActivity.DECK_ARG_ID, deck);
 				startActivity(intent);
 			}
 

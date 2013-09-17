@@ -4,7 +4,6 @@ import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 /**
  * An activity representing a list of CardLibrary. This activity has different
@@ -21,7 +20,7 @@ import android.support.v4.app.FragmentActivity;
  * This activity also implements the required {@link CardListFragment.Callbacks}
  * interface to listen for item selections.
  */
-public class CardListActivity extends FragmentActivity implements
+public class CardListActivity extends BaseCyberDeckActivity implements
 		CardListFragment.Callbacks {
 
 	/**

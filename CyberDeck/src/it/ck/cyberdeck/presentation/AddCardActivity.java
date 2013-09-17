@@ -1,40 +1,36 @@
 package it.ck.cyberdeck.presentation;
 
 import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.app.DeckService;
-import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.CardGroup;
+import it.ck.cyberdeck.model.CardLibrary;
+import it.ck.cyberdeck.model.DeckException;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryExpandableListAdapter;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.*;
+import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.Toast;
 
-public class AddCardActivity extends Activity {
+public class AddCardActivity extends BaseDeckActivity {
 
-	private Deck deck;
-	private DeckService deckService;
 	private CardLibraryExpandableListAdapter adapter;
 	private Toast toast;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_expandable_card);
 		
-		deckService = ((CyberDeckApp)getApplication()).getDeckService();
-		
 		ExpandableListView expListView = (ExpandableListView) findViewById(R.id.expandableListView1);
 		CardLibrary cl = ((CyberDeckApp) getApplication()).getDeckService().loadCardLibrary();
 		
-		deck = (Deck) getIntent()
-				.getSerializableExtra("deck");
-		
-		List<CardGroup> values = cl.getCardGroupsWithoutIdentities(deck.getIdentity());
+		List<CardGroup> values = cl.getCardGroupsWithoutIdentities(getDeck().getIdentity());
 		adapter = new CardLibraryExpandableListAdapter(this, values);
 		expListView.setAdapter(adapter);
 
@@ -46,8 +42,7 @@ public class AddCardActivity extends Activity {
 		      
 				  Card cardToBeAdded = (Card) getListAdapter().getChild(groupPosition, childPosition);
 				  try{
-				  	deck.add(cardToBeAdded);
-				  	deckService.saveDeck(deck);
+				  	presenter.addCard(cardToBeAdded);
 				  	showToast("Card " + cardToBeAdded.getName() + " added succesfully");
 				  }catch (DeckException e){
 				  	showToast(e.getMessage());
@@ -78,7 +73,7 @@ public class AddCardActivity extends Activity {
 	@Override
   public void onBackPressed() {
     Intent intent = new Intent();
-    intent.putExtra("deck", deck);
+    intent.putExtra(BaseDeckActivity.DECK_ARG_ID, getDeck());
     setResult(RESULT_OK, intent);  
 	  super.onBackPressed();
   }

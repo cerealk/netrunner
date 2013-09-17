@@ -1,13 +1,12 @@
 package it.ck.cyberdeck.presentation;
 
 import it.ck.cyberdeck.R;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseCyberDeckActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

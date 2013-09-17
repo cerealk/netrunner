@@ -7,11 +7,10 @@ import it.ck.cyberdeck.presentation.adapter.GalleryPageAdapter;
 import java.util.List;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
-public class CardGalleryActivity extends FragmentActivity {
+public class CardGalleryActivity extends BaseCyberDeckActivity {
 
 	private GalleryPageAdapter galleryPagerAdapter;
 	

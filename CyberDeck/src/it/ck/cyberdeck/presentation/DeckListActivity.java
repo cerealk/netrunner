@@ -1,28 +1,31 @@
 package it.ck.cyberdeck.presentation;
 
+import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.model.Deck;
+
 import java.util.List;
 
-import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.app.DeckService;
-import it.ck.cyberdeck.model.Deck;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.*;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
-public class DeckListActivity extends Activity {
+public class DeckListActivity extends BaseCyberDeckActivity {
 
-	private DeckService service;
 	private ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck_list);
-		service = ((CyberDeckApp) getApplication()).getDeckService();
 		ListView deckListview = (ListView) findViewById(R.id.listViewDecks);
 
 		adapter = new ArrayAdapter<String>(this,
@@ -36,10 +39,10 @@ public class DeckListActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int pos,
 					long id) {
 				String deckName = (String) parent.getItemAtPosition(pos);
-				Deck deck = service.loadDeck(deckName);
+				Deck deck = getDeckService().loadDeck(deckName);
 				Intent intent = new Intent(DeckListActivity.this,
 						DeckActivity.class);
-				intent.putExtra("deck", deck);
+				intent.putExtra(BaseDeckActivity.DECK_ARG_ID, deck);
 				startActivity(intent);
 
 			}
@@ -58,15 +61,6 @@ public class DeckListActivity extends Activity {
 
 		});
 
-	}
-
-	private void loadDecks() {
-		List<String> names = service.deckNames();
-		adapter.clear();
-
-		for (String name : names) {
-			adapter.add(name);
-		}
 	}
 
 	@Override
@@ -103,8 +97,16 @@ public class DeckListActivity extends Activity {
 	}
 
 	private void deleteDeck(int position) {
-		service.deleteDeck(adapter.getItem(position));
+		getDeckService().deleteDeck(adapter.getItem(position));
 		loadDecks();
 	}
 
+	private void loadDecks() {
+		List<String> names = getDeckService().deckNames();
+		adapter.clear();
+
+		for (String name : names) {
+			adapter.add(name);
+		}
+	}
 }
