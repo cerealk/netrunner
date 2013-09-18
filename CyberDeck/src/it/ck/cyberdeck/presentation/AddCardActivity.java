@@ -15,13 +15,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.Toast;
 
 public class AddCardActivity extends BaseDeckActivity {
 
 	private CardLibraryExpandableListAdapter adapter;
-	private Toast toast;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,13 +50,6 @@ public class AddCardActivity extends BaseDeckActivity {
 	    });
 	}
 
-	private void showToast(String toastText) {
-		if (toast!=null)
-			toast.cancel();
-		toast = Toast.makeText(this, toastText, Toast.LENGTH_SHORT);
-		toast.show();
-	}
-	
 	protected CardLibraryExpandableListAdapter getListAdapter() {
 		return adapter;
 	}

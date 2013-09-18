@@ -7,10 +7,12 @@ import android.support.v4.app.FragmentActivity;
 public class BaseCyberDeckActivity extends FragmentActivity {
 
 	private DeckService deckService;
+	protected ToastHandler toastHandler;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		toastHandler = new ToastHandler(this);
 		this.deckService = getCyberDeckApp().getDeckService();
 	}
 
@@ -20,6 +22,10 @@ public class BaseCyberDeckActivity extends FragmentActivity {
 
 	protected CyberDeckApp getCyberDeckApp() {
 		return (CyberDeckApp) getApplication();
+	}
+
+	protected void showToast(String toastText) {
+		toastHandler.toast(toastText);
 	}
 
 }
