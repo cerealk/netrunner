@@ -27,7 +27,6 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -71,7 +70,6 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 
 	@Override
 	public long getGroupId(int groupPosition) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -92,7 +90,6 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
