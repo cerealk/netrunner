@@ -49,7 +49,7 @@ public class BaseDeckActivity extends BaseCyberDeckActivity implements DeckView 
 			if(requestCode == REQUEST_CODE){
 				if(resultCode == RESULT_OK){
 					Deck deck = (Deck) data.getSerializableExtra(DECK_ARG_ID);
-					presenter = new DeckPresenter(deck, this,getDeckService());
+					presenter = new DeckPresenter(deck, this, getDeckService());
 				}
 			}
 			
