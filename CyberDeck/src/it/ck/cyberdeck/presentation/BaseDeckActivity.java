@@ -22,14 +22,13 @@ public class BaseDeckActivity extends BaseCyberDeckActivity implements DeckView 
 		super.onCreate(savedInstanceState);
 		Deck deck = initDeck(savedInstanceState);
 		presenter = new DeckPresenter(deck, this, getDeckService());
-		setTitle(deck.name());
 	}
 
 	protected Deck getDeck(){
 		return presenter.getDeck();
 	}
 	
-	protected Deck initDeck(Bundle savedInstanceState) {
+	private Deck initDeck(Bundle savedInstanceState) {
 		Deck deck = null;
 		if(savedInstanceState == null){
 			deck  = (Deck) getIntent().getExtras().getSerializable(DECK_ARG_ID);
