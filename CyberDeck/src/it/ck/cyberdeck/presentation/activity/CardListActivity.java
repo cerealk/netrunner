@@ -5,7 +5,6 @@ import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
 import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 import it.ck.cyberdeck.presentation.fragment.CardListFragment;
-import it.ck.cyberdeck.presentation.fragment.CardListFragment.Callbacks;
 import android.content.Intent;
 import android.os.Bundle;
 
