@@ -13,7 +13,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -54,12 +53,6 @@ public class AddCardActivity extends BaseDeckActivity {
 
 	protected CardLibraryExpandableListAdapter getListAdapter() {
 		return adapter;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.add_expandable_card, menu);
-		return true;
 	}
 	
 	@Override

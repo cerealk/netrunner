@@ -11,7 +11,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,12 +58,6 @@ public class NewDeckActivity extends BaseCyberDeckActivity {
 	protected Identity getSelectedIdentity() {
 		int position = deckIdentity.getSelectedItemPosition();
 		return identities.get(position);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.new_deck_wizard, menu);
-		return true;
 	}
 
 }

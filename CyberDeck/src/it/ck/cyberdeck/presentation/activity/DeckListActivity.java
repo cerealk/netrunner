@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -69,12 +68,6 @@ public class DeckListActivity extends BaseCyberDeckActivity {
 	protected void onStart() {
 		super.onStart();
 		loadDecks();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.deck_list, menu);
-		return true;
 	}
 
 	@Override

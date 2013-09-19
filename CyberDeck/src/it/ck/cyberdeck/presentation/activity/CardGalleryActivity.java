@@ -11,7 +11,6 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 
 public class CardGalleryActivity extends BaseCyberDeckActivity {
 
@@ -46,12 +45,6 @@ public class CardGalleryActivity extends BaseCyberDeckActivity {
 
 	private List<Card> getCardList() {
 		return ((CyberDeckApp) getApplication()).getDeckService().loadCardLibrary().getCardList();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.card_gallery, menu);
-		return true;
 	}
 
 }
