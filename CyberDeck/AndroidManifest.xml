@@ -47,7 +47,7 @@
             android:label="@string/title_activity_new_deck_wizard"
             android:noHistory="true" >
         </activity>
-        <activity android:name="it.ck.cyberdeck.presentation.AddCardActivity" >
+        <activity android:name="it.ck.cyberdeck.presentation.activity.AddCardActivity" >
         </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.activity.DeckListActivity"
