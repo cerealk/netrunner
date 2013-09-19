@@ -92,20 +92,18 @@ public class CardListFragment extends ListFragment {
 		 ViewGroup result = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 		filterText = new EditText(this.getActivity());
 		filterText.setHint("Card Filter");
-    ListView lv = (ListView) result.findViewById(android.R.id.list);
-    lv.addHeaderView(filterText);
+		ListView lv = (ListView) result.findViewById(android.R.id.list);
+		lv.addHeaderView(filterText);
 		filterText.addTextChangedListener(new TextWatcher() {
-
-	    @Override
-	    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-	        CardListFragment.this.adapter.getFilter().filter(cs);
-	    }
-	    @Override
-	    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-	            int arg3) { }
-	    @Override
-	    public void afterTextChanged(Editable arg0) {}
-	});
+		    @Override
+		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+		        CardListFragment.this.adapter.getFilter().filter(cs);
+		    }
+		    @Override
+		    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+		    @Override
+		    public void afterTextChanged(Editable arg0) {}
+		});
     return result;
   }
 

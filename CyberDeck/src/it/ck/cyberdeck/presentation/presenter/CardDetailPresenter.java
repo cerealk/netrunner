@@ -10,13 +10,9 @@ public class CardDetailPresenter {
 	private CardDetailView cardDetailView;
 	private Card card;
 
-	public CardDetailPresenter(CardDetailView cardDetailFragment) {
-		this.cardDetailView = cardDetailFragment;
-		setCard();
-	}
-
-	private void setCard() {
-		card = cardDetailView.getCard();
+	public CardDetailPresenter(CardDetailView cardDetailView, Card card) {
+		this.cardDetailView = cardDetailView;
+		this.card=card;
 	}
 
 	public void populateView() {
