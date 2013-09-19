@@ -21,14 +21,14 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class ImageDownloader extends AsyncTask<Void, Integer, Void> {
+public class ImageTask extends AsyncTask<Void, Integer, Void> {
 
 	private String url;
 	private DownloaderView dlv;
 	private Bitmap bmp;
 	private File targetFile;
 
-	public ImageDownloader(String url, DownloaderView dlv, CardKey key) {
+	public ImageTask(String url, DownloaderView dlv, CardKey key) {
 		this.url = url;
 		this.dlv = dlv;
 		this.targetFile =  new File(dlv.getContext().getDir("cards", Context.MODE_PRIVATE), key.getCardCode()+".png");
