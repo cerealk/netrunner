@@ -18,23 +18,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="it.ck.cyberdeck.presentation.CardListActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.CardListActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.CardDetailActivityetailActivity"
             android:label="@string/title_card_detail"
-            android:parentActivityName="it.ck.cyberdeck.presentation.CardListActivity" >
+            android:parentActivityName="it.ck.cyberdeck.presentation.activity.CardListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CardListActivity" />
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.DeckActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.DeckActivity"
             android:label="@string/title_activity_deck" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.WelcomeActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.WelcomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,22 +43,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.NewDeckWizard"
+            android:name="it.ck.cyberdeck.presentation.activity.NewDeckActivity"
             android:label="@string/title_activity_new_deck_wizard"
             android:noHistory="true" >
         </activity>
         <activity android:name="it.ck.cyberdeck.presentation.AddCardActivity" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.DeckListActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.DeckListActivity"
             android:label="@string/title_activity_deck_list" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.CardGalleryActivity"
+        	android:name="it.ck.cyberdeck.presentation.activity.CardGalleryActivityardGalleryActivity"
             android:label="@string/title_activity_card_gallery" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.DeckDetailActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.DeckDetailActivity"
             android:label="@string/title_activity_deck_detail" >
         </activity>
     </application>

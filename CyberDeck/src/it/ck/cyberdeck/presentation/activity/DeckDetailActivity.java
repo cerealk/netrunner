@@ -1,8 +1,10 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
+import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.adapter.DeckDetailPageAdapter;
+import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 

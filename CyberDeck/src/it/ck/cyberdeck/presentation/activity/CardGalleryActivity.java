@@ -1,8 +1,11 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
+import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.adapter.GalleryPageAdapter;
+import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 
 import java.util.List;
 

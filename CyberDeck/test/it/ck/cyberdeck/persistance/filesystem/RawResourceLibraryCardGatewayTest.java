@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.model.reputation.StandardReputationRule;
-import it.ck.cyberdeck.presentation.CardListActivity;
+import it.ck.cyberdeck.presentation.activity.CardListActivity;
 
 import java.io.*;
 import java.util.List;

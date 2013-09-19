@@ -1,7 +1,9 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
+import it.ck.cyberdeck.presentation.BaseDeckActivity;
 
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class DeckListActivity extends BaseCyberDeckActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(DeckListActivity.this,
-						NewDeckWizard.class);
+						NewDeckActivity.class);
 				startActivity(intent);
 
 			}

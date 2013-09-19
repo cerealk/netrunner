@@ -7,6 +7,8 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.robolectric.Robolectric.shadowOf;
 import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.presentation.activity.CardListActivity;
+import it.ck.cyberdeck.presentation.activity.WelcomeActivity;
 
 import org.junit.Before;
 import org.junit.Test;

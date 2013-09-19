@@ -1,11 +1,14 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.DeckStatus;
 import it.ck.cyberdeck.model.Reason;
 import it.ck.cyberdeck.model.StatusCode;
+import it.ck.cyberdeck.presentation.BaseDeckActivity;
+import it.ck.cyberdeck.presentation.DeckView;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
+import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 
 import java.util.List;
 

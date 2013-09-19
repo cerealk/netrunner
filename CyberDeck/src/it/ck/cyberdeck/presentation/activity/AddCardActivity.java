@@ -1,10 +1,12 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardGroup;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.DeckException;
+import it.ck.cyberdeck.presentation.BaseDeckActivity;
+import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryExpandableListAdapter;
 
 import java.util.List;

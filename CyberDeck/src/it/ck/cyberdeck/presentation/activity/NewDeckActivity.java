@@ -1,9 +1,10 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Identity;
+import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
 import it.ck.cyberdeck.presentation.adapter.IdentityAdapter;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
-public class NewDeckWizard extends BaseCyberDeckActivity {
+public class NewDeckActivity extends BaseCyberDeckActivity {
 
 	private EditText deckNameText;
 	private Spinner deckIdentity;
@@ -47,7 +48,7 @@ public class NewDeckWizard extends BaseCyberDeckActivity {
 				Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText
 				    .getText().toString());
 				deckService.saveDeck(deck);
-				Intent intent = new Intent(NewDeckWizard.this, DeckActivity.class);
+				Intent intent = new Intent(NewDeckActivity.this, DeckActivity.class);
 				intent.putExtra(DeckActivity.DECK_ARG_ID, deck);
 				startActivity(intent);
 			}
