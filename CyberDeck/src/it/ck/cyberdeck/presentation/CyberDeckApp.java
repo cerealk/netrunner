@@ -24,8 +24,8 @@ public class CyberDeckApp extends Application {
 		return new DeckServiceImpl(new CachedGateway(new AndroidLibraryCardGateway(this)));
 	}
 
-	public ImageService getImageService() {
-		return new AndroidFSImageService(this);
-	}
+//	public ImageService getImageService() {
+//		return new AndroidFSImageService(this);
+//	}
 
 }

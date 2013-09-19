@@ -8,6 +8,8 @@ import static org.junit.Assert.assertThat;
 import static org.robolectric.Robolectric.shadowOf;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.presentation.activity.CardListActivity;
+import it.ck.cyberdeck.presentation.activity.DeckListActivity;
+import it.ck.cyberdeck.presentation.activity.NewDeckActivity;
 import it.ck.cyberdeck.presentation.activity.WelcomeActivity;
 
 import org.junit.Before;
@@ -68,7 +70,7 @@ public class WelcomeActivityTest {
 		ShadowActivity shadowActivity = shadowOf(activity);
 		Intent startedIntent = shadowActivity.getNextStartedActivity();
 		ShadowIntent shadowIntent = shadowOf(startedIntent);
-		assertThat(shadowIntent.getComponent().getClassName(), equalTo(NewDeckWizard.class.getName()));
+		assertThat(shadowIntent.getComponent().getClassName(), equalTo(NewDeckActivity.class.getName()));
 	}
 
 }
