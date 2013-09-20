@@ -5,8 +5,6 @@ import it.ck.cyberdeck.presentation.BaseImageFragment;
 import it.ck.cyberdeck.presentation.CardEntryView;
 
 public class CardEntryDetailFragment extends BaseImageFragment implements CardEntryView {
-
-	
 	
 	@Override
 	public void setCardImage(Bitmap cardImage) {
