@@ -27,4 +27,9 @@ public class ResourceImageService implements ImageService {
 		return context.getResources();
 	}
 
+	@Override
+	public Bitmap getCardImage(CardKey key, int tmbPixWidth, int tmbPixHeight) {
+		return getCardImage(key);
+	}
+
 }
