@@ -1,16 +1,16 @@
 package it.ck.cyberdeck.presentation.presenter;
 
 import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.presentation.CardDetailView;
+import it.ck.cyberdeck.presentation.CardView;
 import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.service.ImageTask;
 
 public class CardDetailPresenter {
 
-	private CardDetailView cardDetailView;
+	private CardView cardDetailView;
 	private Card card;
 
-	public CardDetailPresenter(CardDetailView cardDetailView, Card card) {
+	public CardDetailPresenter(CardView cardDetailView, Card card) {
 		this.cardDetailView = cardDetailView;
 		this.card=card;
 	}

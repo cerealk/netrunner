@@ -2,7 +2,7 @@ package it.ck.cyberdeck.presentation;
 
 import android.graphics.Bitmap;
 
-public interface CardDetailView {
+public interface CardView {
 	
 	void setCardImage(Bitmap cardImage);
 

@@ -2,7 +2,7 @@ package it.ck.cyberdeck.presentation.fragment;
 
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.BaseImageFragment;
-import it.ck.cyberdeck.presentation.CardDetailView;
+import it.ck.cyberdeck.presentation.CardView;
 import it.ck.cyberdeck.presentation.activity.CardDetailActivity;
 import it.ck.cyberdeck.presentation.activity.CardListActivity;
 import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
@@ -17,7 +17,7 @@ import android.view.ViewGroup;
  * contained in a {@link CardListActivity} in two-pane mode (on tablets) or a
  * {@link CardDetailActivity} on handsets.
  */
-public class CardDetailFragment extends BaseImageFragment implements CardDetailView{
+public class CardDetailFragment extends BaseImageFragment implements CardView{
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
