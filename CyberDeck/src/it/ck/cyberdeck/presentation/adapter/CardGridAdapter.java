@@ -31,9 +31,12 @@ public class CardGridAdapter  extends BaseAdapter {
 			this.cards = cards;
 			tmbPixHeight = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
 			tmbPixWidth = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
-			imageCache = ((CyberDeckApp)context.getApplicationContext()).getImageCache();
-		    
+			imageCache = getCyberDeckApp().getImageCache();
 	    }
+
+		private CyberDeckApp getCyberDeckApp() {
+			return (CyberDeckApp)context.getApplicationContext();
+		}
 
 	    public int getCount() {
 	        return cards.size();
@@ -67,8 +70,7 @@ public class CardGridAdapter  extends BaseAdapter {
 			if(bitmap!=null){
 	        	imageView.setImage(bitmap);
 	        }else{
-				String url = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ key.getCardCode() +".png";
-				ImageTask task = new ImageTask(url, imageView, key, tmbPixWidth, tmbPixHeight);
+				ImageTask task = new ImageTask(imageView, key,getCyberDeckApp().getImageService(), tmbPixWidth, tmbPixHeight);
 				imageView.setTask(task);
 		        task.execute();
 	        }

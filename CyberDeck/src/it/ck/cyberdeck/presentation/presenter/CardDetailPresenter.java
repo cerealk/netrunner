@@ -4,6 +4,7 @@ import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.CardView;
 import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.service.ImageTask;
+import it.ck.cyberdeck.presentation.CyberDeckApp;
 
 public class CardDetailPresenter {
 
@@ -17,8 +18,8 @@ public class CardDetailPresenter {
 
 	public void populateView() {
 		if (card != null) {
-			String url = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ card.getKey().getCardCode() +".png";
-			ImageTask downloader = new ImageTask(url , (DownloaderView)cardDetailView, card.getKey());
+			DownloaderView dlv = (DownloaderView)cardDetailView;
+			ImageTask downloader = new ImageTask(dlv , card.getKey(), ((CyberDeckApp)dlv.getContext().getApplicationContext()).getImageService());
 			downloader.execute();
 		}
 

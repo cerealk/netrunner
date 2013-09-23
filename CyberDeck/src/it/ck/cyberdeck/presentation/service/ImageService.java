@@ -8,4 +8,5 @@ public interface ImageService {
 	Bitmap getCardImage(CardKey key);
 
 	Bitmap getCardImage(CardKey key, int tmbPixWidth, int tmbPixHeight);
+	
 }
