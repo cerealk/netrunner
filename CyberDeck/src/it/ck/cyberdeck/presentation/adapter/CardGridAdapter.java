@@ -33,7 +33,7 @@ public class CardGridAdapter  extends BaseAdapter {
 			
 		    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 
-		    final int cacheSize = maxMemory / 6;
+		    final int cacheSize = maxMemory / 4;
 
 		    imageCache = new LruCache<String, Bitmap>(cacheSize) {
 		        @Override
