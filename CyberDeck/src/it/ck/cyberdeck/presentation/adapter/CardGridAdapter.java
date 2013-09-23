@@ -3,6 +3,7 @@ package it.ck.cyberdeck.presentation.adapter;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardKey;
+import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.service.ImageTask;
 
@@ -30,17 +31,8 @@ public class CardGridAdapter  extends BaseAdapter {
 			this.cards = cards;
 			tmbPixHeight = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
 			tmbPixWidth = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
-			
-		    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-
-		    final int cacheSize = maxMemory / 4;
-
-		    imageCache = new LruCache<String, Bitmap>(cacheSize) {
-		        @Override
-		        protected int sizeOf(String key, Bitmap bitmap) {
-		            return bitmap.getRowBytes() * bitmap.getHeight() / 1024;
-		        }
-		    };
+			imageCache = ((CyberDeckApp)context.getApplicationContext()).getImageCache();
+		    
 	    }
 
 	    public int getCount() {
