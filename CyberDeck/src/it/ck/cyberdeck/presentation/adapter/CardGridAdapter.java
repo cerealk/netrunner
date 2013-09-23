@@ -10,8 +10,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask.Status;
 import android.support.v4.util.LruCache;
 import android.view.View;
@@ -25,8 +23,7 @@ public class CardGridAdapter  extends BaseAdapter {
 		private List<Card> cards;
 		private int tmbPixHeight;
 		private int tmbPixWidth;
-		private Bitmap bgImg;
-		private LruCache<String, Bitmap> mMemoryCache;
+		private LruCache<String, Bitmap> imageCache;
 		
 	    public CardGridAdapter(Context c, List<Card> cards) {
 	        context = c;
@@ -38,7 +35,7 @@ public class CardGridAdapter  extends BaseAdapter {
 
 		    final int cacheSize = maxMemory / 6;
 
-		    mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+		    imageCache = new LruCache<String, Bitmap>(cacheSize) {
 		        @Override
 		        protected int sizeOf(String key, Bitmap bitmap) {
 		            return bitmap.getRowBytes() * bitmap.getHeight() / 1024;
@@ -65,13 +62,14 @@ public class CardGridAdapter  extends BaseAdapter {
 	            imageView.setLayoutParams(new GridView.LayoutParams(tmbPixWidth, tmbPixHeight));
 	            imageView.setScaleType(ImageView.ScaleType.CENTER);
 	            imageView.setPadding(8, 8, 8, 8);
+	            imageView.setBackgroundResource(R.drawable.runner_back);
 	        } else {
 	            imageView = (ImageDowloaderView) convertView;
 	            imageView.setImage(null);
 	            
 	        }
 	        
-	        imageView.setBackgroundDrawable(getBgImg());
+	        imageView.setBackgroundResource(R.drawable.runner_back);
 	        CardKey key = getItem(position).getKey();
 	        Bitmap bitmap = getBitmapFromCache(key.getCardCode());
 			if(bitmap!=null){
@@ -86,17 +84,15 @@ public class CardGridAdapter  extends BaseAdapter {
 	    }
 
 		private Bitmap getBitmapFromCache(String cardCode) {
-			return mMemoryCache.get(cardCode);
+			return imageCache.get(cardCode);
+		}
+		
+		private void addImgToCache(CardKey key, Bitmap bmp) {
+		    if (key!=null && getBitmapFromCache(key.getCardCode()) == null && bmp!= null) {
+		        imageCache.put(key.getCardCode(), bmp);
+		    }
 		}
 	    
-	    private Drawable getBgImg() {
-			
-			if(this.bgImg == null){
-				bgImg = BitmapFactory.decodeResource(context.getResources(), R.drawable.runner_back);
-			}
-			return null;
-		}
-
 		class ImageDowloaderView extends ImageView implements DownloaderView{
 
 			private ImageTask task;
@@ -131,12 +127,4 @@ public class CardGridAdapter  extends BaseAdapter {
 	    	
 	    }
 		
-		private void addImgToCache(CardKey key, Bitmap bmp) {
-			
-			    if (key!=null && getBitmapFromCache(key.getCardCode()) == null && bmp!= null) {
-			        mMemoryCache.put(key.getCardCode(), bmp);
-			    }
-			
-		}
-	
 }
