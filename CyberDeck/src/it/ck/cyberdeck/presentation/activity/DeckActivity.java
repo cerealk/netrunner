@@ -144,7 +144,6 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 			statusLine += "\nAgenda points: " + String.valueOf(deckStatus.getAgendaPoints()) + " " + deckStatus.getAgendaRange(); 
 		deckStatusLine.setText(statusLine);
 		
-		
 	}
 
 }
