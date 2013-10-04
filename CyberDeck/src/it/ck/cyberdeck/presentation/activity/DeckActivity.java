@@ -3,8 +3,6 @@ package it.ck.cyberdeck.presentation.activity;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.DeckStatus;
-import it.ck.cyberdeck.model.Reason;
-import it.ck.cyberdeck.model.StatusCode;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.DeckView;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
@@ -29,6 +27,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	private TextView identityName;
 	private TextView deckStatusLine;
+	private TextView deckReputation;
 	private ListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
 
@@ -39,7 +38,8 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
-
+		deckReputation = (TextView) findViewById(R.id.reputation_values);
+		
 		listViewAdapter = new CardEntryListViewAdapter(
 				this.getApplicationContext());
 
@@ -140,13 +140,14 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	public void publishDeckStatus(DeckStatus deckStatus) {
 
 		String statusLine = "";
-		if (deckStatus.status().equals(StatusCode.INVALID)) {
-			if (deckStatus.reason().equals(Reason.FEW_CARDS))
-				statusLine = "There are not enough cards";
-			if (deckStatus.reason().equals(Reason.FEW_AGENDA_POINTS))
-				statusLine = "The agenda points are not valid for the deck size";
-		}
+		statusLine += "Card count: "+ String.valueOf(deckStatus.cardCount()) + "/" + deckStatus.minDeckSize();
+		if(presenter.getDeck().isCorpDeck())
+			statusLine += "\nAgenda points: " + String.valueOf(deckStatus.getAgendaPoints()) + " " + deckStatus.getAgendaRange(); 
 		deckStatusLine.setText(statusLine);
+		
+		String repoLine="";
+		repoLine += "Reputation: " + deckStatus.getReputation() + "/" + deckStatus.getReputationCap();
+		deckReputation.setText(repoLine);
 	}
 
 }

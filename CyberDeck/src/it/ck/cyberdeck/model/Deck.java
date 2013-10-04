@@ -46,7 +46,7 @@ public class Deck implements Serializable {
 
 	public Deck(Identity identity) {
 		this.identity = identity;
-		this.deckStatus = new DeckStatus(StatusCode.INVALID, identity.minSize());
+		this.deckStatus = new DeckStatus(StatusCode.INVALID, identity.minSize(), identity.reputationCap());
 	}
 
 	public Deck(Identity identity, String name) {
@@ -133,7 +133,12 @@ public class Deck implements Serializable {
 	public DeckStatus checkStatus() {
 		checkSize();
 		checkAgendaPoints();
+		checkReputation();
 		return this.deckStatus;
+	}
+
+	private void checkReputation() {
+		deckStatus.setReputation(cards.calculateReputation(identity));
 	}
 
 	private void checkSize() {
@@ -150,20 +155,24 @@ public class Deck implements Serializable {
 	}
 
 	private void checkAgendaPoints() {
+		int ap = 0;
 		if (requiresAgendaPointCheck()) {
-			int ap = countAgendaPoints();
-
+			ap = countAgendaPoints();
 			boolean correctPointRange = checkPointRange(ap);
 			handleCheckResult(correctPointRange, Reason.FEW_AGENDA_POINTS);
 		}
+		this.deckStatus.updateAgendaPoints(ap);
+		this.deckStatus.setAgendaRange(getPointRange());
 	}
 
 	private boolean checkPointRange(int ap) {
-		return getPointRange().contains(ap);
+		if (size() >=MIN_DECK_SIZE)
+			return getPointRange().contains(ap);
+		return false;
 	}
 
 	private boolean requiresAgendaPointCheck() {
-		return this.identity.isCorp() && size() >= MIN_DECK_SIZE;
+		return this.identity.isCorp();
 	}
 
 	private Range<Integer> getPointRange() {
@@ -171,6 +180,7 @@ public class Deck implements Serializable {
 		int maxRange = MIN_DECK_SIZE + 4;
 		int minAp = 18;
 		int maxAp = 19;
+		Range<Integer> baseAgendaPointsRange = Range.between(minAp, maxAp);
 		while (minRange < MAX_DECK_SIZE) {
 			if (Range.between(minRange, maxRange).contains(size())) {
 				return Range.between(minAp, maxAp);
@@ -180,13 +190,16 @@ public class Deck implements Serializable {
 			minAp += 2;
 			maxAp = minAp + 1;
 		}
-		return null;
+		return baseAgendaPointsRange;
 
 	}
 
 	private int countAgendaPoints() {
-
 		return cards.countAgendaPoints();
+	}
+	
+	public boolean isCorpDeck(){
+		return identity.isCorp();
 	}
 
 }

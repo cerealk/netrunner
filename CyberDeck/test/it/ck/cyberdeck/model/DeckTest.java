@@ -4,12 +4,14 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static it.ck.cyberdeck.model.CardType.*;
 import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
 import it.ck.cyberdeck.model.Deck.TooManyOutOfFactionCardsException;
 import it.ck.cyberdeck.model.Deck.WrongSideException;
 
+import org.apache.commons.lang3.Range;
 import org.junit.*;
 
 public class DeckTest {
@@ -212,8 +214,7 @@ public class DeckTest {
 	
 	@Test
 	public void ifA40_44CardCorpDeckHasNot18_19APIsInvalid(){
-		Identity identity = getCorpIdentity();
-		Deck corpDeck = new Deck(identity , "corp deck");
+		Deck corpDeck = getCorpDeck();
 		corpDeck.add(getCorpCardWithNoAgenda("card1",1),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card2",2),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card3",3),3);
@@ -230,12 +231,12 @@ public class DeckTest {
 		corpDeck.add(getCorpCardWithAgenda("agenda2",3, 14),1);
 		
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.INVALID));
+		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(18,19))));
 	}
 	
 	@Test
 	public void ifA45_49CardCorpDeckHasNot20_21APIsInvalid(){
-		Identity identity = getCorpIdentity();
-		Deck corpDeck = new Deck(identity , "corp deck");
+		Deck corpDeck = getCorpDeck();
 		corpDeck.add(getCorpCardWithNoAgenda("card1",1),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card2",2),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card3",3),3);
@@ -254,12 +255,12 @@ public class DeckTest {
 		corpDeck.add(getCorpCardWithAgenda("agenda2",5, 16),1);
 		
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.VALID));
+		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(20,21))));
 	}
 	
 	@Test
 	public void aCorpDeckWith40CardsShouldHave18_19AgendaPoints(){
-		Identity identity = getCorpIdentity();
-		Deck corpDeck = new Deck(identity , "corp deck");
+		Deck corpDeck = getCorpDeck();
 		corpDeck.add(getCorpCardWithNoAgenda("card1",1),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card2",2),3);
 		corpDeck.add(getCorpCardWithNoAgenda("card3",3),3);
@@ -276,30 +277,68 @@ public class DeckTest {
 		corpDeck.add(getCorpCardWithAgenda("agenda2",3, 14),1);
 		
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.VALID));
+		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(18,19))));
 		
 	}
 	
 	@Test
 	public void theDeckStatusContainsTheDeckSize(){
 		twoCardDeck();
-		assertThat(deck.checkStatus().minDeckSize(), is(2));
-	}
-
-	private void twoCardDeck() {
 		deck.add(getCard());
-		deck.add(getCard());
+		assertThat(deck.checkStatus().cardCount(), is(3));
 	}
 	
 	@Test
-	@Ignore
 	public void theDeckStatusContainsTheMinimumDeckSize(){
-		fail("not yet implemented");
+		twoCardDeck();
+		assertThat(deck.checkStatus().minDeckSize(), is(2));
 	}
 
-	private Identity getCorpIdentity() {
-	  return new Identity("HB", Side.CORP, Faction.HAAS_BIOROID, 40, 15, null);
-  }
+	@Test
+	public void theDeckStatusContainsInfoAboutTheAgendaPoints() throws Exception {
+		Deck corpDeck = getCorpDeckWithOneAgenda();
+		assertThat(corpDeck.checkStatus().getAgendaPoints(), is(3));
+	}
+	
+	@Test
+	public void theDeckStatusContainsInfoAboutTheCorrectAgendaPointRange() throws Exception {
+		Deck corpDeck = getCorpDeckWithOneAgenda();
+		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(18,19))));
+	}
+	
+	@Test
+	public void givenADeckWithARunnerIdentity_itIsARunnerDeck(){
+		assertThat(deck.isCorpDeck(), is(not(true)));
+	}
+	
+	@Test
+	public void givenADeckWithACorpIdentity_itIsACorpDeck(){
+		assertThat(getCorpDeck().isCorpDeck(), is(true));
+	}
 
+	@Test
+	public void theDeckStatusContainsInformationsAboutTheMaxReputation() throws Exception {
+		assertThat(deck.checkStatus().getReputationCap(), is(15));
+	}
+	
+	@Test
+	public void theDeckStatusContainsInformationsAboutTheActualReputation() throws Exception {
+		deck.add(getAnarchCard());
+		assertThat(deck.checkStatus().getReputation(), is(5));
+	}
+	
+	private Deck getCorpDeckWithOneAgenda() {
+		Deck corpDeck = getCorpDeck();
+		corpDeck.add(getCorpCardWithAgenda("agenda1", 3, 1));
+		return corpDeck;
+	}
+
+	private Deck getCorpDeck() {
+		Identity identity = getHBIdentity();
+		Deck corpDeck = new Deck(identity  , "corp deck");
+		return corpDeck;
+	}
+	
 	private Deck getDeck(Identity identity) {
 		return new Deck(identity);
 	}
@@ -315,6 +354,12 @@ public class DeckTest {
 
 	private Identity getIdentity() {
 		return getIdentity(2);
+	}
+	
+
+	private void twoCardDeck() {
+		deck.add(getCard());
+		deck.add(getCard());
 	}
 
 }
