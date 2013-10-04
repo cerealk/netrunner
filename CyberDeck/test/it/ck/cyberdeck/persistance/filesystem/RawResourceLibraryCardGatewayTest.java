@@ -1,12 +1,24 @@
 package it.ck.cyberdeck.persistance.filesystem;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.model.CardKey;
+import it.ck.cyberdeck.model.CardLibrary;
+import it.ck.cyberdeck.model.CardSet;
+import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.model.reputation.StandardReputationRule;
-import it.ck.cyberdeck.presentation.activity.CardListActivity;
+import it.ck.cyberdeck.presentation.activity.WelcomeActivity;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,16 +26,15 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import com.google.gson.stream.JsonReader;
-
 import android.content.Context;
+
+import com.google.gson.stream.JsonReader;
 
 @RunWith(RobolectricTestRunner.class)
 public class RawResourceLibraryCardGatewayTest {
 
-	private AndroidLibraryCardGateway gw = new AndroidLibraryCardGateway(
-	    Robolectric.buildActivity(CardListActivity.class).create().get());
-	private CardListActivity activity = Robolectric.buildActivity(CardListActivity.class).create().get();;
+	private WelcomeActivity activity = Robolectric.buildActivity(WelcomeActivity.class).create().get();;
+	private AndroidLibraryCardGateway gw = new AndroidLibraryCardGateway(activity);
 
 	@Test
 	public void theRawResourceCanBeLoaded() throws Exception {
@@ -31,7 +42,6 @@ public class RawResourceLibraryCardGatewayTest {
 
 		assertThat(source, is(notNullValue()));
 		assertThat(Boolean.valueOf(source.hasNext()), is(true));
-//		System.out.println(source);
 	}
 
 	@Test
