@@ -27,7 +27,6 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	private TextView identityName;
 	private TextView deckStatusLine;
-	private TextView deckReputation;
 	private ListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
 
@@ -38,7 +37,6 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
-		deckReputation = (TextView) findViewById(R.id.reputation_values);
 		
 		listViewAdapter = new CardEntryListViewAdapter(
 				this.getApplicationContext());
@@ -141,13 +139,12 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 		String statusLine = "";
 		statusLine += "Card count: "+ String.valueOf(deckStatus.cardCount()) + "/" + deckStatus.minDeckSize();
+		statusLine += "\t\tRep: " + deckStatus.getReputation() + "/" + deckStatus.getReputationCap();
 		if(presenter.getDeck().isCorpDeck())
 			statusLine += "\nAgenda points: " + String.valueOf(deckStatus.getAgendaPoints()) + " " + deckStatus.getAgendaRange(); 
 		deckStatusLine.setText(statusLine);
 		
-		String repoLine="";
-		repoLine += "Reputation: " + deckStatus.getReputation() + "/" + deckStatus.getReputationCap();
-		deckReputation.setText(repoLine);
+		
 	}
 
 }

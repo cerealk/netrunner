@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/deck_cards"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:text="@string/hello_world" />
         
     <ListView
@@ -45,14 +45,5 @@
         android:layout_alignTop="@+id/add_card_button"
         android:layout_toLeftOf="@+id/add_card_button"
         android:text="" />
-
-    <TextView
-        android:id="@+id/reputation_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/deck_identity"
-        android:layout_toRightOf="@+id/deckStatusLine"
-        android:text="@string/hello_world"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
