@@ -2,10 +2,13 @@ package it.ck.cyberdeck.presentation.adapter;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
+import it.ck.cyberdeck.presentation.util.ImageFactory;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.*;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
@@ -24,12 +27,14 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 		
 		View rowView = inflater.inflate(R.layout.deck_entry_layout, parent, false);
 		
+		ImageView icon = (ImageView) rowView.findViewById(R.id.icon);
 		TextView textView = (TextView) rowView.findViewById(R.id.cardName);
 		TextView countText = (TextView) rowView.findViewById(R.id.countText);
-		CardEntry card = getItem(position);
-		textView.setText(card.getCard().getName());
-		countText.setText(String.valueOf(card.getCount()));
-
+		CardEntry entry = getItem(position);
+		textView.setText(entry.getCard().getName());
+		countText.setText(String.valueOf(entry.getCount()));
+		Bitmap bmp = ImageFactory.getFactionImage(context, entry.getCard().getSide(), entry.getCard().getFaction());
+		icon.setImageBitmap(bmp);
 		return rowView;
 	}
 	
