@@ -39,7 +39,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
 		
 		listViewAdapter = new CardEntryListViewAdapter(
-				this.getApplicationContext());
+				this.getApplicationContext(), getDeck());
 
 		cardList = (ListView) findViewById(R.id.deck_cards);
 
