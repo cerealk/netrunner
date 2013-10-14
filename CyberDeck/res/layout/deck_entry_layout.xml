@@ -22,15 +22,6 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/icon"
         android:text="@+id/cardName" />
-    
-    <TextView
-        android:id="@+id/reputation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/cardName"
-        android:paddingLeft="4dp" 
-        android:text="@+id/repuattion" />
 
     <TextView
         android:id="@+id/countText"
