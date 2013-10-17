@@ -62,7 +62,7 @@
             android:label="@string/title_activity_deck_detail" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.MassDownloadActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.MassDownloadActivity"
             android:label="@string/title_activity_mass_download" >
         </activity>
     </application>

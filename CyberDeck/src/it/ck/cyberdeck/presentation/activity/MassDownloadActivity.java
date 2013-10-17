@@ -1,7 +1,8 @@
-package it.ck.cyberdeck.presentation;
+package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardLibrary;
+import it.ck.cyberdeck.presentation.BaseCardLibraryActivity;
 import it.ck.cyberdeck.presentation.service.MassDownloadTask;
 import android.os.Bundle;
 import android.widget.TextView;

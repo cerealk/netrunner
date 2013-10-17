@@ -4,7 +4,7 @@ import java.util.List;
 
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
-import it.ck.cyberdeck.presentation.MassDownloadActivity;
+import it.ck.cyberdeck.presentation.activity.MassDownloadActivity;
 import android.os.AsyncTask;
 
 public class MassDownloadTask extends AsyncTask<Void, Integer, Void>{
