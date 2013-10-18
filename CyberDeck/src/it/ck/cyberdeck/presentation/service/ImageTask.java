@@ -43,7 +43,6 @@ public class ImageTask extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected Void doInBackground(Void... arg0) {
-		
 		bmp = imageService.getCardImage(key, reqWidth, reqHeight);
 		return null;
 	}

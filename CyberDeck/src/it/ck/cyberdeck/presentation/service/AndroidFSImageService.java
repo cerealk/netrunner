@@ -26,11 +26,10 @@ public class AndroidFSImageService implements ImageService {
 	@Override
 	public Bitmap getCardImage(CardKey key) {
 		File bmp = getFile(key); 
-		if (bmp.exists()){
-			return BitmapFactory.decodeFile(bmp.getPath());
+		if (!bmp.exists()){
+			saveBitmapFromURL(key);
 		}
-		
-		return null;
+		return BitmapFactory.decodeFile(bmp.getPath());
 	}
 
 	private File getFile(CardKey key) {

@@ -54,12 +54,17 @@
             android:label="@string/title_activity_deck_list" >
         </activity>
         <activity
-        	android:name="it.ck.cyberdeck.presentation.activity.CardGalleryActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.CardGalleryActivity"
             android:label="@string/title_activity_card_gallery" >
         </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.activity.DeckDetailActivity"
             android:label="@string/title_activity_deck_detail" >
+        </activity>
+        <activity
+            android:name="it.ck.cyberdeck.presentation.activity.MassDownloadActivity"
+            android:label="@string/title_activity_mass_download"
+            android:noHistory="true">
         </activity>
     </application>
 
