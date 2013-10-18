@@ -2,23 +2,22 @@ package it.ck.cyberdeck.presentation.service;
 
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
+import it.ck.cyberdeck.presentation.MassDownloadView;
 
 import java.util.List;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 public class MassDownloadTask extends AsyncTask<Void, Integer, Void>{
 
 	private CardLibrary cardLibrary;
 	private ImageService is;
-	private TextView progress;
+	private MassDownloadView progress;
 	private int clSize;
 
-	public MassDownloadTask (ImageService is, CardLibrary cardLibrary, TextView progress){
+	public MassDownloadTask (ImageService is, CardLibrary cardLibrary){
 		this.is = is;
 		this.cardLibrary = cardLibrary;
-		this.progress = progress;
 		this.clSize = cardLibrary.getCardList().size();
 	}
 	
@@ -27,14 +26,10 @@ public class MassDownloadTask extends AsyncTask<Void, Integer, Void>{
 		List<Card> cards = cardLibrary.getCardList();
 		int i=0;
 		for(Card card: cards){
-			
 			is.getCardImage(card.getKey());
 			i++;
-			
 			publishProgress(getWorkDone(i));
 		}
-		
-		
 		return null;
 	}
 
@@ -45,13 +40,20 @@ public class MassDownloadTask extends AsyncTask<Void, Integer, Void>{
 	
 	@Override
 	protected void onProgressUpdate(Integer... values) {
-		progress.setText(values[0].toString());
+		progress.onUpdateProgress(values[0]);
 		super.onProgressUpdate(values);
 	}
 
-	public void setProgressView(TextView advancement) {
-		this.progress = advancement;
-		
+	
+	
+	@Override
+	protected void onPostExecute(Void result) {
+		super.onPostExecute(result);
+		progress.onTaskEnd();
+	}
+
+	public void setProgressView(MassDownloadView massDownloadActivity) {
+		this.progress = massDownloadActivity;
 	}
 
 }
