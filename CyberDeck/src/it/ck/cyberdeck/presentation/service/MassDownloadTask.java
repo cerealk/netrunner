@@ -26,15 +26,18 @@ public class MassDownloadTask extends AsyncTask<Void, Integer, Void>{
 		List<Card> cards = cardLibrary.getCardList();
 		int i=0;
 		for(Card card: cards){
-			is.getCardImage(card.getKey());
+			getCardImage(card);
 			i++;
-			publishProgress(getWorkDone(i));
+			publishProgress(calculateDonePercentage(i));
 		}
 		return null;
 	}
 
-	private Integer getWorkDone(int i) {
-		
+	private void getCardImage(Card card) {
+		is.getCardImage(card.getKey());
+	}
+
+	private Integer calculateDonePercentage(int i) {
 		return i * 100 / clSize ;
 	}
 	
@@ -43,8 +46,6 @@ public class MassDownloadTask extends AsyncTask<Void, Integer, Void>{
 		progress.onUpdateProgress(values[0]);
 		super.onProgressUpdate(values);
 	}
-
-	
 	
 	@Override
 	protected void onPostExecute(Void result) {

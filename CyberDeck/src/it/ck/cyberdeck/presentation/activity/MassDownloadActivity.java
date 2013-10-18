@@ -7,7 +7,6 @@ import it.ck.cyberdeck.presentation.MassDownloadView;
 import it.ck.cyberdeck.presentation.service.AndroidFSImageService;
 import it.ck.cyberdeck.presentation.service.ImageService;
 import it.ck.cyberdeck.presentation.service.MassDownloadTask;
-import android.content.Intent;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,7 +61,6 @@ public class MassDownloadActivity extends BaseCardLibraryActivity implements Mas
 	
     public static class TaskRetainFragment extends Fragment {
         private MassDownloadTask task;
-        public TaskRetainFragment() {}
 
         public void setUpdateView(MassDownloadView massDownloadActivity) {
 			task.setProgressView(massDownloadActivity);
@@ -81,11 +79,6 @@ public class MassDownloadActivity extends BaseCardLibraryActivity implements Mas
             setRetainInstance(true);
         }
 
-        /**
-         * Store a single object in this Fragment.
-         *
-         * @param object The object to store
-         */
         public void createMassDownloadTask(ImageService is, CardLibrary cl) {
             if(task == null)
             	task = new MassDownloadTask(is, cl);
