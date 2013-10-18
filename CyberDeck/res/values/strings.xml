@@ -28,4 +28,5 @@
     <string name="title_activity_deck_detail">DeckDetailActivity</string>
     <string name="title_activity_mass_download">MassDownloadActivity</string>
 	<string name="reputation_dot">&#xf111;</string>
+	<string name="mass_download">Download all cards</string>
 </resources>
