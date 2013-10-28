@@ -12,20 +12,24 @@ import android.os.AsyncTask;
 public class ImageTask extends AsyncTask<Void, Integer, Void> {
 
 	private DownloaderView dlv;
-	private Bitmap bmp;
-	private int reqWidth;
-	private int reqHeight;
-	private CardKey key;
-	private ImageService imageService;
+	protected Bitmap bmp;
+	protected final int reqWidth;
+	protected final int reqHeight;
+	protected final CardKey key;
+	protected ImageService imageService;
 
 	public ImageTask(DownloaderView dlv, CardKey key, ImageService imageService) {
 		this.dlv = dlv;
 		this.key=key;
 		this.imageService = imageService;
+		reqWidth = 0;
+		reqHeight = 0;
 	}
 	
 	public ImageTask( DownloaderView dlv, CardKey key, ImageService imageService, int reqWidth, int reqHeight) {
-		this(dlv, key, imageService);
+		this.dlv = dlv;
+		this.key=key;
+		this.imageService = imageService;
 		this.reqWidth = reqWidth;
 		this.reqHeight = reqHeight;
 	}

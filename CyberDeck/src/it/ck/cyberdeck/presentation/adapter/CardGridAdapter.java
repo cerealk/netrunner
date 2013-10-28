@@ -6,6 +6,7 @@ import it.ck.cyberdeck.model.CardKey;
 import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.DownloaderView;
 import it.ck.cyberdeck.presentation.service.ImageTask;
+import it.ck.cyberdeck.presentation.service.ThumbnailImageTask;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class CardGridAdapter  extends BaseAdapter {
 	        if (convertView == null) { 
 	            imageView = new ImageDowloaderView(context);
 	            imageView.setLayoutParams(new GridView.LayoutParams(tmbPixWidth, tmbPixHeight));
-	            imageView.setScaleType(ImageView.ScaleType.CENTER);
+	            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 	            imageView.setPadding(8, 8, 8, 8);
 	            imageView.setBackgroundResource(R.drawable.runner_back);
 	        } else {
@@ -70,7 +71,7 @@ public class CardGridAdapter  extends BaseAdapter {
 			if(bitmap!=null){
 	        	imageView.setImage(bitmap);
 	        }else{
-				ImageTask task = new ImageTask(imageView, key,getCyberDeckApp().getImageService(), tmbPixWidth, tmbPixHeight);
+				ImageTask task = new ThumbnailImageTask(imageView, key,getCyberDeckApp().getImageService(), tmbPixWidth, tmbPixHeight);
 				imageView.setTask(task);
 		        task.execute();
 	        }

@@ -1,5 +1,7 @@
 package it.ck.cyberdeck.presentation.service;
 
+import it.ck.cyberdeck.model.CardKey;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import it.ck.cyberdeck.model.CardKey;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,29 +27,88 @@ public class AndroidFSImageService implements ImageService {
 	
 	@Override
 	public Bitmap getCardImage(CardKey key) {
-		File bmp = getFile(key); 
-		if (!bmp.exists()){
-			saveBitmapFromURL(key);
-		}
-		return BitmapFactory.decodeFile(bmp.getPath());
+		File bmp = getFile(getImageKey(key)); 
+		return loadBitmap(key, bmp);
 	}
-
-	private File getFile(CardKey key) {
-		return new File(context.getDir("cards", Context.MODE_PRIVATE), key.getCardCode()+".png");
-	}
-
+	
 	@Override
 	public Bitmap getCardImage(CardKey key, int tmbPixWidth, int tmbPixHeight) {
-		File bmp = getFile(key);
+		File bmp = getFile(getImageKey(key));
 		if(!bmp.exists()){
 			saveBitmapFromURL(key);
+			createAndSaveThumbnail(key);
 		}
         
-        return decodeBitmap(key, tmbPixWidth, tmbPixHeight);
+        return decodeBitmap(bmp, tmbPixWidth, tmbPixHeight);
+	}
+	
+	@Override
+	public Bitmap getCardThumbnail(CardKey key) {
+		File bmp = getFile(getThumbnailKey(key)); 
+		return loadBitmap(key, bmp);
+	}
+	
+	@Override
+	public Bitmap getCardThumbnail(CardKey key, int tmbPixWidth, int tmbPixHeight) {
+		File bmp = getFile(getThumbnailKey(key));
+		if(!bmp.exists()){
+			saveBitmapFromURL(key);
+			createAndSaveThumbnail(key);
+		}
+        
+        return decodeBitmap(bmp, tmbPixWidth, tmbPixHeight);
+	}
+	
+	private Bitmap loadBitmap(CardKey key, File bmpFile) {
+		if (!bmpFile.exists()){
+			saveBitmapFromURL(key);
+			createAndSaveThumbnail(key);
+		}
+		return BitmapFactory.decodeFile(bmpFile.getPath());
 	}
 
-	private Bitmap decodeBitmap(CardKey key, int tmbPixWidth, int tmbPixHeight) {
-		String filePath = getFile(key).getPath();
+	private void createAndSaveThumbnail(CardKey key) {
+		Bitmap bmp = BitmapFactory.decodeFile(getFile(getImageKey(key)).getPath());
+		  final int THUMBNAIL_SIZE = 100;
+		  float factor = THUMBNAIL_SIZE / (float) bmp.getHeight();
+	      bmp = Bitmap.createScaledBitmap(bmp, (int) (bmp.getWidth() * factor), THUMBNAIL_SIZE, false);  
+          
+          File thumbnailFile = getFile(getThumbnailKey(key));
+          FileOutputStream fos = null;
+			try {
+				if(!thumbnailFile.exists())
+					thumbnailFile.createNewFile();
+				fos = new FileOutputStream(thumbnailFile);
+				bmp.compress(Bitmap.CompressFormat.PNG, 70, fos);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally{
+				if(fos!=null)
+					try {
+						fos.close();
+					}catch (IOException e) {}
+			}
+          
+	}
+
+	private String getThumbnailKey(CardKey key) {
+		return key.getCardCode()+"_tmb.png";
+	}
+	
+
+
+	private String getImageKey(CardKey key) {
+		return key.getCardCode()+".png";
+	}
+
+	@SuppressLint("NewApi")
+	private File getFile(String key) {
+		return new File(context.getExternalFilesDir("cards"), key);
+	}
+
+	private Bitmap decodeBitmap(File file, int tmbPixWidth, int tmbPixHeight) {
+		String filePath = file.getPath();
 		if(tmbPixHeight == 0 || tmbPixWidth == 0)
 			return BitmapFactory.decodeFile(filePath);
 		else{
@@ -85,7 +146,7 @@ public class AndroidFSImageService implements ImageService {
 	
 	private void saveInputStream(InputStream input, CardKey key) throws IOException {
 		try {
-			File bmp = getFile(key);
+			File bmp = getFile(getImageKey(key));
 			final OutputStream output = new FileOutputStream(bmp);
 		    try {
 		        try {
@@ -110,30 +171,19 @@ public class AndroidFSImageService implements ImageService {
 	
 	private static int calculateInSampleSize(BitmapFactory.Options options,
             int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
+
+		final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {
 
-            // Calculate ratios of height and width to requested height and width
             final int heightRatio = Math.round((float) height / (float) reqHeight);
             final int widthRatio = Math.round((float) width / (float) reqWidth);
 
-            // Choose the smallest ratio as inSampleSize value, this will guarantee a final image
-            // with both dimensions larger than or equal to the requested height and width.
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
 
-            // This offers some additional logic in case the image has a strange
-            // aspect ratio. For example, a panorama may have a much larger
-            // width than height. In these cases the total pixels might still
-            // end up being too large to fit comfortably in memory, so we should
-            // be more aggressive with sample down the image (=larger inSampleSize).
-
             final float totalPixels = width * height;
-
-            // Anything more than 2x the requested pixels we'll sample down further
             final float totalReqPixelsCap = reqWidth * reqHeight * 2;
 
             while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
