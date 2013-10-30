@@ -7244,7 +7244,7 @@
     "trash": "5",
     "errata": "",
     "unique": "Yes",
-    "text": "You have 1 additional [Click] to spend each turn.<br />\nIf Director Haas is trashed while being accessed, add her to the Runner&#39;s score area as an agenda worth 2 agenda points.",
+    "text": "You have 1 additional [Click] to spend each turn.<br />\nIf Director Haas is trashed while being accessed, add her to the Runner's score area as an agenda worth 2 agenda points.",
     "set": "Creation and Control",
     "num": "10",
     "count": "3",
@@ -7259,7 +7259,7 @@
     "GUID": "bc0f047c-01b1-427f-a439-d451eda03010",
     "img": ""
 }, {
-    "name": "Director Haas&#39; Pet Project",
+    "name": "Director Haas' Pet Project",
     "id": "242",
     "cost": "3",
     "side": "Corp",
@@ -7274,7 +7274,7 @@
     "trash": "",
     "errata": "",
     "unique": "Yes",
-    "text": "When you score Director Haas&#39; Pet Project, you may create a new remote server by installing up to 3 cards from HQ and/or Archives in that server and/or protecting that server (one at a time), ignoring all install costs.<br />\nLimit 1 Director Haas&#39; Pet Project per deck.",
+    "text": "When you score Director Haas' Pet Project, you may create a new remote server by installing up to 3 cards from HQ and/or Archives in that server and/or protecting that server (one at a time), ignoring all install costs.<br />\nLimit 1 Director Haas' Pet Project per deck.",
     "set": "Creation and Control",
     "num": "4",
     "count": "3",
@@ -7709,7 +7709,7 @@
     "GUID": "bc0f047c-01b1-427f-a439-d451eda03012",
     "img": ""
 }, {
-    "name": "Tyr&#39;s Hand",
+    "name": "Tyr's Hand",
     "id": "263",
     "cost": "11",
     "side": "Corp",
@@ -7724,7 +7724,7 @@
     "trash": "1",
     "errata": "",
     "unique": "No",
-    "text": "If the Runner is about to break a subroutine on a piece of <strong class='bbc'>bioroid</strong> ice protecting this server you may rez Tyr&#39;s Hand.<br />\n[Trash]: Prevent a subroutine from being broken on a piece of <strong class='bbc'>bioroid</strong> ice protecting this server.",
+    "text": "If the Runner is about to break a subroutine on a piece of <strong class='bbc'>bioroid</strong> ice protecting this server you may rez Tyr's Hand.<br />\n[Trash]: Prevent a subroutine from being broken on a piece of <strong class='bbc'>bioroid</strong> ice protecting this server.",
     "set": "Creation and Control",
     "num": "22",
     "count": "3",
@@ -7814,7 +7814,7 @@
     "trash": "",
     "errata": "",
     "unique": "No",
-    "text": "When you install Atman, you may pay X [Credits] to place X power counters on Atman.<br />\nAtman has +1 strength for each power counter on it.<br />\n1 [Credits]: Break ice subroutine on a piece of ice that has strength equal to Atman&#39;s strength.",
+    "text": "When you install Atman, you may pay X [Credits] to place X power counters on Atman.<br />\nAtman has +1 strength for each power counter on it.<br />\n1 [Credits]: Break ice subroutine on a piece of ice that has strength equal to Atman's strength.",
     "set": "Creation and Control",
     "num": "40",
     "count": "3",
@@ -8835,7 +8835,7 @@
     "trash": "",
     "errata": "",
     "unique": "No",
-    "text": "As an additional cost to play this operation, spend [Click].<br />\n<strong class='bbc'>Trace<sup class='bbc'>2</sup></strong> - If successful, reveal the Runner&#39;s grip and trash a number of resources and/or events from it up to the amount by which your trace strength exceeded the Runner&#39;s link strength. If unsuccessful, take 1 bad publicity.",
+    "text": "As an additional cost to play this operation, spend [Click].<br />\n<strong class='bbc'>Trace<sup class='bbc'>2</sup></strong> - If successful, reveal the Runner's grip and trash a number of resources and/or events from it up to the amount by which your trace strength exceeded the Runner's link strength. If unsuccessful, take 1 bad publicity.",
     "set": "Opening Moves",
     "num": "16",
     "count": "3",
@@ -9240,4 +9240,4 @@
     "GUID": "bc0f047c-01b1-427f-a439-d451eda04003",
     "img": ""
 }
-  ]
+]
