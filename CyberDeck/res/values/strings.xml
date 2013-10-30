@@ -7,7 +7,6 @@
     <string name="faction_image">Faction Image</string>
     <string name="title_activity_deck">Deck Detail</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_welcome">Menu</string>
     <string name="card_library">Card Library</string>
     <string name="new_deck">New Deck...</string>
@@ -29,4 +28,5 @@
 	<string name="reputation_dot">&#xf111;</string>
     <string name="title_activity_mass_download">MassDownloadActivity</string>
 	<string name="mass_download">Download all cards</string>
+	<string name="zero_percent">0%</string>
 </resources>
