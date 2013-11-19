@@ -7,14 +7,12 @@ import it.ck.cyberdeck.model.CardKey;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CardGridAdapter  extends BaseAdapter {
@@ -23,7 +21,6 @@ public class CardGridAdapter  extends BaseAdapter {
 		private int tmbPixHeight;
 		private int tmbPixWidth;
 		protected ImageLoader imageLoader;
-		private DisplayImageOptions options;
 		
 		
 	    public CardGridAdapter(Context c, List<Card> cards) {
@@ -31,14 +28,7 @@ public class CardGridAdapter  extends BaseAdapter {
 			this.cards = cards;
 			tmbPixHeight = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
 			tmbPixWidth = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
-			options = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.drawable.ic_stub)
-			.showImageForEmptyUri(R.drawable.ic_empty)
-			.showImageOnFail(R.drawable.ic_error)
-			.cacheInMemory(true)
-			.cacheOnDisc(true)
-			.bitmapConfig(Bitmap.Config.RGB_565)
-			.build();
+			
 			imageLoader = ImageLoader.getInstance();
 			
 	    }
@@ -68,7 +58,7 @@ public class CardGridAdapter  extends BaseAdapter {
 	        
 	        String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ key.getCardCode() +".png";
 	        
-	        imageLoader.displayImage(urlString, imageView, options);
+	        imageLoader.displayImage(urlString, imageView);
 	        return imageView;
 	    }
 
