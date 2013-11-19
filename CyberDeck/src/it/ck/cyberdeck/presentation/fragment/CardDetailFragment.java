@@ -6,11 +6,11 @@ import it.ck.cyberdeck.presentation.CardView;
 import it.ck.cyberdeck.presentation.activity.CardDetailActivity;
 import it.ck.cyberdeck.presentation.activity.CardListActivity;
 import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * A fragment representing a single Card detail screen. This fragment is either
@@ -57,8 +57,8 @@ public class CardDetailFragment extends BaseImageFragment implements CardView{
 	}
 
 	@Override
-	public void setCardImage(Bitmap cardImage) {
-		this.setImage(cardImage);
+	public ImageView getCardImageView() {
+		return getImageView();
 	}
 
 }

@@ -59,20 +59,4 @@ public class WelcomeActivity extends BaseCyberDeckActivity {
 	    return true;
 	}
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.mass_download:
-	            lauchMassDownload();
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}
-
-	private void lauchMassDownload() {
-		Intent intent = new Intent(this, MassDownloadActivity.class);
-		startActivity(intent);
-	}
-
 }
