@@ -42,13 +42,13 @@ public class CyberDeckApp extends Application {
 
 	public static void initImageLoader(Context context) {
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.ic_stub)
-		.showImageForEmptyUri(R.drawable.ic_empty)
-		.showImageOnFail(R.drawable.ic_error)
-		.cacheInMemory(true)
-		.cacheOnDisc(true)
-		.bitmapConfig(Bitmap.Config.RGB_565)
-		.build();
+									.showImageOnLoading(R.drawable.corp_back)
+									.showImageForEmptyUri(R.drawable.ic_empty)
+									.showImageOnFail(R.drawable.ic_error)
+									.cacheInMemory(true)
+									.cacheOnDisc(true)
+									.bitmapConfig(Bitmap.Config.RGB_565)
+									.build();
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.memoryCacheSizePercentage(50)
