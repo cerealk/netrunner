@@ -35,7 +35,7 @@ public class WelcomeActivity extends BaseCyberDeckActivity {
 
 		});
 
-		final Button buttonDeckList = (Button) findViewById(R.id.button_deck_ist);
+		final Button buttonDeckList = (Button) findViewById(R.id.button_deck_list);
 		buttonDeckList.setOnClickListener(new View.OnClickListener() {
 
 			@Override

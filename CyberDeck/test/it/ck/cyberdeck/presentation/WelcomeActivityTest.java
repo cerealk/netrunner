@@ -36,7 +36,7 @@ public class WelcomeActivityTest {
 		activity = Robolectric.buildActivity(WelcomeActivity.class).create().get();
 		buttonLibrary = (Button) activity.findViewById(R.id.button_library);
 		buttonNewDeck = (Button) activity.findViewById(R.id.button_new_deck);
-		buttonDeckList = (Button) activity.findViewById(R.id.button_deck_ist);
+		buttonDeckList = (Button) activity.findViewById(R.id.button_deck_list);
 	}
 
 	@Test
