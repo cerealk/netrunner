@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -24,7 +24,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="it.ck.cyberdeck.presentation.CardDetailActivityetailActivity"
+            android:name="it.ck.cyberdeck.presentation.activity.CardDetailActivity"
             android:label="@string/title_card_detail"
             android:parentActivityName="it.ck.cyberdeck.presentation.activity.CardListActivity" >
             <meta-data
@@ -62,11 +62,6 @@
         <activity
             android:name="it.ck.cyberdeck.presentation.activity.DeckDetailActivity"
             android:label="@string/title_activity_deck_detail" >
-        </activity>
-        <activity
-            android:name="it.ck.cyberdeck.presentation.activity.MassDownloadActivity"
-            android:label="@string/title_activity_mass_download"
-            android:noHistory="true">
         </activity>
     </application>
 
