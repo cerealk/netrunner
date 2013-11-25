@@ -4,7 +4,7 @@ import it.ck.cyberdeck.app.DeckService;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class BaseCyberDeckActivity extends FragmentActivity {
+public abstract class BaseCyberDeckActivity extends FragmentActivity {
 
 	private DeckService deckService;
 	protected ToastHandler toastHandler;

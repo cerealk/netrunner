@@ -10,7 +10,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class BaseDeckActivity extends BaseCyberDeckActivity implements DeckView {
+public abstract class BaseDeckActivity extends BaseCyberDeckActivity implements DeckView {
 
 	public static final String DECK_ARG_ID = "deck_arg_id";
 	protected static final int REQUEST_CODE = 42;

@@ -63,13 +63,6 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 	}
 	
 	@Override
-	public void addAll(Collection<? extends Card> collection) {
-		for(Card card : collection){
-			add(card);
-		}
-	}
-
-	@Override
 	public Filter getFilter() {
 
 		Filter filter = new Filter() {
@@ -80,7 +73,9 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 			    FilterResults results) {
 				values = (List<Card>) results.values;
 				clear();
-				addAll(values);
+				for(Card card : values){
+					add(card);
+				}
 				notifyDataSetChanged();
 			}
 
