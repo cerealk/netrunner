@@ -131,7 +131,9 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	@Override
 	public void publishEntryList(List<CardEntry> cards) {
 		listViewAdapter.clear();
-		listViewAdapter.addAll(cards);
+		for (CardEntry entry : cards){
+			listViewAdapter.add(entry);
+		}
 	}
 
 	@Override
