@@ -5,6 +5,7 @@ import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.util.ImageFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 @SuppressLint("DefaultLocale")
 public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 
+
+
 	private final Context context;
 	private List<Card> values;
 	private final List<Card> totalValues;
@@ -32,6 +35,8 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		this.totalValues = new ArrayList<Card>(values);
 	}
 
+
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
@@ -55,6 +60,13 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		imageView.setImageBitmap(bmp);
 
 		return rowView;
+	}
+	
+	@Override
+	public void addAll(Collection<? extends Card> collection) {
+		for(Card card : collection){
+			add(card);
+		}
 	}
 
 	@Override
