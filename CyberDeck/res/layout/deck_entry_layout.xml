@@ -12,8 +12,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="4dp"
-        android:src="@drawable/ic_launcher" android:contentDescription="@string/faction_image">
-    </ImageView>
+        android:src="@drawable/ic_launcher" android:contentDescription="@string/faction_image" />
 
     <TextView
         android:id="@+id/cardName"

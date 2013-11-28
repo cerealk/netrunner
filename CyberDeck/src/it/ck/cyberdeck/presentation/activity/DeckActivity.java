@@ -10,6 +10,9 @@ import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 
 import java.util.List;
 
+import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
+import com.fortysevendeg.android.swipelistview.SwipeListView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -27,7 +30,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	private TextView identityName;
 	private TextView deckStatusLine;
-	private ListView cardList;
+	private SwipeListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
 
 	@Override
@@ -41,10 +44,17 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 		listViewAdapter = new CardEntryListViewAdapter(
 				this.getApplicationContext(), getDeck());
 
-		cardList = (ListView) findViewById(R.id.deck_cards);
+		cardList = (SwipeListView) findViewById(R.id.deck_cards);
 
 		cardList.setAdapter(listViewAdapter);
-
+		cardList.setSwipeListViewListener(new BaseSwipeListViewListener(){
+			@Override
+            public void onDismiss(int[] reverseSortedPositions) {
+                for (int position : reverseSortedPositions) {
+                    removeAll(position);
+                }
+            }
+		});
 		presenter.publish();
 		cardList.setOnItemClickListener(new OnItemClickListener() {
 

@@ -33,7 +33,7 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		View rowView = inflater.inflate(R.layout.deck_entry_layout, parent, false);
+		View rowView = inflater.inflate(R.layout.composite_deck_entry_layout, parent, false);
 		
 		ImageView icon = (ImageView) rowView.findViewById(R.id.icon);
 		TextView cardName = (TextView) rowView.findViewById(R.id.cardName);
