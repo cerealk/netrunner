@@ -22,7 +22,7 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 	private Typeface font;
 
 	public CardEntryListViewAdapter(Context context, Deck deck){
-		super(context, R.layout.deck_entry_layout);
+		super(context, R.layout.composite_deck_entry_layout);
 		this.context = context;
 		this.deck = deck;
 		this.font = Typeface.createFromAsset( context.getAssets(), "fontawesome-webfont.ttf" );
@@ -51,10 +51,10 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 
 	private CharSequence getCardReputationText(CardEntry entry) {
 		Integer repoCost = deck.getIdentity().calculateReputationCost(entry.getCard());
+		
 		if (repoCost > 0){
 			return StringUtils.repeat(context.getResources().getString(R.string.reputation_dot), repoCost);
 		}
-			
 		return "";
 	}
 

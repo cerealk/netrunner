@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
         android:text="@string/identity" />
-        
+
 
     <com.fortysevendeg.android.swipelistview.SwipeListView
         android:id="@+id/deck_cards"
@@ -28,12 +28,11 @@
         android:layout_above="@+id/add_card_button"
         android:layout_below="@id/deck_identity"
         android:listSelector="#00000000"
-        swipe:swipeBackView="@+id/back"
-        swipe:swipeCloseAllItemsWhenMoveList="true"
-        swipe:swipeFrontView="@+id/front"
-        swipe:swipeMode="left"
+        swipe:swipeBackView="@+id/swipelist_backview"
+		swipe:swipeFrontView="@+id/swipelist_frontview"
         swipe:swipeActionLeft="dismiss"
-        />
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeMode="left" />
 
     <Button
         android:id="@+id/add_card_button"

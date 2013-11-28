@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <LinearLayout android:id="@+id/back"
+    <LinearLayout android:id="@+id/swipelist_backview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -15,7 +15,7 @@
     </LinearLayout>
     
     <RelativeLayout
-        android:id="@+id/front"
+        android:id="@+id/swipelist_frontview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ff000000"
