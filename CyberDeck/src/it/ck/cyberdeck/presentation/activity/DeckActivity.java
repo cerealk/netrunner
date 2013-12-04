@@ -64,15 +64,6 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 			}
 		});
 		presenter.publish();
-//		cardList.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view,
-//					int position, long id) {
-//		
-//
-//			}
-//		});
 
 		registerForContextMenu(cardList);
 
