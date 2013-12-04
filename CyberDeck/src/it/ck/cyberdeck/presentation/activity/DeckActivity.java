@@ -10,21 +10,18 @@ import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 
 import java.util.List;
 
-import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
-import com.fortysevendeg.android.swipelistview.SwipeListView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
+import com.fortysevendeg.android.swipelistview.SwipeListView;
 
 public class DeckActivity extends BaseDeckActivity implements DeckView {
 
@@ -54,13 +51,9 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
                     removeAll(position);
                 }
             }
-		});
-		presenter.publish();
-		cardList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onClickFrontView(int position) {
 				CardEntry entry = listViewAdapter.getItem(position);
 				Intent detailIntent = new Intent(DeckActivity.this,
 						DeckDetailActivity.class);
@@ -68,9 +61,18 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 						presenter.getDeck());
 				detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, entry);
 				startActivity(detailIntent);
-
 			}
 		});
+		presenter.publish();
+//		cardList.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//		
+//
+//			}
+//		});
 
 		registerForContextMenu(cardList);
 
