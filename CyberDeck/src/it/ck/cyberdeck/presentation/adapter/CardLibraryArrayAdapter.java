@@ -5,7 +5,6 @@ import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.util.ImageFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import android.annotation.SuppressLint;
