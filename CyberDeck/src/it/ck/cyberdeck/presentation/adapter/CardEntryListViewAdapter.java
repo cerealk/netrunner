@@ -1,31 +1,35 @@
 package it.ck.cyberdeck.presentation.adapter;
 
-import org.apache.commons.lang3.StringUtils;
-
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.presentation.util.ImageFactory;
+
+import org.apache.commons.lang3.StringUtils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 
 	private Context context;
 	private Deck deck;
 	private Typeface font;
+	private ImageLoader imageLoader;
 
 	public CardEntryListViewAdapter(Context context, Deck deck){
 		super(context, R.layout.composite_deck_entry_layout);
 		this.context = context;
 		this.deck = deck;
 		this.font = Typeface.createFromAsset( context.getAssets(), "fontawesome-webfont.ttf" );
+		imageLoader = ImageLoader.getInstance();
 	}
 	
 	@Override
@@ -33,7 +37,12 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		View rowView = inflater.inflate(R.layout.composite_deck_entry_layout, parent, false);
+		View rowView;
+		
+		if(convertView == null)
+			rowView = inflater.inflate(R.layout.composite_deck_entry_layout, parent, false);
+		else 
+			rowView = convertView;
 		
 		ImageView icon = (ImageView) rowView.findViewById(R.id.icon);
 		TextView cardName = (TextView) rowView.findViewById(R.id.cardName);
@@ -44,8 +53,8 @@ public class CardEntryListViewAdapter extends ArrayAdapter<CardEntry> {
 		cardName.setText(getCardNameText(entry));
 		cardReputation.setText(getCardReputationText(entry));
 		countText.setText(getCardCountText(entry));
-		Bitmap bmp = ImageFactory.getFactionImage(context, entry.getCard().getSide(), entry.getCard().getFaction());
-		icon.setImageBitmap(bmp);
+		String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ entry.getKey().getCardCode() +".png";
+		imageLoader.displayImage(urlString, icon);
 		return rowView;
 	}
 
