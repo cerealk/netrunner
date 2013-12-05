@@ -21,8 +21,6 @@ import android.widget.TextView;
 @SuppressLint("DefaultLocale")
 public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 
-
-
 	private final Context context;
 	private List<Card> values;
 	private final List<Card> totalValues;
@@ -33,8 +31,6 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		this.values = new ArrayList<Card>(values);
 		this.totalValues = new ArrayList<Card>(values);
 	}
-
-
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
