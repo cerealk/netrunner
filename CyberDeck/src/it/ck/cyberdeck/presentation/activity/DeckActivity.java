@@ -3,6 +3,7 @@ package it.ck.cyberdeck.presentation.activity;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.DeckStatus;
+import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.DeckView;
 import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
@@ -18,29 +19,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.android.swipelistview.SwipeListView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	private TextView identityName;
 	private TextView deckStatusLine;
+	private ImageView identityImg;
 	private SwipeListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
+	private ImageLoader imageLoader;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck);
 
+		imageLoader = ImageLoader.getInstance();
+
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
-		
+		identityImg = (ImageView) findViewById(R.id.identity_image);
 		listViewAdapter = new CardEntryListViewAdapter(
 				this.getApplicationContext(), getDeck());
-
 		cardList = (SwipeListView) findViewById(R.id.deck_cards);
 
 		cardList.setAdapter(listViewAdapter);
@@ -122,8 +128,10 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	}
 
 	@Override
-	public void publishIdentityName(String identityName) {
-		this.identityName.setText(identityName);
+	public void publishIdentity(Identity identity) {
+		this.identityName.setText(identity.name());
+		String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ identity.key().getCardCode() +".png";
+		imageLoader.displayImage(urlString, identityImg);
 	}
 
 	@Override

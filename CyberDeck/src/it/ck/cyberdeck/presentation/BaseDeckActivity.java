@@ -3,6 +3,7 @@ package it.ck.cyberdeck.presentation;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.DeckStatus;
+import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public abstract class BaseDeckActivity extends BaseCyberDeckActivity implements 
 	}
 
 	@Override
-	public void publishIdentityName(String identityName) {
+	public void publishIdentity(Identity identity) {
 	}
 
 	@Override

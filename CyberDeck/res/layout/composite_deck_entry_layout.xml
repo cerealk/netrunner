@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="false"
             android:layout_toRightOf="@+id/icon"
-            android:marginTop="4dp"
+            android:layout_marginTop="4dp"
             android:text="@+id/cardName" />
 
         <TextView
