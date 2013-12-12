@@ -13,11 +13,11 @@
 
     <RelativeLayout
         android:id="@+id/identity_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/deck_cards"
         android:layout_alignParentTop="true"
-        >
+        android:gravity="top" >
 
         <ImageView
             android:id="@+id/identity_image"
@@ -25,6 +25,7 @@
             android:layout_height="66dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:scaleType="fitStart"
             android:src="@drawable/ic_empty" />
 
         <TextView
@@ -42,8 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_alignTop="@+id/identity_image"
-            android:layout_marginTop="14dp"
+            
             android:layout_toRightOf="@+id/identity_image"
             android:text="@string/identity" />
 
@@ -64,7 +64,7 @@
 
     <Button
         android:id="@+id/add_card_button"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/deck_cards"

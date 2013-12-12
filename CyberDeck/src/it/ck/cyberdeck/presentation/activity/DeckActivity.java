@@ -12,6 +12,7 @@ import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -34,6 +35,8 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	private SwipeListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
 	private ImageLoader imageLoader;
+	private Typeface font;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,8 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 			}
 
 		});
+		this.font = Typeface.createFromAsset( getApplicationContext().getAssets(), "fontawesome-webfont.ttf" );
+		addButton.setTypeface(font);
 	}
 
 	@Override
