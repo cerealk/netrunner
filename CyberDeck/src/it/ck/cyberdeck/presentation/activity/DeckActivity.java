@@ -18,13 +18,14 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
-import com.fortysevendeg.android.swipelistview.SwipeListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class DeckActivity extends BaseDeckActivity implements DeckView {
@@ -32,7 +33,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	private TextView identityName;
 	private TextView deckStatusLine;
 	private ImageView identityImg;
-	private SwipeListView cardList;
+	private ListView cardList;
 	private CardEntryListViewAdapter listViewAdapter;
 	private ImageLoader imageLoader;
 	private Typeface font;
@@ -50,19 +51,15 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 		identityImg = (ImageView) findViewById(R.id.identity_image);
 		listViewAdapter = new CardEntryListViewAdapter(
 				this.getApplicationContext(), getDeck());
-		cardList = (SwipeListView) findViewById(R.id.deck_cards);
+		cardList = (ListView) findViewById(R.id.deck_cards);
 
 		cardList.setAdapter(listViewAdapter);
-		cardList.setSwipeListViewListener(new BaseSwipeListViewListener(){
-			@Override
-            public void onDismiss(int[] reverseSortedPositions) {
-                for (int position : reverseSortedPositions) {
-                    removeAll(position);
-                }
-            }
+		
+		cardList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onClickFrontView(int position) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				CardEntry entry = listViewAdapter.getItem(position);
 				Intent detailIntent = new Intent(DeckActivity.this,
 						DeckDetailActivity.class);
@@ -72,6 +69,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 				startActivity(detailIntent);
 			}
 		});
+		
 		presenter.publish();
 
 		registerForContextMenu(cardList);
