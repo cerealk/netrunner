@@ -10,7 +10,8 @@ public enum CardSet {
 	FUTURE_PROOF("Future Proof", "02"),
 	CREATION_AND_CONTROL("Creation and Control", "03"),
 	OPENING_MOVES("Opening Moves", "04"),
-	SECOND_THOUGHTS("Second Thoughts", "04");
+	SECOND_THOUGHTS("Second Thoughts", "04"),
+	MALA_TEMPORA("Mala Tempora", "04");
 	
 	private String name;
 	private String code;
