@@ -2,6 +2,7 @@ package it.ck.cyberdeck.model;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
 
 import java.util.List;
@@ -66,7 +67,7 @@ public class CardLibraryTest {
 
   @Test
   public void iCanGetTheCardsGroupedByTypePerSide() throws Exception {
-	  List<CardGroup> list = cl.getCardGroups(Side.RUNNER);
+	  List<ElementGroup<Card>> list = cl.getCardGroups(Side.RUNNER);
 	  assertThat(list, is(not(nullValue())));
 	  assertThat(list.size() > 0 , is(true));
   }
@@ -74,7 +75,7 @@ public class CardLibraryTest {
   @Test
   public void iCanGetTheCardsGroupedByTypePerIdentity() throws Exception {
 	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15, null);
-  	List<CardGroup> list = cl.getCardGroups(identity);
+  	List<ElementGroup<Card>> list = cl.getCardGroups(identity);
 	  assertThat(list, is(not(nullValue())));
 	  assertThat(list.size() > 0 , is(true));
   }
@@ -82,10 +83,10 @@ public class CardLibraryTest {
   @Test
   public void iCanGetTheCardsGroupedByTypePerIdentityIdentitiesExcluded() throws Exception {
 	  Identity identity = new Identity("name", Side.CORP, Faction.HAAS_BIOROID, 45, 15, null);
-  	List<CardGroup> list = cl.getCardGroupsWithoutIdentities(identity);
+  	List<ElementGroup<Card>> list = cl.getCardGroupsWithoutIdentities(identity);
 	  assertThat(list, is(not(nullValue())));
 	  assertThat(list.size() > 0 , is(true));
-	  for(CardGroup group: list){
+	  for(ElementGroup<Card> group: list){
 		  assertThat(group.getType(), is(not(equalTo(CardType.IDENTITY))));
 	  }
 		  

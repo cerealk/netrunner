@@ -5,11 +5,16 @@ import static org.junit.Assert.*;
 import static it.ck.cyberdeck.model.CardType.*;
 import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
 import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
+
+import java.util.Collection;
+import java.util.List;
+
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
 import it.ck.cyberdeck.model.Deck.TooManyOutOfFactionCardsException;
 import it.ck.cyberdeck.model.Deck.WrongSideException;
+import it.ck.cyberdeck.model.group.ElementGroup;
 
 import org.apache.commons.lang3.Range;
 import org.junit.*;
@@ -36,20 +41,21 @@ public class DeckTest {
 	}
 
 	@Test
-	public void whenIAddACardToADeckTheCardCountIsIncremented() throws Exception {
+	public void whenIAddACardToADeckTheCardCountIsIncremented()
+			throws Exception {
 		int deckSize = deck.size();
 		deck.add(getCard());
 		assertThat(deck.size(), is(equalTo(deckSize + 1)));
 	}
 
 	@Test
-	public void anEmptyDeckIsInvalid(){
+	public void anEmptyDeckIsInvalid() {
 		assertThat(deck.checkStatus().status(), is(StatusCode.INVALID));
 	}
-	
+
 	@Test
 	public void aValidDeckShouldContainAtLeastANumberOfCardsAsTheIdentityStates()
-	    throws Exception {
+			throws Exception {
 		twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
@@ -76,9 +82,11 @@ public class DeckTest {
 	public void anyCardCanBeRemoved() throws Exception {
 		deck.add(getCard("card1", Side.RUNNER));
 		deck.add(getCard("card1", Side.RUNNER));
-		assertThat(deck.cardCount(getCard("card1", Side.RUNNER)), is(equalTo(2)));
+		assertThat(deck.cardCount(getCard("card1", Side.RUNNER)),
+				is(equalTo(2)));
 		deck.remove(getCard("card1", Side.RUNNER));
-		assertThat(deck.cardCount(getCard("card1", Side.RUNNER)), is(equalTo(1)));
+		assertThat(deck.cardCount(getCard("card1", Side.RUNNER)),
+				is(equalTo(1)));
 	}
 
 	@Test
@@ -90,9 +98,9 @@ public class DeckTest {
 		deck.removeAll(card);
 		assertThat(deck.cardCount(card), is(equalTo(0)));
 	}
-	
+
 	@Test
-	public void aCardWithCountZeroHasNoEntry(){
+	public void aCardWithCountZeroHasNoEntry() {
 		Card card = getCard("card1", Side.RUNNER);
 		deck.add(card);
 		assertThat(deck.cardCount(card), is(equalTo(1)));
@@ -108,20 +116,24 @@ public class DeckTest {
 
 	@Test(expected = WrongSideException.class)
 	public void aDeckCanHaveOnlyCardsOfTheSameSideOfItsIdentity()
-	    throws Exception {
+			throws Exception {
 		Identity identity = new Identity("identity RUNNER", Side.RUNNER,
-		    Faction.SHAPER, 2, 15, null);
+				Faction.SHAPER, 2, 15, null);
 		deck = getDeck(identity);
 		deck.add(getCard("name", Side.CORP));
 	}
 
 	@Test(expected = TooManyOutOfFactionCardsException.class)
 	public void aDeckCanHaveOutOfFactionCardsUpToTheReputationOfTheIdentity()
-	    throws Exception {
-		Card card1 = getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5, HARDWARE);
-		Card card2 = getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5, HARDWARE);
-		Card card3 = getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5, HARDWARE);
-		Card card4 = getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5, HARDWARE);
+			throws Exception {
+		Card card1 = getCard("card1", Side.RUNNER, Faction.ANARCH, 1, 5,
+				HARDWARE);
+		Card card2 = getCard("card2", Side.RUNNER, Faction.ANARCH, 2, 5,
+				HARDWARE);
+		Card card3 = getCard("card3", Side.RUNNER, Faction.ANARCH, 3, 5,
+				HARDWARE);
+		Card card4 = getCard("card4", Side.RUNNER, Faction.ANARCH, 4, 5,
+				HARDWARE);
 		deck.add(card1);
 		deck.add(card2);
 		deck.add(card3);
@@ -136,18 +148,16 @@ public class DeckTest {
 	}
 
 	@Test
-	public void aDeckWithEnoughCardsHasAValidStatus(){
+	public void aDeckWithEnoughCardsHasAValidStatus() {
 		twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
-	
-	@Test
-	public void aCorpDeckShouldHaveARequiredNumberOfAgendaPoints(){
-		twoCardDeck();
-		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
-	}
-	
 
+	@Test
+	public void aCorpDeckShouldHaveARequiredNumberOfAgendaPoints() {
+		twoCardDeck();
+		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
+	}
 
 	@Test
 	public void iCanAddMoreCopiesOfACard() {
@@ -158,7 +168,7 @@ public class DeckTest {
 	public void givenADeckICanAddACardOfTheSameFaction() {
 		Deck deck = new Deck(getIdentity(45), "testDeck");
 		CardData cardData = new CardData();
-		cardData.name="card";
+		cardData.name = "card";
 		cardData.set = CardSet.CORE;
 		cardData.identity = Faction.SHAPER;
 		cardData.side = Side.RUNNER;
@@ -174,16 +184,17 @@ public class DeckTest {
 
 	@Test
 	public void givenACardOutOfFactionICanAddItIfItCanBeAttached()
-	    throws Exception {
+			throws Exception {
 		Deck deck = new Deck(getIdentity(45), "testDeck");
-		Card card = getCard("test",Side.RUNNER, Faction.ANARCH, 3, 2, CardType.HARDWARE);
+		Card card = getCard("test", Side.RUNNER, Faction.ANARCH, 3, 2,
+				CardType.HARDWARE);
 		deck.add(card);
 		assertThat(deck.cardCount(card), is(1));
 	}
 
 	@Test(expected = CantBeAttachedException.class)
 	public void givenACardOutOfFactionICantAddItIfITCantBeAttached()
-	    throws Exception {
+			throws Exception {
 		Deck deck = new Deck(getIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
@@ -198,7 +209,8 @@ public class DeckTest {
 	}
 
 	@Test(expected = CantBeAttachedException.class)
-	public void givenANeutralCardICantAddItIfITCantBeAttached() throws Exception {
+	public void givenANeutralCardICantAddItIfITCantBeAttached()
+			throws Exception {
 		Deck deck = new Deck(getIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
@@ -211,122 +223,137 @@ public class DeckTest {
 		deck.add(card);
 		assertThat(deck.cardCount(card), is(1));
 	}
-	
+
 	@Test
-	public void ifA40_44CardCorpDeckHasNot18_19APIsInvalid(){
+	public void ifA40_44CardCorpDeckHasNot18_19APIsInvalid() {
 		Deck corpDeck = getCorpDeck();
-		corpDeck.add(getCorpCardWithNoAgenda("card1",1),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card2",2),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card3",3),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card4",4),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card5",5),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card6",6),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card7",7),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card8",8),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card9",9),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card10",10),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card11",11),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card12",12),3);
-		corpDeck.add(getCorpCardWithAgenda("agenda1", 4, 13),3);
-		corpDeck.add(getCorpCardWithAgenda("agenda2",3, 14),1);
-		
+		corpDeck.add(getCorpCardWithNoAgenda("card1", 1), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card2", 2), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card3", 3), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card4", 4), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card5", 5), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card6", 6), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card7", 7), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card8", 8), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card9", 9), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card10", 10), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card11", 11), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card12", 12), 3);
+		corpDeck.add(getCorpCardWithAgenda("agenda1", 4, 13), 3);
+		corpDeck.add(getCorpCardWithAgenda("agenda2", 3, 14), 1);
+
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.INVALID));
-		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(18,19))));
+		assertThat(corpDeck.checkStatus().getAgendaRange(),
+				is(equalTo(Range.between(18, 19))));
 	}
-	
+
 	@Test
-	public void ifA45_49CardCorpDeckHasNot20_21APIsInvalid(){
+	public void ifA45_49CardCorpDeckHasNot20_21APIsInvalid() {
 		Deck corpDeck = getCorpDeck();
-		corpDeck.add(getCorpCardWithNoAgenda("card1",1),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card2",2),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card3",3),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card4",4),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card5",5),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card6",6),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card7",7),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card8",8),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card9",9),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card10",10),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card11",11),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card12",12),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card13",13),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card14",14),3);
-		corpDeck.add(getCorpCardWithAgenda("agenda1", 5, 15),3);
-		corpDeck.add(getCorpCardWithAgenda("agenda2",5, 16),1);
-		
+		corpDeck.add(getCorpCardWithNoAgenda("card1", 1), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card2", 2), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card3", 3), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card4", 4), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card5", 5), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card6", 6), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card7", 7), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card8", 8), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card9", 9), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card10", 10), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card11", 11), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card12", 12), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card13", 13), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card14", 14), 3);
+		corpDeck.add(getCorpCardWithAgenda("agenda1", 5, 15), 3);
+		corpDeck.add(getCorpCardWithAgenda("agenda2", 5, 16), 1);
+
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.VALID));
-		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(20,21))));
+		assertThat(corpDeck.checkStatus().getAgendaRange(),
+				is(equalTo(Range.between(20, 21))));
 	}
-	
+
 	@Test
-	public void aCorpDeckWith40CardsShouldHave18_19AgendaPoints(){
+	public void aCorpDeckWith40CardsShouldHave18_19AgendaPoints() {
 		Deck corpDeck = getCorpDeck();
-		corpDeck.add(getCorpCardWithNoAgenda("card1",1),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card2",2),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card3",3),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card4",4),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card5",5),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card6",6),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card7",7),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card8",8),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card9",9),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card10",10),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card11",11),3);
-		corpDeck.add(getCorpCardWithNoAgenda("card12",12),3);
-		corpDeck.add(getCorpCardWithAgenda("agenda1", 5, 13),3);
-		corpDeck.add(getCorpCardWithAgenda("agenda2",3, 14),1);
-		
+		corpDeck.add(getCorpCardWithNoAgenda("card1", 1), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card2", 2), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card3", 3), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card4", 4), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card5", 5), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card6", 6), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card7", 7), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card8", 8), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card9", 9), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card10", 10), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card11", 11), 3);
+		corpDeck.add(getCorpCardWithNoAgenda("card12", 12), 3);
+		corpDeck.add(getCorpCardWithAgenda("agenda1", 5, 13), 3);
+		corpDeck.add(getCorpCardWithAgenda("agenda2", 3, 14), 1);
+
 		assertThat(corpDeck.checkStatus().status(), is(StatusCode.VALID));
-		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(18,19))));
-		
+		assertThat(corpDeck.checkStatus().getAgendaRange(),
+				is(equalTo(Range.between(18, 19))));
+
 	}
-	
+
 	@Test
-	public void theDeckStatusContainsTheDeckSize(){
+	public void theDeckStatusContainsTheDeckSize() {
 		twoCardDeck();
 		deck.add(getCard());
 		assertThat(deck.checkStatus().cardCount(), is(3));
 	}
-	
+
 	@Test
-	public void theDeckStatusContainsTheMinimumDeckSize(){
+	public void theDeckStatusContainsTheMinimumDeckSize() {
 		twoCardDeck();
 		assertThat(deck.checkStatus().minDeckSize(), is(2));
 	}
 
 	@Test
-	public void theDeckStatusContainsInfoAboutTheAgendaPoints() throws Exception {
+	public void theDeckStatusContainsInfoAboutTheAgendaPoints()
+			throws Exception {
 		Deck corpDeck = getCorpDeckWithOneAgenda();
 		assertThat(corpDeck.checkStatus().getAgendaPoints(), is(3));
 	}
-	
+
 	@Test
-	public void theDeckStatusContainsInfoAboutTheCorrectAgendaPointRange() throws Exception {
+	public void theDeckStatusContainsInfoAboutTheCorrectAgendaPointRange()
+			throws Exception {
 		Deck corpDeck = getCorpDeckWithOneAgenda();
-		assertThat(corpDeck.checkStatus().getAgendaRange(), is(equalTo(Range.between(18,19))));
+		assertThat(corpDeck.checkStatus().getAgendaRange(),
+				is(equalTo(Range.between(18, 19))));
 	}
-	
+
 	@Test
-	public void givenADeckWithARunnerIdentity_itIsARunnerDeck(){
+	public void givenADeckWithARunnerIdentity_itIsARunnerDeck() {
 		assertThat(deck.isCorpDeck(), is(not(true)));
 	}
-	
+
 	@Test
-	public void givenADeckWithACorpIdentity_itIsACorpDeck(){
+	public void givenADeckWithACorpIdentity_itIsACorpDeck() {
 		assertThat(getCorpDeck().isCorpDeck(), is(true));
 	}
 
 	@Test
-	public void theDeckStatusContainsInformationsAboutTheMaxReputation() throws Exception {
+	public void theDeckStatusContainsInformationsAboutTheMaxReputation()
+			throws Exception {
 		assertThat(deck.checkStatus().getReputationCap(), is(15));
 	}
-	
+
 	@Test
-	public void theDeckStatusContainsInformationsAboutTheActualReputation() throws Exception {
+	public void theDeckStatusContainsInformationsAboutTheActualReputation()
+			throws Exception {
 		deck.add(getAnarchCard());
 		assertThat(deck.checkStatus().getReputation(), is(5));
 	}
-	
+
+	@Test
+	public void iCangGetTheEntriesofTheDeckGroupedByType() {
+		Deck deck = getDeck();
+		List<ElementGroup<CardEntry>> groups = deck.getGroupedEntries();
+		assertThat(groups, is(not(nullValue())));
+	}
+
 	private Deck getCorpDeckWithOneAgenda() {
 		Deck corpDeck = getCorpDeck();
 		corpDeck.add(getCorpCardWithAgenda("agenda1", 3, 1));
@@ -335,17 +362,17 @@ public class DeckTest {
 
 	private Deck getCorpDeck() {
 		Identity identity = getHBIdentity();
-		Deck corpDeck = new Deck(identity  , "corp deck");
+		Deck corpDeck = new Deck(identity, "corp deck");
 		return corpDeck;
 	}
-	
+
 	private Deck getDeck(Identity identity) {
 		return new Deck(identity);
 	}
 
 	private Identity getIdentity(int minimumCardCount) {
 		return new Identity("identity: " + minimumCardCount, Side.RUNNER,
-		    Faction.SHAPER, minimumCardCount, 15, null);
+				Faction.SHAPER, minimumCardCount, 15, null);
 	}
 
 	private Deck getDeck() {
@@ -355,7 +382,6 @@ public class DeckTest {
 	private Identity getIdentity() {
 		return getIdentity(2);
 	}
-	
 
 	private void twoCardDeck() {
 		deck.add(getCard());

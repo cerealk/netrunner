@@ -1,6 +1,11 @@
 package it.ck.cyberdeck.model;
 
+import it.ck.cyberdeck.model.group.ElementGroup;
+import it.ck.cyberdeck.model.group.ElementGroupBuilder;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.Range;
@@ -200,6 +205,10 @@ public class Deck implements Serializable {
 	
 	public boolean isCorpDeck(){
 		return identity.isCorp();
+	}
+
+	public List<ElementGroup<CardEntry>> getGroupedEntries() {
+		return new ArrayList<ElementGroup<CardEntry>>(new ElementGroupBuilder().populateCardGroup(this).values());
 	}
 
 }

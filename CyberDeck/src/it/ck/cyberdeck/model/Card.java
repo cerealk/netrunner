@@ -170,7 +170,7 @@ public class Card implements Serializable, Comparable<Card> {
 		return this.classifier.getFaction();
 	}
 
-	protected CardType getType() {
+	public CardType getType() {
 		return this.classifier.getType();
 	}
 

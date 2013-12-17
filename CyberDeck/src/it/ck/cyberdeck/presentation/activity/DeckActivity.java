@@ -6,7 +6,7 @@ import it.ck.cyberdeck.model.DeckStatus;
 import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.DeckView;
-import it.ck.cyberdeck.presentation.adapter.CardEntryListViewAdapter;
+import it.ck.cyberdeck.presentation.adapter.CardEntryExpandableListAdapter;
 import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 
 import java.util.List;
@@ -18,12 +18,13 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,8 +34,8 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	private TextView identityName;
 	private TextView deckStatusLine;
 	private ImageView identityImg;
-	private ListView cardList;
-	private CardEntryListViewAdapter listViewAdapter;
+	private ExpandableListView cardList;
+	private CardEntryExpandableListAdapter listViewAdapter;
 	private ImageLoader imageLoader;
 	private Typeface font;
 	
@@ -49,25 +50,28 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
 		identityImg = (ImageView) findViewById(R.id.identity_image);
-		listViewAdapter = new CardEntryListViewAdapter(
+		listViewAdapter = new CardEntryExpandableListAdapter(
 				this.getApplicationContext(), getDeck());
-		cardList = (ListView) findViewById(R.id.deck_cards);
+		cardList = (ExpandableListView) findViewById(R.id.deck_cards);
 
 		cardList.setAdapter(listViewAdapter);
 		
-		cardList.setOnItemClickListener(new OnItemClickListener() {
-
+		cardList.setOnChildClickListener(new OnChildClickListener() {
+			
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				CardEntry entry = listViewAdapter.getItem(position);
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				CardEntry entry = listViewAdapter.getEntry(groupPosition, childPosition);
 				Intent detailIntent = new Intent(DeckActivity.this,
 						DeckDetailActivity.class);
 				detailIntent.putExtra(BaseDeckActivity.DECK_ARG_ID,
 						presenter.getDeck());
 				detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, entry);
 				startActivity(detailIntent);
+				return false;
 			}
+			
+	
 		});
 		
 		presenter.publish();
@@ -99,14 +103,19 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+		ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item
 				.getMenuInfo();
+		
+		long packedPosition = info.packedPosition;
+		int group = ExpandableListView.getPackedPositionGroup(packedPosition);
+		int child = ExpandableListView.getPackedPositionChild(packedPosition);
+		
 		switch (item.getItemId()) {
 		case R.id.removeCard:
-			removeCard(info.position);
+			removeCard(group, child);
 			return true;
 		case R.id.reoveAll:
-			removeAll(info.position);
+			removeAll(group, child);
 			return true;
 		default:
 			break;
@@ -114,20 +123,21 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 		return super.onContextItemSelected(item);
 	}
 
-	private void removeCard(int position) {
-		CardEntry cardEntry = getEntry(position);
+	private void removeCard(int group, int child) {
+		
+		CardEntry cardEntry = getEntry(group, child);
 		presenter.remove(cardEntry.getCard());
 		presenter.publish();
 	}
 
-	private void removeAll(int position) {
-		CardEntry cardEntry = getEntry(position);
+	private void removeAll(int group, int child) {
+		CardEntry cardEntry = getEntry(group, child);
 		presenter.removeAll(cardEntry.getCard());
 		presenter.publish();
 	}
 
-	private CardEntry getEntry(int position) {
-		return presenter.get(position);
+	private CardEntry getEntry(int group, int child) {
+		return listViewAdapter.getEntry(group, child);
 	}
 
 	@Override
@@ -144,10 +154,11 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	@Override
 	public void publishEntryList(List<CardEntry> cards) {
-		listViewAdapter.clear();
-		for (CardEntry entry : cards){
-			listViewAdapter.add(entry);
-		}
+		listViewAdapter.updateGroups();
+		listViewAdapter.notifyDataSetChanged();
+		int count = listViewAdapter.getGroupCount();
+		for (int position = 1; position <= count; position++)
+		    cardList.expandGroup(position - 1);
 	}
 
 	@Override

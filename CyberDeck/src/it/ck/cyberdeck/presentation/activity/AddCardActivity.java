@@ -2,9 +2,9 @@ package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.CardGroup;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.DeckException;
+import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryExpandableListAdapter;
@@ -28,7 +28,7 @@ public class AddCardActivity extends BaseDeckActivity {
 		ExpandableListView expListView = (ExpandableListView) findViewById(R.id.expandableListView1);
 		CardLibrary cl = ((CyberDeckApp) getApplication()).getDeckService().loadCardLibrary();
 		
-		List<CardGroup> values = cl.getCardGroupsWithoutIdentities(getDeck().getIdentity());
+		List<ElementGroup<Card>> values = cl.getCardGroupsWithoutIdentities(getDeck().getIdentity());
 		adapter = new CardLibraryExpandableListAdapter(this, values);
 		expListView.setAdapter(adapter);
 

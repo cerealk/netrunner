@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.*;
+import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.presentation.util.ImageFactory;
 import android.content.Context;
 import android.view.*;
@@ -11,10 +12,10 @@ import android.widget.*;
 
 public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter {
 
-	private List<CardGroup> groups;
+	private List<ElementGroup<Card>> groups;
 	private Context context;
 
-	public CardLibraryExpandableListAdapter(Context context, List<CardGroup>values){
+	public CardLibraryExpandableListAdapter(Context context, List<ElementGroup<Card>>values){
 		this.context = context;
 		this.groups = values;
 		
@@ -59,7 +60,7 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 	}
 
 	@Override
-	public Object getGroup(int groupPosition) {
+	public ElementGroup<Card> getGroup(int groupPosition) {
 		return groups.get(groupPosition);
 	}
 
@@ -76,7 +77,7 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 	    View convertView, ViewGroup parent) {
-		String gropuName = ((CardGroup) getGroup(groupPosition)).getType().name();
+		String gropuName = ((ElementGroup<Card>) getGroup(groupPosition)).getType().name();
     if (convertView == null) {
         LayoutInflater infalInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

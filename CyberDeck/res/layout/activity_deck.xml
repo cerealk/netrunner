@@ -50,7 +50,7 @@
 
     </RelativeLayout>
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/deck_cards"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

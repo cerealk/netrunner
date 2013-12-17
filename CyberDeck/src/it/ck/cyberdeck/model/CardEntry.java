@@ -43,6 +43,10 @@ public class CardEntry implements Serializable {
 		CardEntry other = (CardEntry) obj;
 		return EqualsBuilder.reflectionEquals(this, other);
 	}
+
+	public String getName() {
+		return card.getName();
+	}
 	
 	
 	

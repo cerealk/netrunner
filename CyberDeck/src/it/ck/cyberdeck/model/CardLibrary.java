@@ -1,8 +1,10 @@
 package it.ck.cyberdeck.model;
 
+import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.model.reputation.ReputationRule;
 import it.ck.cyberdeck.model.reputation.ReputationRuleFactory;
 import it.ck.cyberdeck.model.utils.CardKeyComparator;
+import it.ck.cyberdeck.model.utils.CardNameComparator;
 
 import java.util.*;
 
@@ -54,43 +56,43 @@ public class CardLibrary {
 		}
 	}
 
-	public List<CardGroup> getCardGroups(Side side) {
-		Map<CardType, CardGroup> cardGroups = new HashMap<CardType, CardGroup>();
+	public List<ElementGroup<Card>> getCardGroups(Side side) {
+		Map<CardType, ElementGroup<Card>> cardGroups = new HashMap<CardType, ElementGroup<Card>>();
 		for (Card card : cards.values()) {
 			if (card.getSide().equals(side)) {
-				CardGroup cardGroup = cardGroups.get(card.getType());
+				ElementGroup<Card> cardGroup = cardGroups.get(card.getType());
 				if (cardGroup == null) {
-					cardGroup = new CardGroup(card.getType());
+					cardGroup = new ElementGroup<Card>(card.getType(), new CardNameComparator());
 				}
 				cardGroup.add(card);
 				cardGroups.put(card.getType(), cardGroup);
 			}
 		}
 
-		return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups
+		return Collections.unmodifiableList(new ArrayList<ElementGroup<Card>>(cardGroups
 				.values()));
 
 	}
 
-	public List<CardGroup> getCardGroups(Identity identity) {
-		Map<CardType, CardGroup> cardGroups = populateCardGroup(identity);
+	public List<ElementGroup<Card>> getCardGroups(Identity identity) {
+		Map<CardType, ElementGroup<Card>> cardGroups = populateCardGroup(identity);
 
-		return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups.values()));
+		return Collections.unmodifiableList(new ArrayList<ElementGroup<Card>>(cardGroups.values()));
 	}
 	
-	public List<CardGroup> getCardGroupsWithoutIdentities(Identity identity){
-		Map<CardType, CardGroup> cardGroups = populateCardGroup(identity);
+	public List<ElementGroup<Card>> getCardGroupsWithoutIdentities(Identity identity){
+		Map<CardType, ElementGroup<Card>> cardGroups = populateCardGroup(identity);
 		cardGroups.remove(CardType.IDENTITY);
-		return Collections.unmodifiableList(new ArrayList<CardGroup>(cardGroups.values()));
+		return Collections.unmodifiableList(new ArrayList<ElementGroup<Card>>(cardGroups.values()));
 	}
 
-	private Map<CardType, CardGroup> populateCardGroup(Identity identity) {
-		Map<CardType, CardGroup> cardGroups = new HashMap<CardType, CardGroup>();
+	private Map<CardType, ElementGroup<Card>> populateCardGroup(Identity identity) {
+		Map<CardType, ElementGroup<Card>> cardGroups = new HashMap<CardType, ElementGroup<Card>>();
 		for (Card card : cards.values()) {
 			if (card.getSide().equals(identity.side())) {
-				CardGroup cardGroup = cardGroups.get(card.getType());
+				ElementGroup<Card> cardGroup = cardGroups.get(card.getType());
 				if (cardGroup == null) {
-					cardGroup = new CardGroup(card.getType());
+					cardGroup = new ElementGroup<Card>(card.getType(), new CardNameComparator());
 				}
 				if (identity.canUse(card)) {
 					cardGroup.add(card);
