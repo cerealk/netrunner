@@ -208,7 +208,13 @@ public class Deck implements Serializable {
 	}
 
 	public List<ElementGroup<CardEntry>> getGroupedEntries() {
-		return new ArrayList<ElementGroup<CardEntry>>(new ElementGroupBuilder().populateCardGroup(this).values());
+		return new ArrayList<ElementGroup<CardEntry>>(new ElementGroupBuilder<CardEntry>().populateCardGroup(this).values());
+	}
+	
+	public int calculateReputationCost(CardEntry entry) {
+		int singleRepoCost = this.getIdentity().calculateReputationCost(entry.getCard());
+		int repoCost = singleRepoCost * entry.getCount();
+		return repoCost;
 	}
 
 }

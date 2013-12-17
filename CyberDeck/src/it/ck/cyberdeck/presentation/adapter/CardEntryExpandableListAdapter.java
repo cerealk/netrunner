@@ -124,8 +124,7 @@ public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 	
 	private CharSequence getCardReputationText(CardEntry entry) {
-		Integer repoCost = deck.getIdentity().calculateReputationCost(entry.getCard());
-		
+		Integer repoCost = deck.calculateReputationCost(entry);
 		if (repoCost > 0){
 			return StringUtils.repeat(context.getResources().getString(R.string.reputation_dot), repoCost);
 		}
