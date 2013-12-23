@@ -139,7 +139,7 @@ public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 		return entry.getCard().getName();
 	}
 
-	public void updateGroups() {
+	public void updateGroups(Deck deck) {
 		this.groups = deck.getGroupedEntries();
 	}
 

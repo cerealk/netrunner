@@ -152,7 +152,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	@Override
 	public void publishEntryList(List<CardEntry> cards) {
-		listViewAdapter.updateGroups();
+		listViewAdapter.updateGroups(getDeck());
 		listViewAdapter.notifyDataSetChanged();
 		int count = listViewAdapter.getGroupCount();
 		for (int position = 1; position <= count; position++)
