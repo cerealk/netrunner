@@ -51,6 +51,8 @@
         </activity>
         <activity android:name="it.ck.cyberdeck.presentation.activity.AddCardActivity" >
         </activity>
+        <activity android:name="it.ck.cyberdeck.presentation.activity.SwipeAddCardActivity" >
+        </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.activity.DeckListActivity"
             android:label="@string/title_activity_deck_list" >
