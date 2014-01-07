@@ -1,7 +1,5 @@
 package it.ck.cyberdeck.model;
 
-import static org.junit.Assert.*;
-
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
@@ -39,7 +37,16 @@ public class EventSourceTest {
 		notifyEvent();
 	}
 	
-
+	@Test
+	public void aNullEventIsSilentlyDiscarded() throws Exception {
+		final EventSourceListener eventhandler1 = context.mock(EventSourceListener.class, "eventHandler1");
+		es.addListener(eventhandler1);
+		context.checking(new Expectations(){{
+			exactly(0).of(eventhandler1).handleEvent(null);
+		}});
+		es.notifyListeners(null);
+	}
+	
 	private void notifyEvent() {
 		Event event = new Event(){};
 		es.notifyListeners(event);

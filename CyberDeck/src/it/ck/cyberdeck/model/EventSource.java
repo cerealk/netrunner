@@ -13,7 +13,7 @@ public class EventSource {
 
 	public void notifyListeners(final Event event) {
 		for (EventSourceListener esl : eventSourceListener)
-			esl.handleEvent(event);
+			if (event != null) esl.handleEvent(event);
 		
 	}
 
