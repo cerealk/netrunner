@@ -6,7 +6,6 @@ import static it.ck.cyberdeck.model.CardType.*;
 import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
 import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
 
-import java.util.Collection;
 import java.util.List;
 
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
