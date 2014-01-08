@@ -48,7 +48,7 @@ public class EventSourceTest {
 	}
 	
 	private void notifyEvent() {
-		Event event = new Event(){};
+		Event event = new Event(null){};
 		es.notifyListeners(event);
 	}
 }
