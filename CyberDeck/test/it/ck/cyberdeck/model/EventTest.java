@@ -14,5 +14,5 @@ public class EventTest {
 		Deck source = event.getSource();
 		assertThat(source, Matchers.is(deck));
 	}
-
+	
 }
