@@ -2,15 +2,14 @@ package it.ck.cyberdeck.fixtures;
 
 import static it.ck.cyberdeck.fixtures.CardTestFactory.getCard;
 import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithAgenda;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getArarchIdentity;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getHBIdentity;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Identity;
 
 public class DeckTestFactory {
 
 	public static Deck getEmptyDeck() {
-		return getDeck(getArarchIdentity());
+		return getDeck(getLowCountIdentity());
 	}
 	
 	public static Deck getDeck(Identity identity) {

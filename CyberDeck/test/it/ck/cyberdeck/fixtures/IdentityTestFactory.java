@@ -31,6 +31,10 @@ public class IdentityTestFactory{
 		return identity;
 	}
 	
+	public static Identity getLowCountIdentity() {
+		return getIdentity(Side.RUNNER, Faction.ANARCH, 2);
+	}
+	
 	public static Identity getDefaultIdentity(Integer minimumCardCount) {
 		return getIdentity(Side.RUNNER, Faction.SHAPER, minimumCardCount);
 	}
