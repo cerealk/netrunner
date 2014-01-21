@@ -56,14 +56,14 @@ public class DeckTest {
 	@Test
 	public void aValidDeckShouldContainAtLeastANumberOfCardsAsTheIdentityStates()
 			throws Exception {
-		twoCardDeck();
+		deck = twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
 	public void aDeckCantHaveMoreThanThreeCopiesPerCard() throws Exception {
-		twoCardDeck();
-		twoCardDeck();
+		deck = twoCardDeck();
+		addTwoCards(deck);
 	}
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
@@ -149,13 +149,13 @@ public class DeckTest {
 
 	@Test
 	public void aDeckWithEnoughCardsHasAValidStatus() {
-		twoCardDeck();
+		deck = twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
 	@Test
 	public void aCorpDeckShouldHaveARequiredNumberOfAgendaPoints() {
-		twoCardDeck();
+		deck =  twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
@@ -298,14 +298,14 @@ public class DeckTest {
 
 	@Test
 	public void theDeckStatusContainsTheDeckSize() {
-		twoCardDeck();
+		deck = twoCardDeck();
 		deck.add(getCard());
 		assertThat(deck.checkStatus().cardCount(), is(3));
 	}
 
 	@Test
 	public void theDeckStatusContainsTheMinimumDeckSize() {
-		twoCardDeck();
+		deck = twoCardDeck();
 		assertThat(deck.checkStatus().minDeckSize(), is(2));
 	}
 
@@ -354,23 +354,5 @@ public class DeckTest {
 		assertThat(groups, is(not(nullValue())));
 	}
 
-	private Deck getCorpDeckWithOneAgenda() {
-		Deck corpDeck = getCorpDeck();
-		corpDeck.add(getCorpCardWithAgenda("agenda1", 3, 1));
-		return corpDeck;
-	}
-
-	private Deck getCorpDeck() {
-		Identity identity = getHBIdentity();
-		Deck corpDeck = new Deck(identity, "corp deck");
-		return corpDeck;
-	}
-
-
-
-	private void twoCardDeck() {
-		deck.add(getCard());
-		deck.add(getCard());
-	}
 
 }
