@@ -1,14 +1,19 @@
 package it.ck.cyberdeck.model;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static it.ck.cyberdeck.model.CardType.*;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
-
-import java.util.Collection;
-import java.util.List;
-
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getAnarchCard;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCard;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithAgenda;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithNoAgenda;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getUniqueCard;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getHBIdentity;
+import static it.ck.cyberdeck.model.CardType.HARDWARE;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getIdentity;
+import static it.ck.cyberdeck.fixtures.DeckTestFactory.*;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
@@ -16,8 +21,11 @@ import it.ck.cyberdeck.model.Deck.TooManyOutOfFactionCardsException;
 import it.ck.cyberdeck.model.Deck.WrongSideException;
 import it.ck.cyberdeck.model.group.ElementGroup;
 
+import java.util.List;
+
 import org.apache.commons.lang3.Range;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class DeckTest {
 
@@ -25,7 +33,7 @@ public class DeckTest {
 
 	@Before
 	public void setup() {
-		deck = getDeck(getIdentity(2));
+		deck = getDeck(getDefaultIdentity(2));
 	}
 
 	@Test
@@ -166,7 +174,7 @@ public class DeckTest {
 
 	@Test
 	public void givenADeckICanAddACardOfTheSameFaction() {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.name = "card";
 		cardData.set = CardSet.CORE;
@@ -185,7 +193,7 @@ public class DeckTest {
 	@Test
 	public void givenACardOutOfFactionICanAddItIfItCanBeAttached()
 			throws Exception {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		Card card = getCard("test", Side.RUNNER, Faction.ANARCH, 3, 2,
 				CardType.HARDWARE);
 		deck.add(card);
@@ -195,7 +203,7 @@ public class DeckTest {
 	@Test(expected = CantBeAttachedException.class)
 	public void givenACardOutOfFactionICantAddItIfITCantBeAttached()
 			throws Exception {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
 		cardData.identity = Faction.ANARCH;
@@ -211,7 +219,7 @@ public class DeckTest {
 	@Test(expected = CantBeAttachedException.class)
 	public void givenANeutralCardICantAddItIfITCantBeAttached()
 			throws Exception {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
 		cardData.identity = Faction.ANARCH;
@@ -366,21 +374,8 @@ public class DeckTest {
 		return corpDeck;
 	}
 
-	private Deck getDeck(Identity identity) {
-		return new Deck(identity);
-	}
-
-	private Identity getIdentity(int minimumCardCount) {
-		return new Identity("identity: " + minimumCardCount, Side.RUNNER,
-				Faction.SHAPER, minimumCardCount, 15, null);
-	}
-
-	private Deck getDeck() {
-		return getDeck(getIdentity());
-	}
-
-	private Identity getIdentity() {
-		return getIdentity(2);
+	private Identity getDefaultIdentity(Integer minimumCardCount) {
+		return getIdentity(Side.RUNNER, Faction.SHAPER, minimumCardCount);
 	}
 
 	private void twoCardDeck() {

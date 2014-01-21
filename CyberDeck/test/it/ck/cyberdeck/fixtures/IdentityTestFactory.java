@@ -20,9 +20,15 @@ public class IdentityTestFactory{
 		return getIdentity(Side.CORP, Faction.HAAS_BIOROID);
 	}
 
-	private static Identity getIdentity(Side side, Faction faction) {
+	public static Identity getIdentity(Side side, Faction faction) {
+		int minimumCardCount = 15;
+		return getIdentity(side, faction, minimumCardCount);
+	}
+
+	public static Identity getIdentity(Side side, Faction faction, Integer minimumCardCount) {
 		CardKey key = new CardKey(CardSet.CORE, 1);
-		Identity identity = new Identity("name", side, faction, 45, 15, key);
+		Identity identity = new Identity("name", side, faction, minimumCardCount, 15, key);
 		return identity;
 	}
+	
 }
