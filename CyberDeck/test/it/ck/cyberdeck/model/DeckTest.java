@@ -1,19 +1,11 @@
 package it.ck.cyberdeck.model;
 
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getAnarchCard;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getCard;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithAgenda;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithNoAgenda;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getUniqueCard;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getHBIdentity;
-import static it.ck.cyberdeck.model.CardType.HARDWARE;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getIdentity;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
 import static it.ck.cyberdeck.fixtures.DeckTestFactory.*;
+import static it.ck.cyberdeck.model.CardType.HARDWARE;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
@@ -38,7 +30,7 @@ public class DeckTest {
 
 	@Test
 	public void eachDeckHasAnIdentity() {
-		Deck deck = getDeck();
+		Deck deck = getEmptyDeck();
 		Identity identity = deck.getIdentity();
 		assertThat(identity, is(not(nullValue())));
 	}
@@ -357,7 +349,7 @@ public class DeckTest {
 
 	@Test
 	public void iCangGetTheEntriesofTheDeckGroupedByType() {
-		Deck deck = getDeck();
+		Deck deck = getEmptyDeck();
 		List<ElementGroup<CardEntry>> groups = deck.getGroupedEntries();
 		assertThat(groups, is(not(nullValue())));
 	}
@@ -374,9 +366,7 @@ public class DeckTest {
 		return corpDeck;
 	}
 
-	private Identity getDefaultIdentity(Integer minimumCardCount) {
-		return getIdentity(Side.RUNNER, Faction.SHAPER, minimumCardCount);
-	}
+
 
 	private void twoCardDeck() {
 		deck.add(getCard());

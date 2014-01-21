@@ -6,7 +6,7 @@ import it.ck.cyberdeck.model.Identity;
 
 public class DeckTestFactory {
 
-	public static Deck getDeck() {
+	public static Deck getEmptyDeck() {
 		return getDeck(getArarchIdentity());
 	}
 	
