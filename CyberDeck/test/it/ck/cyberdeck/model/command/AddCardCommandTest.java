@@ -7,8 +7,8 @@ import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
 import static org.hamcrest.Matchers.*;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.model.DeckException;
 import it.ck.cyberdeck.model.Notifier;
+import it.ck.cyberdeck.model.command.implementation.AddCardCommand;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
@@ -20,30 +20,6 @@ public class AddCardCommandTest {
     @Rule public JUnitRuleMockery context = new JUnitRuleMockery();
 	private Notifier notifier = context.mock(Notifier.class);
 	
-	public class AddCardCommand implements Command {
-
-		private Card card;
-		private Deck deck;
-		private Notifier notifier;
-
-		public AddCardCommand(Card card, Deck deck, Notifier notifier) {
-			this.card = card;
-			this.deck = deck;
-			this.notifier = notifier;
-		}
-
-		@Override
-		public void execute() {
-			try {
-				deck.add(card);
-				this.notifier.notify(card.getName() + " added");
-			} catch (DeckException e) {
-				this.notifier.notify(e.getMessage());
-			}
-		}
-
-	}
-
 	@Test
 	public void givenAnEmptyDeckICanAddACard() throws Exception {
 		Deck deck = getEmptyDeck();
