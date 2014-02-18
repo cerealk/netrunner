@@ -1,14 +1,17 @@
 package it.ck.cyberdeck.model;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static it.ck.cyberdeck.model.CardType.*;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
-
-import java.util.Collection;
-import java.util.List;
-
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getAnarchCard;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCard;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithAgenda;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithNoAgenda;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getUniqueCard;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getHBIdentity;
+import static it.ck.cyberdeck.model.CardType.HARDWARE;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
@@ -16,8 +19,11 @@ import it.ck.cyberdeck.model.Deck.TooManyOutOfFactionCardsException;
 import it.ck.cyberdeck.model.Deck.WrongSideException;
 import it.ck.cyberdeck.model.group.ElementGroup;
 
+import java.util.List;
+
 import org.apache.commons.lang3.Range;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class DeckTest {
 
