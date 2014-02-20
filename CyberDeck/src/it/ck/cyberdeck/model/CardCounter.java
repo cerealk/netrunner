@@ -11,11 +11,20 @@ public class CardCounter implements Serializable {
 
 	public class CardNotFoundException extends RuntimeException {
 		private static final long serialVersionUID = -4688094597415515668L;
+		private Card card;
+		public CardNotFoundException(Card card){
+			this.card = card;
+		}
+		
+		@Override
+		public String getMessage() {
+			return "Card " + card.getName() + " not found";
+		}
 	}
 
 	public void add(Card card) {
 		Integer currentCount = getCount(card);
-		count.put(card, ++currentCount);
+		updateCount(card, ++currentCount);
 	}
 
 	public Integer getCount(Card card) {
@@ -29,9 +38,13 @@ public class CardCounter implements Serializable {
 	public void remove(Card card) {
 		Integer cardCount = getCount(card);
 		if (cardCount.intValue() == 0) {
-			throw new CardNotFoundException();
+			throw new CardNotFoundException(card);
 		}
 		cardCount--;
+		updateCount(card, cardCount);
+	}
+
+	private void updateCount(Card card, Integer cardCount) {
 		if (cardCount == 0) {
 			count.remove(card);
 		} else {
