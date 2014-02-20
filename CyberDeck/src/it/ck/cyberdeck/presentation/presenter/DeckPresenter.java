@@ -33,7 +33,10 @@ public class DeckPresenter  {
 	}
 
 	public void remove(Card card) {
-		deck.remove(card);
+		
+		DeckCommandFactory commandFactory = new DefaultDeckCommandFactory();
+		Command removeCardCommand = commandFactory.createRemoveCardCommand(card, deck, deckPublisher);
+		removeCardCommand.execute();
 		saveDeck();
 	}
 
