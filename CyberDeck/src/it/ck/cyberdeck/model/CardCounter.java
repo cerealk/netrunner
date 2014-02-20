@@ -9,7 +9,7 @@ public class CardCounter implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Map<Card, Integer> count = new TreeMap<Card, Integer>();
 
-	public class CardNotFoundException extends RuntimeException {
+	public class CardNotFoundException extends DeckException {
 		private static final long serialVersionUID = -4688094597415515668L;
 		private Card card;
 		public CardNotFoundException(Card card){

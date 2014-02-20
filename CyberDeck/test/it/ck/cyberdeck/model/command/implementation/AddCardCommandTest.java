@@ -1,14 +1,14 @@
-package it.ck.cyberdeck.model.command;
+package it.ck.cyberdeck.model.command.implementation;
 
-import static org.junit.Assert.*;
-
-import static it.ck.cyberdeck.fixtures.DeckTestFactory.*;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
-import static org.hamcrest.Matchers.*;
+import static it.ck.cyberdeck.fixtures.CardTestFactory.getCard;
+import static it.ck.cyberdeck.fixtures.DeckTestFactory.getEmptyDeck;
+import static it.ck.cyberdeck.fixtures.DeckTestFactory.twoCardDeck;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Notifier;
-import it.ck.cyberdeck.model.command.implementation.AddCardCommand;
+import it.ck.cyberdeck.model.command.Command;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;

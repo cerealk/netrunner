@@ -5,7 +5,7 @@ import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Notifier;
 import it.ck.cyberdeck.model.command.Command;
 
-public class RemoveCardCommand extends AbastractNotifierCommand implements Command {
+public class RemoveCardCommand extends AbstractNotifierCommand implements Command {
 
 	private Card card;
 	private Deck deck;

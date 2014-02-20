@@ -4,11 +4,11 @@ import it.ck.cyberdeck.model.DeckException;
 import it.ck.cyberdeck.model.Notifier;
 import it.ck.cyberdeck.model.command.Command;
 
-public abstract class AbastractNotifierCommand implements Command{
+public abstract class AbstractNotifierCommand implements Command{
 
 	private Notifier notifier;
 
-	public AbastractNotifierCommand(Notifier notifier) {
+	public AbstractNotifierCommand(Notifier notifier) {
 		super();
 		this.notifier = notifier;
 	}
