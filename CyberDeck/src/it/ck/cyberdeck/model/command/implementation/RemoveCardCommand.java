@@ -20,7 +20,8 @@ public class RemoveCardCommand extends AbstractNotifierCommand implements Comman
 	}
 
 	protected void doExecute() {
-		deck.remove(card);
+		if(card != null)
+			deck.remove(card);
 	}
 
 }

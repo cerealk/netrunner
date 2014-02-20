@@ -5,29 +5,24 @@ import static it.ck.cyberdeck.fixtures.DeckTestFactory.getEmptyDeck;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.model.Notifier;
 import it.ck.cyberdeck.model.Side;
 
-import org.jmock.Expectations;
-import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class RemoveCardCommandTest {
 
-	@Rule
-	public JUnitRuleMockery context = new JUnitRuleMockery();
-
 	private Deck deck = getDeck();
-
-	private Notifier notifier = context.mock(Notifier.class);
+	
+	@Rule public ExpectedException expectedException = ExpectedException.none();
 
 	@Test
 	public void givenADeckWithACard_ICanRemoveTheCard() {
 
 		Card cardToRemove = getCard();
-		expectNotification();
 		executeRemoveCardCommand(cardToRemove);
 		assertThat(deck.cardCount(cardToRemove), is(0));
 	}
@@ -40,19 +35,11 @@ public class RemoveCardCommandTest {
 	}
 
 	@Test
-	public void whenIRemoveACardNotpresent_theUserIsNotified() throws Exception {
+	public void whenIRemoveACardNotpresent_anExceptionIsThrown() throws Exception {
 		Card card = getCard("ciccio", Side.RUNNER);
-		expectNotification();
-
+		expectedException.expect(CardNotFoundException.class);
 		executeRemoveCardCommand(card);
-	}
-
-	private void expectNotification() {
-		context.checking(new Expectations() {
-			{
-				oneOf(notifier).notify(with(any(String.class)));
-			}
-		});
+		
 	}
 
 	private Deck getDeck() {
@@ -63,7 +50,7 @@ public class RemoveCardCommandTest {
 	}
 
 	private void executeRemoveCardCommand(Card card) {
-		RemoveCardCommand command = new RemoveCardCommand(card, deck, notifier);
-		command.execute();
+		RemoveCardCommand command = new RemoveCardCommand(card, deck, null);
+		command.doExecute();
 	}
 }
