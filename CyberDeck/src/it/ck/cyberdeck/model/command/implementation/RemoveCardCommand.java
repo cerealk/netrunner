@@ -3,7 +3,6 @@ package it.ck.cyberdeck.model.command.implementation;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Notifier;
-import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.command.Command;
 
 public class RemoveCardCommand extends AbastractNotifierCommand implements Command {
