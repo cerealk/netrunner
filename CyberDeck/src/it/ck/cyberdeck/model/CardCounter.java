@@ -36,12 +36,20 @@ public class CardCounter implements Serializable {
 	}
 
 	public void remove(Card card) {
+		checkCardExistence(card);
+		updateCount(card, getCount(card).intValue()-1);
+	}
+
+	public void removeAll(Card card) {
+		checkCardExistence(card);
+		count.remove(card);
+	}
+
+	private void checkCardExistence(Card card) {
 		Integer cardCount = getCount(card);
 		if (cardCount.intValue() == 0) {
 			throw new CardNotFoundException(card);
 		}
-		cardCount--;
-		updateCount(card, cardCount);
 	}
 
 	private void updateCount(Card card, Integer cardCount) {
@@ -77,10 +85,6 @@ public class CardCounter implements Serializable {
 			entries.add(new CardEntry(entry.getKey(), entry.getValue()));
 		}
 		return entries;
-	}
-
-	public void removeAll(Card card) {
-		count.remove(card);
 	}
 
 	public int countAgendaPoints() {
