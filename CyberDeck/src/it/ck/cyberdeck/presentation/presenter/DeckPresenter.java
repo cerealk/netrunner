@@ -45,7 +45,9 @@ public class DeckPresenter  {
 	}
 
 	public void removeAll(Card card) {
-		deck.removeAll(card);
+		DeckCommandFactory commandFactory = new DefaultDeckCommandFactory();
+		Command removeCardCommand = commandFactory.createRemoveAllCommand(card, deck, deckPublisher);
+		removeCardCommand.execute();
 		saveDeck();
 	}
 
