@@ -1,16 +1,11 @@
 package it.ck.cyberdeck.model;
 
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getAnarchCard;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getCard;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithAgenda;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getCorpCardWithNoAgenda;
-import static it.ck.cyberdeck.fixtures.CardTestFactory.getUniqueCard;
-import static it.ck.cyberdeck.fixtures.IdentityTestFactory.getHBIdentity;
+
+import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
+import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
+import static it.ck.cyberdeck.fixtures.DeckTestFactory.*;
 import static it.ck.cyberdeck.model.CardType.HARDWARE;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
@@ -31,12 +26,12 @@ public class DeckTest {
 
 	@Before
 	public void setup() {
-		deck = getDeck(getIdentity(2));
+		deck = getDeck(getDefaultIdentity(2));
 	}
 
 	@Test
 	public void eachDeckHasAnIdentity() {
-		Deck deck = getDeck();
+		Deck deck = getEmptyDeck();
 		Identity identity = deck.getIdentity();
 		assertThat(identity, is(not(nullValue())));
 	}
@@ -62,14 +57,14 @@ public class DeckTest {
 	@Test
 	public void aValidDeckShouldContainAtLeastANumberOfCardsAsTheIdentityStates()
 			throws Exception {
-		twoCardDeck();
+		deck = twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
 	public void aDeckCantHaveMoreThanThreeCopiesPerCard() throws Exception {
-		twoCardDeck();
-		twoCardDeck();
+		deck = twoCardDeck();
+		addTwoCards(deck);
 	}
 
 	@Test(expected = TooManyCardOfTheSameTypeException.class)
@@ -155,13 +150,13 @@ public class DeckTest {
 
 	@Test
 	public void aDeckWithEnoughCardsHasAValidStatus() {
-		twoCardDeck();
+		deck = twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
 	@Test
 	public void aCorpDeckShouldHaveARequiredNumberOfAgendaPoints() {
-		twoCardDeck();
+		deck =  twoCardDeck();
 		assertThat(deck.checkStatus().status(), is(StatusCode.VALID));
 	}
 
@@ -172,7 +167,7 @@ public class DeckTest {
 
 	@Test
 	public void givenADeckICanAddACardOfTheSameFaction() {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.name = "card";
 		cardData.set = CardSet.CORE;
@@ -191,7 +186,7 @@ public class DeckTest {
 	@Test
 	public void givenACardOutOfFactionICanAddItIfItCanBeAttached()
 			throws Exception {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		Card card = getCard("test", Side.RUNNER, Faction.ANARCH, 3, 2,
 				CardType.HARDWARE);
 		deck.add(card);
@@ -201,7 +196,7 @@ public class DeckTest {
 	@Test(expected = CantBeAttachedException.class)
 	public void givenACardOutOfFactionICantAddItIfITCantBeAttached()
 			throws Exception {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
 		cardData.identity = Faction.ANARCH;
@@ -217,7 +212,7 @@ public class DeckTest {
 	@Test(expected = CantBeAttachedException.class)
 	public void givenANeutralCardICantAddItIfITCantBeAttached()
 			throws Exception {
-		Deck deck = new Deck(getIdentity(45), "testDeck");
+		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
 		cardData.identity = Faction.ANARCH;
@@ -304,14 +299,14 @@ public class DeckTest {
 
 	@Test
 	public void theDeckStatusContainsTheDeckSize() {
-		twoCardDeck();
+		deck = twoCardDeck();
 		deck.add(getCard());
 		assertThat(deck.checkStatus().cardCount(), is(3));
 	}
 
 	@Test
 	public void theDeckStatusContainsTheMinimumDeckSize() {
-		twoCardDeck();
+		deck = twoCardDeck();
 		assertThat(deck.checkStatus().minDeckSize(), is(2));
 	}
 
@@ -355,43 +350,10 @@ public class DeckTest {
 
 	@Test
 	public void iCangGetTheEntriesofTheDeckGroupedByType() {
-		Deck deck = getDeck();
+		Deck deck = getEmptyDeck();
 		List<ElementGroup<CardEntry>> groups = deck.getGroupedEntries();
 		assertThat(groups, is(not(nullValue())));
 	}
 
-	private Deck getCorpDeckWithOneAgenda() {
-		Deck corpDeck = getCorpDeck();
-		corpDeck.add(getCorpCardWithAgenda("agenda1", 3, 1));
-		return corpDeck;
-	}
-
-	private Deck getCorpDeck() {
-		Identity identity = getHBIdentity();
-		Deck corpDeck = new Deck(identity, "corp deck");
-		return corpDeck;
-	}
-
-	private Deck getDeck(Identity identity) {
-		return new Deck(identity);
-	}
-
-	private Identity getIdentity(int minimumCardCount) {
-		return new Identity("identity: " + minimumCardCount, Side.RUNNER,
-				Faction.SHAPER, minimumCardCount, 15, null);
-	}
-
-	private Deck getDeck() {
-		return getDeck(getIdentity());
-	}
-
-	private Identity getIdentity() {
-		return getIdentity(2);
-	}
-
-	private void twoCardDeck() {
-		deck.add(getCard());
-		deck.add(getCard());
-	}
 
 }
