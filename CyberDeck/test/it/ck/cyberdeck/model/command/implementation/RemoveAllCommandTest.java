@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.model.Notifier;
 import it.ck.cyberdeck.model.Side;
 
 import org.junit.Rule;
@@ -18,31 +17,6 @@ public class RemoveAllCommandTest {
 
 	@Rule public ExpectedException expectedException = ExpectedException.none();
 	
-	public class RemoveAllCommand extends AbstractNotifierCommand{
-
-		private Deck deck;
-		private Card card;
-
-		public RemoveAllCommand(Deck deck, Card card, Notifier notifier) {
-			super(notifier);
-			this.deck = deck;
-			this.card = card;
-		}
-
-		@Override
-		protected void doExecute() {
-			if(card!=null)
-				deck.removeAll(card);
-			
-		}
-
-		@Override
-		protected String getSuccessMessage() {
-			return "Card " + card.getName() + " removed";
-		}
-
-	}
-
 	private Deck deck = twoCardDeck();
 	
 	@Test
@@ -61,7 +35,7 @@ public class RemoveAllCommandTest {
 	}
 
 	private void executeRemoveAllCommand(Card card) {
-		RemoveAllCommand command = new RemoveAllCommand(deck, card, null);
+		RemoveAllCommand command = new RemoveAllCommand(card, deck, null);
 		command.doExecute();
 	}
 

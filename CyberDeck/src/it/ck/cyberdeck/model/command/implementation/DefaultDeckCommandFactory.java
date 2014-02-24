@@ -15,9 +15,15 @@ public class DefaultDeckCommandFactory implements DeckCommandFactory {
 	}
 	
 	@Override
-	public Command createRemoveCardCommand(Card toAdd, Deck target,
+	public Command createRemoveCardCommand(Card toRemove, Deck target,
 			Notifier notifier) {
-		return new RemoveCardCommand(toAdd, target, notifier);
+		return new RemoveCardCommand(toRemove, target, notifier);
+	}
+	
+	@Override
+	public Command createRemoveAllCommand(Card toRemove, Deck target,
+			Notifier notifier) {
+		return new RemoveAllCommand(toRemove, target, notifier);
 	}
 
 }
