@@ -12,7 +12,8 @@ public enum CardSet {
 	OPENING_MOVES("Opening Moves", "04"),
 	SECOND_THOUGHTS("Second Thoughts", "04"),
 	MALA_TEMPORA("Mala Tempora", "04"),
-	TRUE_COLORS("True Colors", "04");
+	TRUE_COLORS("True Colors", "04"),
+	FEAR_AND_LOATHING("Fear and Loathing", "04");
 	
 	private String name;
 	private String code;
