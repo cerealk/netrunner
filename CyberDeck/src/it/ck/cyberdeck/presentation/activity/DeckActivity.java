@@ -82,7 +82,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(DeckActivity.this,
-						SwipeAddCardActivity.class);
+						GroupedAddCardActivity.class);
 				intent.putExtra(DECK_ARG_ID, presenter.getDeck());
 				startActivityForResult(intent, REQUEST_CODE);
 			}

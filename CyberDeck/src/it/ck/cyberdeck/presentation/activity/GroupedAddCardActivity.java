@@ -24,25 +24,25 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class SwipeAddCardActivity extends BaseDeckActivity {
+public class GroupedAddCardActivity extends BaseDeckActivity {
 
-	public static class DummySectionFragment extends Fragment {
+	public static class CardSectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
+		public static final String ARG_SECTION_GROUP = "section_number";
 		private ElementGroup<Card> cardGroup;
 
-		public DummySectionFragment() {
+		public CardSectionFragment() {
 
 		};
 
-		public static DummySectionFragment newInstance(
+		public static CardSectionFragment newInstance(
 				ElementGroup<Card> cardGroup, DeckPresenter presenter) {
-			DummySectionFragment fragment = new DummySectionFragment();
+			CardSectionFragment fragment = new CardSectionFragment();
 			Bundle args = new Bundle();
-			args.putSerializable(DummySectionFragment.ARG_SECTION_NUMBER,
+			args.putSerializable(CardSectionFragment.ARG_SECTION_GROUP,
 					cardGroup);
 			fragment.setArguments(args);
 			return fragment;
@@ -55,7 +55,7 @@ public class SwipeAddCardActivity extends BaseDeckActivity {
 
 			View rootView = inflater.inflate(R.layout.fragment_card_grid,
 					container, false);
-			cardGroup = (ElementGroup<Card>) getArguments().getSerializable(ARG_SECTION_NUMBER);
+			cardGroup = (ElementGroup<Card>) getArguments().getSerializable(ARG_SECTION_GROUP);
 			GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
 			CardGridAdapter adapter = new CardGridAdapter(this.getActivity().getApplicationContext(), cardGroup.getCards());
 			gridView.setAdapter(adapter);
@@ -65,12 +65,10 @@ public class SwipeAddCardActivity extends BaseDeckActivity {
 						int position, long id) {
 					Card card = cardGroup.getCards().get(position);
 					getSwipeActivity().addCard(card);
-					getSwipeActivity().showToast(
-							"Card " + card.getName() + " added succesfully");
 				}
 
-				private SwipeAddCardActivity getSwipeActivity() {
-					return (SwipeAddCardActivity) DummySectionFragment.this
+				private GroupedAddCardActivity getSwipeActivity() {
+					return (GroupedAddCardActivity) CardSectionFragment.this
 							.getActivity();
 				}
 			};
@@ -92,8 +90,8 @@ public class SwipeAddCardActivity extends BaseDeckActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return DummySectionFragment.newInstance(cardGroups.get(position),
-					SwipeAddCardActivity.this.presenter);
+			return CardSectionFragment.newInstance(cardGroups.get(position),
+					GroupedAddCardActivity.this.presenter);
 		}
 
 		@Override
