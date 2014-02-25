@@ -4,9 +4,12 @@ import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.model.command.Command;
+import it.ck.cyberdeck.model.command.DeckCommandFactory;
+import it.ck.cyberdeck.model.command.implementation.DefaultDeckCommandFactory;
 import it.ck.cyberdeck.presentation.DeckView;
 
-public class DeckPresenter {
+public class DeckPresenter  {
 
 	private Deck deck;
 	private DeckView deckPublisher;
@@ -30,7 +33,10 @@ public class DeckPresenter {
 	}
 
 	public void remove(Card card) {
-		deck.remove(card);
+		
+		DeckCommandFactory commandFactory = new DefaultDeckCommandFactory();
+		Command removeCardCommand = commandFactory.createRemoveCardCommand(card, deck, deckPublisher);
+		removeCardCommand.execute();
 		saveDeck();
 	}
 
@@ -39,7 +45,9 @@ public class DeckPresenter {
 	}
 
 	public void removeAll(Card card) {
-		deck.removeAll(card);
+		DeckCommandFactory commandFactory = new DefaultDeckCommandFactory();
+		Command removeCardCommand = commandFactory.createRemoveAllCommand(card, deck, deckPublisher);
+		removeCardCommand.execute();
 		saveDeck();
 	}
 
@@ -48,9 +56,12 @@ public class DeckPresenter {
 	}
 	
 	public void addCard(Card card){
-		deck.add(card);
+		
+		DeckCommandFactory commandFactory = new DefaultDeckCommandFactory();
+		Command addCommand = commandFactory.createAddCardCommand(card, deck, deckPublisher);
+		addCommand.execute();
 		saveDeck();
 		
 	}
-	
+
 }

@@ -73,4 +73,7 @@ public abstract class BaseDeckActivity extends BaseCyberDeckActivity implements 
 	public void publishDeckStatus(DeckStatus checkStatus) {
 	}
 	
+	public void notify(String message){
+		showToast(message);		
+	}
 }

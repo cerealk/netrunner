@@ -5,11 +5,12 @@ import it.ck.cyberdeck.model.group.ElementGroupBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.builder.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Deck implements Serializable {
 
@@ -24,18 +25,16 @@ public class Deck implements Serializable {
 	public static class TooManyOutOfFactionCardsException extends DeckException {
 		private static final long serialVersionUID = -413205268787698514L;
 
-		@Override
-		public String getMessage() {
-			return "reputation limit exceeded";
+		public TooManyOutOfFactionCardsException() {
+			super("reputation limit exceeded");
 		}
 	}
 
 	public static class TooManyCardOfTheSameTypeException extends DeckException {
 		private static final long serialVersionUID = -1394260444077910210L;
 
-		@Override
-		public String getMessage() {
-			return "card limit exceeded";
+		public TooManyCardOfTheSameTypeException() {
+			super( "card limit exceeded");
 		}
 
 	}
@@ -51,7 +50,8 @@ public class Deck implements Serializable {
 
 	public Deck(Identity identity) {
 		this.identity = identity;
-		this.deckStatus = new DeckStatus(StatusCode.INVALID, identity.minSize(), identity.reputationCap());
+		this.deckStatus = new DeckStatus(StatusCode.INVALID,
+				identity.minSize(), identity.reputationCap());
 	}
 
 	public Deck(Identity identity, String name) {
@@ -171,7 +171,7 @@ public class Deck implements Serializable {
 	}
 
 	private boolean checkPointRange(int ap) {
-		if (size() >=MIN_DECK_SIZE)
+		if (size() >= MIN_DECK_SIZE)
 			return getPointRange().contains(ap);
 		return false;
 	}
@@ -202,17 +202,20 @@ public class Deck implements Serializable {
 	private int countAgendaPoints() {
 		return cards.countAgendaPoints();
 	}
-	
-	public boolean isCorpDeck(){
+
+	public boolean isCorpDeck() {
 		return identity.isCorp();
 	}
 
 	public List<ElementGroup<CardEntry>> getGroupedEntries() {
-		return new ArrayList<ElementGroup<CardEntry>>(new ElementGroupBuilder<CardEntry>().populateCardGroup(this).values());
+		return new ArrayList<ElementGroup<CardEntry>>(
+				new ElementGroupBuilder<CardEntry>().populateCardGroup(this)
+						.values());
 	}
-	
+
 	public int calculateReputationCost(CardEntry entry) {
-		int singleRepoCost = this.getIdentity().calculateReputationCost(entry.getCard());
+		int singleRepoCost = this.getIdentity().calculateReputationCost(
+				entry.getCard());
 		int repoCost = singleRepoCost * entry.getCount();
 		return repoCost;
 	}

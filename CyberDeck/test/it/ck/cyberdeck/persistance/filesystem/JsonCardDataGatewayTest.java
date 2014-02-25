@@ -18,7 +18,7 @@ public class JsonCardDataGatewayTest {
 
 		List<CardData> cards = gw.loadRawData();
 
-		assertThat(cards.size(), is(348));
+		assertThat(cards.size(), is(388));
 
 		for (CardData card : cards) {
 			assertThat(card.name, is(not(nullValue())));

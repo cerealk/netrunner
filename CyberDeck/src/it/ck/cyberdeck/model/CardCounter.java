@@ -9,13 +9,22 @@ public class CardCounter implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Map<Card, Integer> count = new TreeMap<Card, Integer>();
 
-	public class CardNotFoundException extends RuntimeException {
+	public class CardNotFoundException extends DeckException {
 		private static final long serialVersionUID = -4688094597415515668L;
+		private Card card;
+		public CardNotFoundException(Card card){
+			this.card = card;
+		}
+		
+		@Override
+		public String getMessage() {
+			return "Card " + card.getName() + " not found";
+		}
 	}
 
 	public void add(Card card) {
 		Integer currentCount = getCount(card);
-		count.put(card, ++currentCount);
+		updateCount(card, ++currentCount);
 	}
 
 	public Integer getCount(Card card) {
@@ -27,11 +36,23 @@ public class CardCounter implements Serializable {
 	}
 
 	public void remove(Card card) {
+		checkCardExistence(card);
+		updateCount(card, getCount(card).intValue()-1);
+	}
+
+	public void removeAll(Card card) {
+		checkCardExistence(card);
+		count.remove(card);
+	}
+
+	private void checkCardExistence(Card card) {
 		Integer cardCount = getCount(card);
 		if (cardCount.intValue() == 0) {
-			throw new CardNotFoundException();
+			throw new CardNotFoundException(card);
 		}
-		cardCount--;
+	}
+
+	private void updateCount(Card card, Integer cardCount) {
 		if (cardCount == 0) {
 			count.remove(card);
 		} else {
@@ -64,10 +85,6 @@ public class CardCounter implements Serializable {
 			entries.add(new CardEntry(entry.getKey(), entry.getValue()));
 		}
 		return entries;
-	}
-
-	public void removeAll(Card card) {
-		count.remove(card);
 	}
 
 	public int countAgendaPoints() {
