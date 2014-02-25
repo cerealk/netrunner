@@ -48,6 +48,7 @@ public class SwipeAddCardActivity extends BaseDeckActivity {
 			return fragment;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
