@@ -11,12 +11,11 @@ import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
 
 import java.util.List;
 
+
+import com.nineoldandroids.animation.Animator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
@@ -237,10 +236,10 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    // scale properties (X, Y, SCALE_X, and SCALE_Y).
 	    AnimatorSet set = new AnimatorSet();
 	    set
-	            .play(ObjectAnimator.ofFloat(expandedImageView, View.X,
-	                    startBounds.left, finalBounds.left))
-	            .with(ObjectAnimator.ofFloat(expandedImageView, View.Y,
-	                    startBounds.top, finalBounds.top))
+	            .play(ObjectAnimator.ofFloat((View)expandedImageView, View.X,
+	                    (float)startBounds.left, (float)finalBounds.left))
+	            .with(ObjectAnimator.ofFloat((View)expandedImageView, View.Y,
+	                    (float)startBounds.top, (float)finalBounds.top))
 	            .with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X,
 	            startScale, 1f)).with(ObjectAnimator.ofFloat(expandedImageView,
 	                    View.SCALE_Y, startScale, 1f));
