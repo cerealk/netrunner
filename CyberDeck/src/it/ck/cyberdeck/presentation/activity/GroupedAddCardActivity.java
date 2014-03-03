@@ -11,6 +11,17 @@ import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
 
 import java.util.List;
 
+
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.util.Property;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -29,13 +40,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
-
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 //@SuppressLint("NewApi")
 public class GroupedAddCardActivity extends BaseDeckActivity {
@@ -284,7 +288,8 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	                        .with(ObjectAnimator
 	                                .ofFloat(expandedImageView, "scaleX", startScaleFinal))
 	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, "scaleY", startScaleFinal)
+	                                .ofFloat(expandedImageView, "scaleY", startScaleFinal))
+	                                .with(ObjectAnimator.ofFloat(expandedImageView, "alpha", 0f)
 	                                		);
 	            set.setDuration(mShortAnimationDuration);
 	            set.setInterpolator(new DecelerateInterpolator());
