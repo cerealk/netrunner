@@ -11,12 +11,6 @@ import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
 
 import java.util.List;
 
-
-import com.nineoldandroids.animation.Animator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -25,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +30,14 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-@SuppressLint("NewApi")
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+//@SuppressLint("NewApi")
 public class GroupedAddCardActivity extends BaseDeckActivity {
 
 	public static class CardSectionFragment extends Fragment {
@@ -173,13 +175,12 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    }
 
 	    // Load the high-resolution "zoomed-in" image.
-	    final ImageView expandedImageView = (ImageView) findViewById(
+	    final View expandedImageView = (View) findViewById(
 	            R.id.expanded_image);
 	    
 	    ImageLoader imageLoader = ImageLoader.getInstance();
 	    String uri = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ cardCode +".png";
-	    imageLoader.displayImage(uri, expandedImageView);
-//	    expandedImageView.setImageResource(string);
+	    imageLoader.displayImage(uri, (ImageView)expandedImageView);
 
 	    // Calculate the starting and ending bounds for the zoomed-in image.
 	    // This step involves lots of math. Yay, math.
@@ -223,26 +224,29 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    // Hide the thumbnail and show the zoomed-in view. When the animation
 	    // begins, it will position the zoomed-in view in the place of the
 	    // thumbnail.
-	    thumbView.setAlpha(0f);
+	    ViewHelper.setAlpha(thumbView, 0f);
+//	    thumbView.setAlpha(0f);
 	    expandedImageView.setVisibility(View.VISIBLE);
 
 	    // Set the pivot point for SCALE_X and SCALE_Y transformations
 	    // to the top-left corner of the zoomed-in view (the default
 	    // is the center of the view).
-	    expandedImageView.setPivotX(0f);
-	    expandedImageView.setPivotY(0f);
+	    ViewHelper.setPivotX(expandedImageView, 0f);
+	    ViewHelper.setPivotY(expandedImageView, 0f);
+//	    expandedImageView.setPivotX(0f);
+//	    expandedImageView.setPivotY(0f);
 
 	    // Construct and run the parallel animation of the four translation and
 	    // scale properties (X, Y, SCALE_X, and SCALE_Y).
 	    AnimatorSet set = new AnimatorSet();
 	    set
-	            .play(ObjectAnimator.ofFloat((View)expandedImageView, View.X,
-	                    (float)startBounds.left, (float)finalBounds.left))
-	            .with(ObjectAnimator.ofFloat((View)expandedImageView, View.Y,
+	            .play(ObjectAnimator.ofFloat(expandedImageView, "x",
+	                    startBounds.left, finalBounds.left))
+	            .with(ObjectAnimator.ofFloat(expandedImageView,  "y",
 	                    (float)startBounds.top, (float)finalBounds.top))
-	            .with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X,
+	            .with(ObjectAnimator.ofFloat(expandedImageView, "scaleX",
 	            startScale, 1f)).with(ObjectAnimator.ofFloat(expandedImageView,
-	                    View.SCALE_Y, startScale, 1f));
+	            		 "scaleY", startScale, 1f));
 	    set.setDuration(mShortAnimationDuration);
 	    set.setInterpolator(new DecelerateInterpolator());
 	    set.addListener(new AnimatorListenerAdapter() {
@@ -272,31 +276,34 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 
 	            // Animate the four positioning/sizing properties in parallel,
 	            // back to their original values.
+	           
 	            AnimatorSet set = new AnimatorSet();
-	            set.play(ObjectAnimator
-	                        .ofFloat(expandedImageView, View.X, startBounds.left))
+	            set.play(ObjectAnimator.ofFloat(expandedImageView,  "x", startBounds.left))
 	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, 
-	                                        View.Y,startBounds.top))
+	                                .ofFloat(expandedImageView, "y",startBounds.top))
 	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, 
-	                                        View.SCALE_X, startScaleFinal))
+	                                .ofFloat(expandedImageView, "scaleX", startScaleFinal))
 	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, 
-	                                        View.SCALE_Y, startScaleFinal));
+	                                .ofFloat(expandedImageView, "scaleY", startScaleFinal)
+	                                		);
 	            set.setDuration(mShortAnimationDuration);
 	            set.setInterpolator(new DecelerateInterpolator());
+	            
 	            set.addListener(new AnimatorListenerAdapter() {
 	                @Override
 	                public void onAnimationEnd(Animator animation) {
-	                    thumbView.setAlpha(1f);
+	                	Log.i("animation", "onAnimationEnd");
+	                	ViewHelper.setAlpha(thumbView, 1f);
+	                	expandedImageView.clearAnimation();
 	                    expandedImageView.setVisibility(View.GONE);
 	                    mCurrentAnimator = null;
 	                }
 
 	                @Override
 	                public void onAnimationCancel(Animator animation) {
-	                    thumbView.setAlpha(1f);
+	                	Log.i("animation", "onAnimationCancel");
+	                	ViewHelper.setAlpha(thumbView, 1f);
+	                	expandedImageView.clearAnimation();
 	                    expandedImageView.setVisibility(View.GONE);
 	                    mCurrentAnimator = null;
 	                }
@@ -315,5 +322,6 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 		setResult(RESULT_OK, intent);
 		super.onBackPressed();
 	}
+	
 
 }
