@@ -69,7 +69,7 @@ public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 		cardName.setText(getCardNameText(entry));
 		cardReputation.setText(getCardReputationText(entry));
 		countText.setText(getCardCountText(entry));
-		String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ entry.getKey().getCardCode() +".png";
+		String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ entry.getKey().getCardCode() +".png";
 		imageLoader.displayImage(urlString, icon);
 		return childView;
 	}

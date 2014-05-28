@@ -56,7 +56,7 @@ public class CardGridAdapter  extends BaseAdapter {
 	        
 	        CardKey key = getItem(position).getKey();
 	        
-	        String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ key.getCardCode() +".png";
+	        String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ key.getCardCode() +".png";
 	        
 	        imageLoader.displayImage(urlString, imageView);
 	        return imageView;

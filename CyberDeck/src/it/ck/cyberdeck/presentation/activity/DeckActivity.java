@@ -141,7 +141,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	@Override
 	public void publishIdentity(Identity identity) {
 		this.identityName.setText(identity.name());
-		String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ identity.key().getCardCode() +".png";
+		String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ identity.key().getCardCode() +".png";
 		imageLoader.displayImage(urlString, identityImg);
 	}
 

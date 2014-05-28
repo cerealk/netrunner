@@ -21,7 +21,7 @@ public class CardDetailPresenter {
 		if (card != null) {
 			ImageLoader loader = ImageLoader.getInstance();
 			
-			String urlString = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ card.getKey().getCardCode() +".png";
+			String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ card.getKey().getCardCode() +".png";
 			
 			loader.displayImage(urlString, cardDetailView.getCardImageView());
 		}
