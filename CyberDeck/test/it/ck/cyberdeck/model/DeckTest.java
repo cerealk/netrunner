@@ -3,10 +3,12 @@ package it.ck.cyberdeck.model;
 
 import static it.ck.cyberdeck.fixtures.CardTestFactory.*;
 import static it.ck.cyberdeck.fixtures.IdentityTestFactory.*;
+
 import static it.ck.cyberdeck.fixtures.DeckTestFactory.*;
 import static it.ck.cyberdeck.model.CardType.HARDWARE;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+
 import it.ck.cyberdeck.model.CardCounter.CardNotFoundException;
 import it.ck.cyberdeck.model.Deck.CantBeAttachedException;
 import it.ck.cyberdeck.model.Deck.TooManyCardOfTheSameTypeException;
