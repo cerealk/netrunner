@@ -2,8 +2,7 @@ package it.ck.cyberdeck.presentation.presenter;
 
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.CardView;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
+import it.ck.cyberdeck.presentation.util.ImageLoaderFactory;
 
 public class CardDetailPresenter {
 
@@ -19,11 +18,8 @@ public class CardDetailPresenter {
 
 	public void populateView() {
 		if (card != null) {
-			ImageLoader loader = ImageLoader.getInstance();
-			
-			String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ card.getKey().getCardCode() +".png";
-			
-			loader.displayImage(urlString, cardDetailView.getCardImageView());
+		
+			new ImageLoaderFactory().display(card.getKey(), cardDetailView.getCardImageView());
 		}
 
 	}

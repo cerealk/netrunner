@@ -4,6 +4,7 @@ import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.group.ElementGroup;
+import it.ck.cyberdeck.presentation.util.ImageLoaderFactory;
 
 import java.util.List;
 
@@ -18,22 +19,20 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private List<ElementGroup<CardEntry>> groups;
 	private Context context;
 	private Typeface font;
-	private ImageLoader imageLoader;
 	private Deck deck;
+	private ImageLoaderFactory imageLoaderFactory;
 
-	public CardEntryExpandableListAdapter(Context context, Deck deck){
+	public CardEntryExpandableListAdapter(Context context, Deck deck, ImageLoaderFactory imageLoaderFactory){
 		this.context = context;
 		this.deck = deck;
+		this.imageLoaderFactory = imageLoaderFactory;
 		this.groups = deck.getGroupedEntries();
 		this.font = Typeface.createFromAsset( context.getAssets(), "fontawesome-webfont.ttf" );
-		imageLoader = ImageLoader.getInstance();
 		
 	}
 	
@@ -69,8 +68,7 @@ public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 		cardName.setText(getCardNameText(entry));
 		cardReputation.setText(getCardReputationText(entry));
 		countText.setText(getCardCountText(entry));
-		String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ entry.getKey().getCardCode() +".png";
-		imageLoader.displayImage(urlString, icon);
+		imageLoaderFactory.display(entry.getKey(), icon);
 		return childView;
 	}
 

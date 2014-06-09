@@ -2,6 +2,7 @@ package it.ck.cyberdeck.presentation.activity;
 
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.CardKey;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
@@ -35,7 +36,6 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GroupedAddCardActivity extends BaseDeckActivity {
 
@@ -46,8 +46,6 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 		 */
 		public static final String ARG_SECTION_GROUP = "section_number";
 		private ElementGroup<Card> cardGroup;
-
-		
 		
 		public CardSectionFragment() {
 
@@ -94,7 +92,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					getSwipeActivity().zoomImageFromThumb(view, cardGroup.getCards().get(position).getCardCode());
+					getSwipeActivity().zoomImageFromThumb(view, cardGroup.getCards().get(position).getKey());
 					return true;
 				}
 				
@@ -166,7 +164,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 		presenter.addCard(card);
 	}
 	
-	private void zoomImageFromThumb(final View thumbView, String cardCode) {
+	private void zoomImageFromThumb(final View thumbView, CardKey cardKey) {
 	    // If there's an animation in progress, cancel it
 	    // immediately and proceed with this one.
 	    if (mCurrentAnimator != null) {
@@ -174,12 +172,10 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    }
 
 	    // Load the high-resolution "zoomed-in" image.
-	    final View expandedImageView = (View) findViewById(
+	    final ImageView expandedImageView = (ImageView) findViewById(
 	            R.id.expanded_image);
 	    
-	    ImageLoader imageLoader = ImageLoader.getInstance();
-	    String uri = "http://netrunnercards.info/web/bundles/netrunnerdbcards/images/cards/300x418/"+ cardCode +".png";
-	    imageLoader.displayImage(uri, (ImageView)expandedImageView);
+	    loadImage(cardKey, expandedImageView);
 
 	    // Calculate the starting and ending bounds for the zoomed-in image.
 	    // This step involves lots of math. Yay, math.
@@ -226,6 +222,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    ViewHelper.setAlpha(thumbView, 0f);
 //	    thumbView.setAlpha(0f);
 	    expandedImageView.setVisibility(View.VISIBLE);
+	    ViewHelper.setAlpha(expandedImageView, 1f);
 
 	    // Set the pivot point for SCALE_X and SCALE_Y transformations
 	    // to the top-left corner of the zoomed-in view (the default

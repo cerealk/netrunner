@@ -25,8 +25,6 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 	private TextView identityName;
@@ -34,7 +32,6 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	private ImageView identityImg;
 	private ExpandableListView cardList;
 	private CardEntryExpandableListAdapter listViewAdapter;
-	private ImageLoader imageLoader;
 	private Typeface font;
 	
 
@@ -43,13 +40,11 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck);
 
-		imageLoader = ImageLoader.getInstance();
-
 		identityName = (TextView) findViewById(R.id.deck_identity);
 		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
 		identityImg = (ImageView) findViewById(R.id.identity_image);
 		listViewAdapter = new CardEntryExpandableListAdapter(
-				this.getApplicationContext(), getDeck());
+				this.getApplicationContext(), getDeck(), getImageLoaderFactory());
 		cardList = (ExpandableListView) findViewById(R.id.deck_cards);
 
 		cardList.setAdapter(listViewAdapter);
@@ -141,8 +136,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	@Override
 	public void publishIdentity(Identity identity) {
 		this.identityName.setText(identity.name());
-		String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ identity.key().getCardCode() +".png";
-		imageLoader.displayImage(urlString, identityImg);
+		loadImage(identity.key(), identityImg);
 	}
 
 	@Override

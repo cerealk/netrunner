@@ -3,6 +3,7 @@ package it.ck.cyberdeck.presentation.adapter;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardKey;
+import it.ck.cyberdeck.presentation.util.ImageLoaderFactory;
 
 import java.util.List;
 
@@ -13,24 +14,20 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 public class CardGridAdapter  extends BaseAdapter {
 	    private Context context;
 		private List<Card> cards;
 		private int tmbPixHeight;
 		private int tmbPixWidth;
-		protected ImageLoader imageLoader;
+		private ImageLoaderFactory ilFactory;
 		
 		
 	    public CardGridAdapter(Context c, List<Card> cards) {
 	        context = c;
 			this.cards = cards;
+			this.ilFactory = new ImageLoaderFactory();
 			tmbPixHeight = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
 			tmbPixWidth = c.getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
-			
-			imageLoader = ImageLoader.getInstance();
-			
 	    }
 
 	    public int getCount() {
@@ -56,9 +53,7 @@ public class CardGridAdapter  extends BaseAdapter {
 	        
 	        CardKey key = getItem(position).getKey();
 	        
-	        String urlString = "http://netrunnerdb.com/web/bundles/netrunnerdbcards/images/cards/en-large/"+ key.getCardCode() +".png";
-	        
-	        imageLoader.displayImage(urlString, imageView);
+	        ilFactory.display(key, imageView);
 	        return imageView;
 	    }
 

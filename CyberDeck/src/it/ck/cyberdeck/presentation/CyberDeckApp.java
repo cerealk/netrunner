@@ -5,6 +5,7 @@ import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.app.DeckServiceImpl;
 import it.ck.cyberdeck.persistance.CachedGateway;
 import it.ck.cyberdeck.persistance.filesystem.AndroidLibraryCardGateway;
+import it.ck.cyberdeck.presentation.util.ImageLoaderFactory;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -59,6 +60,13 @@ public class CyberDeckApp extends Application {
 				.build();
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);
+	}
+
+
+
+	public ImageLoaderFactory getImageLoaderFactory() {
+		
+		return new ImageLoaderFactory();
 	}
 
 }
