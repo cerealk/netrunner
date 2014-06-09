@@ -2,7 +2,6 @@ package it.ck.cyberdeck.presentation.presenter;
 
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.presentation.CardView;
-import it.ck.cyberdeck.presentation.util.ImageLoaderFactory;
 
 public class CardDetailPresenter {
 
@@ -18,8 +17,7 @@ public class CardDetailPresenter {
 
 	public void populateView() {
 		if (card != null) {
-		
-			new ImageLoaderFactory().display(card.getKey(), cardDetailView.getCardImageView());
+			cardDetailView.display(card.getKey());
 		}
 
 	}

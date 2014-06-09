@@ -1,11 +1,13 @@
 package it.ck.cyberdeck.presentation.fragment;
 
 import it.ck.cyberdeck.model.Card;
+import it.ck.cyberdeck.model.CardKey;
 import it.ck.cyberdeck.presentation.BaseImageFragment;
 import it.ck.cyberdeck.presentation.CardView;
 import it.ck.cyberdeck.presentation.activity.CardDetailActivity;
 import it.ck.cyberdeck.presentation.activity.CardListActivity;
 import it.ck.cyberdeck.presentation.presenter.CardDetailPresenter;
+import it.ck.cyberdeck.presentation.util.ImageLoaderFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +59,9 @@ public class CardDetailFragment extends BaseImageFragment implements CardView{
 	}
 
 	@Override
-	public ImageView getCardImageView() {
-		return getImageView();
+	public void display(CardKey key) {
+		new ImageLoaderFactory().display(key, getImageView());
+		
 	}
 
 }
