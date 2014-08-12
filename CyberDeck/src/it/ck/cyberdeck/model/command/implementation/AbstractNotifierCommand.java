@@ -17,10 +17,14 @@ public abstract class AbstractNotifierCommand implements Command{
 	public void execute() {
 		try {
 			doExecute();
-			this.notifier.notify(getSuccessMessage());
+			notify(getSuccessMessage());
 		} catch (DeckException e) {
-			this.notifier.notify(e.getMessage());
+			notify(e.getMessage());
 		}
+	}
+
+	private void notify(String successMessage) {
+		this.notifier.notify(successMessage);
 	}
 
 	protected abstract void doExecute();
