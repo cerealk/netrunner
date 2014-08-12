@@ -173,9 +173,9 @@ public class DeckTest {
 		CardData cardData = new CardData();
 		cardData.name = "card";
 		cardData.set = CardSet.CORE;
-		cardData.identity = Faction.SHAPER;
+		cardData.faction = Faction.SHAPER;
 		cardData.side = Side.RUNNER;
-		cardData.loyalty = 2;
+		cardData.influence = 2;
 		cardData.num = 3;
 		cardData.unique = false;
 		cardData.type = CardType.HARDWARE;
@@ -201,9 +201,9 @@ public class DeckTest {
 		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
-		cardData.identity = Faction.ANARCH;
+		cardData.faction = Faction.ANARCH;
 		cardData.side = Side.RUNNER;
-		cardData.loyalty = null;
+		cardData.influence = null;
 		cardData.num = 3;
 		cardData.unique = false;
 		Card card = new Card(cardData);
@@ -217,9 +217,9 @@ public class DeckTest {
 		Deck deck = new Deck(getDefaultIdentity(45), "testDeck");
 		CardData cardData = new CardData();
 		cardData.set = CardSet.CORE;
-		cardData.identity = Faction.ANARCH;
+		cardData.faction = Faction.ANARCH;
 		cardData.side = Side.RUNNER;
-		cardData.loyalty = null;
+		cardData.influence = null;
 		cardData.num = 3;
 		cardData.unique = false;
 		Card card = new Card(cardData);

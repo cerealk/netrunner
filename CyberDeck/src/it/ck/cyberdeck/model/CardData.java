@@ -9,10 +9,10 @@ public class CardData implements Serializable {
 	public String name;
 	public String cost;
 	public Side side;
-	public Faction identity;
+	public Faction faction;
 	public CardType type;
 	public String subtype;
-	public Integer loyalty = 0;
+	public Integer influence = 0;
 	public String strength;
 	public Integer agendapoints;
 	public Integer memory;

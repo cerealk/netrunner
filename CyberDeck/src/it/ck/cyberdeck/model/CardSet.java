@@ -15,7 +15,8 @@ public enum CardSet {
 	TRUE_COLORS("True Colors", "04"),
 	FEAR_AND_LOATHING("Fear and Loathing", "04"),
 	DOUBLE_TIME("Double Time", "04"),
-	HONOR_AND_PROFIT("Honor and Profit", "05");
+	HONOR_AND_PROFIT("Honor and Profit", "05"),
+	UPSTALK("Upstalk", "06");
 	
 	private String name;
 	private String code;

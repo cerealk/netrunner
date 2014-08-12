@@ -39,10 +39,10 @@ public class Card implements Serializable, Comparable<Card> {
 	public Card(CardData cardData) {
 		key = new CardKey(cardData.set, cardData.num);
 		this.name = cardData.name;
-		this.classifier = new CardClassifier(cardData.side, cardData.identity,
+		this.classifier = new CardClassifier(cardData.side, cardData.faction,
 				cardData.type, cardData.subtype);
 		this.cost = cardData.cost;
-		this.reputation = cardData.loyalty;
+		this.reputation = cardData.influence;
 		this.strength = cardData.strength;
 		this.agendapoints = cardData.agendapoints;
 		this.memory = cardData.memory;

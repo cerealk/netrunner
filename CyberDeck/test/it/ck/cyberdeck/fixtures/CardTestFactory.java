@@ -24,8 +24,8 @@ public class CardTestFactory {
 		CardData cardData = new CardData();
 		cardData.name = "agenda";
 		cardData.side = Side.CORP;
-		cardData.identity = Faction.HAAS_BIOROID;
-		cardData.loyalty = 5;
+		cardData.faction = Faction.HAAS_BIOROID;
+		cardData.influence = 5;
 		cardData.set = CardSet.CORE;
 		cardData.num = 15;
 		cardData.type = CardType.AGENDA;
@@ -44,9 +44,9 @@ public class CardTestFactory {
 		CardData cardData = new CardData();
 		cardData.name = name;
 		cardData.set = CardSet.CORE;
-		cardData.identity = faction;
+		cardData.faction = faction;
 		cardData.side = side;
-		cardData.loyalty = reputation;
+		cardData.influence = reputation;
 		cardData.num = num;
 		cardData.unique = false;
 		cardData.type = type;
@@ -78,8 +78,8 @@ public class CardTestFactory {
 		CardData data = new CardData();
 		data.name = name;
 		data.side = Side.CORP;
-		data.identity = Faction.HAAS_BIOROID;
-		data.loyalty = 1;
+		data.faction = Faction.HAAS_BIOROID;
+		data.influence = 1;
 		data.unique = false;
 		data.agendapoints = 0;
 		data.num = num;
@@ -95,8 +95,8 @@ public class CardTestFactory {
 		CardData data = new CardData();
 		data.name = name;
 		data.side = Side.CORP;
-		data.identity = Faction.HAAS_BIOROID;
-		data.loyalty = 1;
+		data.faction = Faction.HAAS_BIOROID;
+		data.influence = 1;
 		data.unique = false;
 		data.agendapoints = agendapoints;
 		data.num = num;
