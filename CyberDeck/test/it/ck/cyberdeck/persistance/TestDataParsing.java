@@ -71,5 +71,15 @@ public class TestDataParsing {
 			}
 		}
 	}
+	
+	@Test
+	public void eachNonAgendaNonIdentityCardsHasAReputationValue(){
+		Collection<Card> cards = getCardLibrary(RAW_PATH).getCardList();
+		for(Card card : cards){
+			if(!card.isAgenda()&& ! card.isIdentity()){
+					assertThat(card.getReputation(), is(notNullValue()));
+			}
+		}
+	}
 
 }
