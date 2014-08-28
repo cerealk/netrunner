@@ -16,7 +16,8 @@ public enum CardSet {
 	FEAR_AND_LOATHING("Fear and Loathing", "04"),
 	DOUBLE_TIME("Double Time", "04"),
 	HONOR_AND_PROFIT("Honor and Profit", "05"),
-	UPSTALK("Upstalk", "06");
+	UPSTALK("Upstalk", "06"),
+	THE_SPACE_WITHIN("The Spaces Between", "06");
 	
 	private String name;
 	private String code;
