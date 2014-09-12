@@ -25,7 +25,7 @@ public class CardData implements Serializable {
 	public Integer count;
 	public Integer link;
 	public String illustrator;
-	public Integer identitytop;
+	public Integer mindecksize;
 	public Integer identitybottom;
 	
 }

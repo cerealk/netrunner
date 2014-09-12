@@ -53,7 +53,7 @@ public class Card implements Serializable, Comparable<Card> {
 		this.count = cardData.count;
 		this.link = cardData.link;
 		this.illustrator = cardData.illustrator;
-		this.minDeckSize = cardData.identitytop;
+		this.minDeckSize = cardData.mindecksize;
 		this.maxReputation = cardData.identitybottom;
 	}
 
