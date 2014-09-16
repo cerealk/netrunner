@@ -17,7 +17,8 @@ public enum CardSet {
 	DOUBLE_TIME("Double Time", "04"),
 	HONOR_AND_PROFIT("Honor and Profit", "05"),
 	UPSTALK("Upstalk", "06"),
-	THE_SPACE_WITHIN("The Spaces Between", "06");
+	THE_SPACE_WITHIN("The Spaces Between", "06"),
+	FIRST_CONTACT("First Contact", "06");
 	
 	private String name;
 	private String code;
