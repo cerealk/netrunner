@@ -1,0 +1,137 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* ic_launcher-web.png
+* lib-sources/
+* lib-sources/nineoldandroids-2.4.0-sources.jar
+* proguard-project.txt
+* test/
+* test/carddata.js
+* test/it/
+* test/it/ck/
+* test/it/ck/cyberdeck/
+* test/it/ck/cyberdeck/ActivityTest.java
+* test/it/ck/cyberdeck/DeckServiceTest.java
+* test/it/ck/cyberdeck/app/
+* test/it/ck/cyberdeck/app/DeckServiceImplTest.java
+* test/it/ck/cyberdeck/fixtures/
+* test/it/ck/cyberdeck/fixtures/CardTestFactory.java
+* test/it/ck/cyberdeck/fixtures/DeckTestFactory.java
+* test/it/ck/cyberdeck/fixtures/IdentityTestFactory.java
+* test/it/ck/cyberdeck/model/
+* test/it/ck/cyberdeck/model/CardEntryTest.java
+* test/it/ck/cyberdeck/model/CardKeyTest.java
+* test/it/ck/cyberdeck/model/CardLibraryTest.java
+* test/it/ck/cyberdeck/model/CardTest.java
+* test/it/ck/cyberdeck/model/DeckTest.java
+* test/it/ck/cyberdeck/model/EventSourceTest.java
+* test/it/ck/cyberdeck/model/EventTest.java
+* test/it/ck/cyberdeck/model/FactionTest.java
+* test/it/ck/cyberdeck/model/IdentityTest.java
+* test/it/ck/cyberdeck/model/command/
+* test/it/ck/cyberdeck/model/command/implementation/
+* test/it/ck/cyberdeck/model/command/implementation/AbstractNotifierCommandTest.java
+* test/it/ck/cyberdeck/model/command/implementation/AddCardCommandTest.java
+* test/it/ck/cyberdeck/model/command/implementation/RemoveAllCommandTest.java
+* test/it/ck/cyberdeck/model/command/implementation/RemoveCardCommandTest.java
+* test/it/ck/cyberdeck/model/reputation/
+* test/it/ck/cyberdeck/model/reputation/DefaultReputationFactoryTest.java
+* test/it/ck/cyberdeck/model/reputation/StandardReputationRuleTest.java
+* test/it/ck/cyberdeck/model/reputation/TheProfessorReputationRuleTestTest.java
+* test/it/ck/cyberdeck/persistance/
+* test/it/ck/cyberdeck/persistance/CachedGatewayTest.java
+* test/it/ck/cyberdeck/persistance/FactionSerializerTest.java
+* test/it/ck/cyberdeck/persistance/SideSerializerTest.java
+* test/it/ck/cyberdeck/persistance/TestDataParsing.java
+* test/it/ck/cyberdeck/persistance/TestDeckPersistance.java
+* test/it/ck/cyberdeck/persistance/filesystem/
+* test/it/ck/cyberdeck/persistance/filesystem/JsonCardDataGatewayTest.java
+* test/it/ck/cyberdeck/persistance/filesystem/RawResourceLibraryCardGatewayTest.java
+* test/it/ck/cyberdeck/presentation/
+* test/it/ck/cyberdeck/presentation/DeckListActivityTest.java
+* test/it/ck/cyberdeck/presentation/TestCyberDeckApp.java
+* test/it/ck/cyberdeck/presentation/WelcomeActivityTest.java
+* test/resources/
+* test/resources/JT.js
+* test/resources/adfadsfsad
+* test/resources/decks/
+* test/resources/decks/.gitignore
+* test/resources/decks/Copy_of_testDeck.js
+* test/resources/decks/testDeck.js
+* test/resources/trollollol
+* tmp/
+* tmp/cardDataNewFormat.js
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:19.1.0
+gson-2.2.3.jar => com.google.code.gson:gson:2.2.3
+
+Potentially Missing Dependency:
+-------------------------------
+When we replaced the following .jar files with a Gradle dependency, we
+inferred the dependency version number from the filename. This
+specific version may not actually be available from the repository.
+If you get a build error stating that the dependency is missing, edit
+the version number to for example "+" to pick up the latest version
+instead. (This may require you to update your code if the library APIs
+have changed.)
+
+gson-2.2.3.jar => version 2.2.3 in com.google.code.gson:gson:2.2.3
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+appcompat-v7 => [com.android.support:appcompat-v7:19.1.0]
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* assets/ => app/src/main/assets/
+* libs/commons-lang3-3.1.jar => app/libs/commons-lang3-3.1.jar
+* libs/nineoldandroids-2.4.0.jar => app/libs/nineoldandroids-2.4.0.jar
+* libs/universal-image-loader-1.8.7-snapshot-with-sources.jar => app/libs/universal-image-loader-1.8.7-snapshot-with-sources.jar
+* lint.xml => app/lint.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
