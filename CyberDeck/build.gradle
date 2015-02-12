@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
     defaultConfig {
@@ -20,8 +20,8 @@ android {
 
 dependencies {
     compile project(':CyberDeckDomain')
-    compile 'com.android.support:appcompat-v7:19.1.0'
-    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.google.code.gson:gson:2.2.3'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'com.nineoldandroids:library:2.4.0'
