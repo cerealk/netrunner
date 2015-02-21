@@ -3,7 +3,7 @@ package it.ck.cyberdeck.persistence;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import it.ck.cyberdeck.Fixtures;
+import it.ck.cyberdeck.fixtures.Fixtures;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.reputation.StandardReputationRuleFactory;

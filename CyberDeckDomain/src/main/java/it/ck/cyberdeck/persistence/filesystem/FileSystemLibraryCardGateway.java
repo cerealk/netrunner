@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonReader;
 public class FileSystemLibraryCardGateway extends JsonLibraryCardGateway
     implements LibraryCardGateway {
 
+
 	private String filePath;
     private static final String DECK_BASE_PATH = "CyberDeckDomain/src/test/resources/decks/";
 

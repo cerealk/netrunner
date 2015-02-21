@@ -3,7 +3,7 @@ package it.ck.cyberdeck.model;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import it.ck.cyberdeck.Fixtures;
+import it.ck.cyberdeck.fixtures.Fixtures;
 import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.persistence.filesystem.FileSystemLibraryCardGateway;
 

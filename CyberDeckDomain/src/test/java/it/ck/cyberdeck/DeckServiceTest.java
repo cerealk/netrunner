@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.app.DeckServiceImpl;
+import it.ck.cyberdeck.fixtures.Fixtures;
 import it.ck.cyberdeck.model.*;
 import it.ck.cyberdeck.persistence.filesystem.FileSystemLibraryCardGateway;
 
