@@ -5,8 +5,8 @@ import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.CardType;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.Identity;
-import it.ck.cyberdeck.model.utils.CardKeyComparator;
-import it.ck.cyberdeck.model.utils.EntryNameComparator;
+import it.ck.cyberdeck.model.comparator.CardKeyComparator;
+import it.ck.cyberdeck.model.comparator.EntryNameComparator;
 
 import java.util.HashMap;
 import java.util.List;

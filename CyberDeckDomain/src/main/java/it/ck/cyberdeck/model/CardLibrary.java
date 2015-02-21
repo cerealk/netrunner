@@ -3,8 +3,8 @@ package it.ck.cyberdeck.model;
 import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.model.reputation.ReputationRule;
 import it.ck.cyberdeck.model.reputation.ReputationRuleFactory;
-import it.ck.cyberdeck.model.utils.CardKeyComparator;
-import it.ck.cyberdeck.model.utils.CardNameComparator;
+import it.ck.cyberdeck.model.comparator.CardKeyComparator;
+import it.ck.cyberdeck.model.comparator.CardNameComparator;
 
 import java.util.*;
 

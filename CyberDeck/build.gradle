@@ -18,9 +18,7 @@ android {
     }
 }
 
-
 apply plugin: 'android-unit-test'
-
 
 dependencies {
     compile project(':CyberDeckDomain')
