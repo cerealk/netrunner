@@ -1,7 +1,7 @@
 package it.ck.cyberdeck.presentation.fragment;
 
 import it.ck.cyberdeck.model.*;
-import it.ck.cyberdeck.persistance.AndroidLibraryCardGateway;
+import it.ck.cyberdeck.persistence.AndroidLibraryCardGateway;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryArrayAdapter;
 import android.app.Activity;
 import android.os.Bundle;

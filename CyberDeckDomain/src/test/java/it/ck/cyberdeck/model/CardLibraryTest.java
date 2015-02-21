@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import it.ck.cyberdeck.Fixtures;
 import it.ck.cyberdeck.model.group.ElementGroup;
-import it.ck.cyberdeck.persistance.filesystem.FileSystemLibraryCardGateway;
+import it.ck.cyberdeck.persistence.filesystem.FileSystemLibraryCardGateway;
 
 import java.util.List;
 

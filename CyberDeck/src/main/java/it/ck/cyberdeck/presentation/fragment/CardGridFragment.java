@@ -3,7 +3,7 @@ package it.ck.cyberdeck.presentation.fragment;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.LibraryCardGateway;
-import it.ck.cyberdeck.persistance.AndroidLibraryCardGateway;
+import it.ck.cyberdeck.persistence.AndroidLibraryCardGateway;
 import it.ck.cyberdeck.presentation.activity.CardGalleryActivity;
 import it.ck.cyberdeck.presentation.adapter.CardGridAdapter;
 import android.content.Intent;

@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.robolectric.Robolectric.shadowOf;
+import static org.robolectric.Shadows.shadowOf;
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.presentation.activity.CardListActivity;
 import it.ck.cyberdeck.presentation.activity.DeckListActivity;
