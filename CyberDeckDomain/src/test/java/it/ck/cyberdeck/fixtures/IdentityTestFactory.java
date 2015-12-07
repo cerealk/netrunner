@@ -7,7 +7,7 @@ import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.model.Side;
 
 public class IdentityTestFactory{
-	public static Identity getArarchIdentity() {
+	public static Identity getAnarchIdentity() {
 		return getIdentity(Side.RUNNER, Faction.ANARCH);
 	}
 

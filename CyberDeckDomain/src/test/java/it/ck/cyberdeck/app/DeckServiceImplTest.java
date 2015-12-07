@@ -25,16 +25,14 @@ public class DeckServiceImplTest {
 	@Test
 	public void iCanCreateANewDeck() {
 
-		DeckService ds = new DeckServiceImpl(null);
-		
-		Deck deck = ds.createDeck(getArarchIdentity(), "deckName");
-		assertThat(deck.getIdentity(), is(equalTo(getArarchIdentity())));
+		Deck deck = ds.createDeck(getAnarchIdentity(), "deckName");
+		assertThat(deck.getIdentity(), is(equalTo(getAnarchIdentity())));
 		assertThat(deck.name(), is("deckName"));
 	}
 	
 	@Test
 	public void iCanSaveADeck() throws Exception {
-		final Deck deck = new Deck(getArarchIdentity(), "deckName");
+		final Deck deck = new Deck(getAnarchIdentity(), "deckName");
 		context.checking(new Expectations(){{
 			oneOf(loader).saveDeck(with(deck));
 		}});
@@ -59,15 +57,15 @@ public class DeckServiceImplTest {
 	@Test
 	public void iCanLoadADeckByName() throws Exception {
 		final String deckName = "deckName";
-		final Deck deck = new Deck(getArarchIdentity(), "deckName");
+		final Deck deck = new Deck(getAnarchIdentity(), "deckName");
 		context.checking(new Expectations(){{
 			oneOf(loader).loadDeck(with(deckName));will(returnValue(deck));
 		}});
 		
 
-		Deck loadDeck = ds.loadDeck(deckName);
+		Deck loadedDeck = ds.loadDeck(deckName);
 		
-		assertThat(loadDeck, is(equalTo(deck)));
+		assertThat(loadedDeck, is(equalTo(deck)));
 	}
 	
 	@Test

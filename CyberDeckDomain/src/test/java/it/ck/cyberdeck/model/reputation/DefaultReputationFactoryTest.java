@@ -11,7 +11,7 @@ public class DefaultReputationFactoryTest {
 	@Test
 	public void givenACardKeyICanGetAReputationRule() {
 		ReputationRuleFactory rrf = new StandardReputationRuleFactory();
-		ReputationRule rule = rrf.createRule(getArarchIdentity().key());
+		ReputationRule rule = rrf.createRule(getAnarchIdentity().key());
 		assertThat(rule instanceof StandardReputationRule, is(true));
 	}
 	

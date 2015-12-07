@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "it.ck.cyberdeck"
         minSdkVersion 11
-        targetSdkVersion 22
+        targetSdkVersion 23
     }
 
     buildTypes {
@@ -22,7 +22,7 @@ apply plugin: 'android-unit-test'
 
 dependencies {
     compile project(':CyberDeckDomain')
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'com.nineoldandroids:library:2.4.0'
@@ -30,21 +30,5 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-core:1.1'
     testCompile 'org.hamcrest:hamcrest-library:1.1'
     testCompile 'org.hamcrest:hamcrest-integration:1.1'
-    testCompile('org.robolectric:robolectric:3.0-SNAPSHOT') {
-        exclude module: 'classworlds'
-        exclude module: 'commons-logging'
-        exclude module: 'httpclient'
-        exclude module: 'maven-artifact'
-        exclude module: 'maven-artifact-manager'
-        exclude module: 'maven-error-diagnostics'
-        exclude module: 'maven-model'
-        exclude module: 'maven-project'
-        exclude module: 'maven-settings'
-        exclude module: 'plexus-container-default'
-        exclude module: 'plexus-interpolation'
-        exclude module: 'plexus-utils'
-        exclude module: 'wagon-file'
-        exclude module: 'wagon-http-lightweight'
-        exclude module: 'wagon-provider-api'
-    }
+    testCompile 'org.robolectric:robolectric:3.0'
 }
