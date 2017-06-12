@@ -5,8 +5,8 @@
     android:versionName="1.0.12-BETA" >
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="25" />
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -29,7 +29,7 @@
             android:parentActivityName="it.ck.cyberdeck.presentation.activity.CardListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CardListActivity" />
+                android:value="it.ck.cyberdeck.presentation.activity.CardListActivity" />
         </activity>
         <activity
             android:name="it.ck.cyberdeck.presentation.activity.DeckActivity"

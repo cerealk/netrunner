@@ -24,7 +24,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
 	@Override
 	public List<String> deckNames() {
-		List<String> deckNames = new ArrayList<String>();
+		List<String> deckNames = new ArrayList<>();
 		File deckDir = getDeckDir();
 		File[] files = deckDir.listFiles();
 		for (File deckFile : files) {
@@ -45,11 +45,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 				deck.add(cl.getCard(ref.getCard()), ref.getCount());
 			}
 			return deck;
-		} catch (JsonIOException e) {
-			e.printStackTrace();
-		} catch (JsonSyntaxException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
+		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -107,11 +103,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 	protected List<CardData> loadRawData() {
 		try {
 	    return gson.fromJson(readLibrarySource(), getType());
-    } catch (JsonIOException e) {
-	    e.printStackTrace();
-    } catch (JsonSyntaxException e) {
-	    e.printStackTrace();
-    } catch (FileNotFoundException e) {
+    } catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 	    e.printStackTrace();
     }
 		return Collections.emptyList();
@@ -124,9 +116,8 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 	    throws FileNotFoundException;
 
 	private Type getType() {
-		Type collectionType = new TypeToken<Collection<CardData>>() {
+		return new TypeToken<Collection<CardData>>() {
 		}.getType();
-		return collectionType;
 	}
 
 	private Gson getGson() {
@@ -137,8 +128,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 		builder.registerTypeAdapter(CardSet.class, new CardSetSerializer());
 		builder.registerTypeAdapter(CardType.class, new CardTypeDeserializer());
 		builder.registerTypeAdapter(Side.class, new SideDeserializer());
-		Gson gson = builder.create();
-		return gson;
+		return builder.create();
 	}
 	
 	@Override

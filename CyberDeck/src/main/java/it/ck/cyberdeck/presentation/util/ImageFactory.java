@@ -12,8 +12,6 @@ public final class ImageFactory {
 	private ImageFactory() {
 	};
 
-	private static final String PACKAGE_NAME = "it.ck.cyberdeck";
-
 	private static LruCache<CacheKey, Bitmap> imageCache = new LruCache<ImageFactory.CacheKey, Bitmap>(
 			10);
 
@@ -54,53 +52,43 @@ public final class ImageFactory {
 		Bitmap bmp = imageCache.get(key);
 		if (bmp != null)
 			return bmp;
-		int resId = getFactionImageId(context, side, faction);
-		bmp = BitmapFactory.decodeResource(context.getResources(), resId);
+		bmp = BitmapFactory.decodeResource(context.getResources(), getFactionImageId(side, faction));
 		imageCache.put(key, bmp);
 		return bmp;
 	}
 
-	private static int getFactionImageId(Context context, Side side,
-			Faction identity) {
+	private static int getFactionImageId(Side side,
+																			 Faction identity) {
 		int resImg = R.drawable.ic_launcher;
 		switch (identity) {
 		case ANARCH:
-			resImg = context.getResources().getIdentifier("anarchs",
-					"drawable", PACKAGE_NAME);
+			resImg = R.drawable.anarchs;
 			break;
 		case CRIMINAL:
-			resImg = context.getResources().getIdentifier("criminal",
-					"drawable", PACKAGE_NAME);
+			resImg = R.drawable.criminal;
 			break;
 		case SHAPER:
-			resImg = context.getResources().getIdentifier("shaper", "drawable",
-					PACKAGE_NAME);
+			resImg = R.drawable.shaper;
 			break;
 		case HAAS_BIOROID:
-			resImg = context.getResources().getIdentifier("hb", "drawable",
-					PACKAGE_NAME);
+			resImg = R.drawable.hb;
 			break;
 		case JINTEKI:
-			resImg = context.getResources().getIdentifier("jinteki",
-					"drawable", PACKAGE_NAME);
+			resImg = R.drawable.jinteki;
 			break;
 		case WEYLAND_CONSORTIUM:
-			resImg = context.getResources().getIdentifier("wayland",
-					"drawable", PACKAGE_NAME);
+			resImg = R.drawable.wayland;
 			break;
 		case NBN:
-			resImg = context.getResources().getIdentifier("nbn", "drawable",
-					PACKAGE_NAME);
+			resImg = R.drawable.nbn;
 			break;
 		case NEUTRAL:
 			if (Side.CORP.equals(side)) {
-				resImg = context.getResources().getIdentifier("n_blue",
-						"drawable", PACKAGE_NAME);
+				resImg = R.drawable.n_blue;
 			} else {
-				resImg = context.getResources().getIdentifier("n_red",
-						"drawable", PACKAGE_NAME);
+				resImg = R.drawable.n_red;
 			}
-			;
+
 			break;
 		default:
 			break;

@@ -14,8 +14,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Deck implements Serializable {
 
-	private static final int MIN_DECK_SIZE = 40;
 	private static final long serialVersionUID = 1L;
+	private static final int MIN_DECK_SIZE = 40;
 	private static final int MAX_DECK_SIZE = 100;
 
 	public class CantBeAttachedException extends DeckException {
@@ -207,7 +207,7 @@ public class Deck implements Serializable {
 
 	public List<ElementGroup<CardEntry>> getGroupedEntries() {
 		return new ArrayList<ElementGroup<CardEntry>>(
-				new ElementGroupBuilder<CardEntry>().populateCardGroup(this)
+				new ElementGroupBuilder().populateCardGroup(this)
 						.values());
 	}
 
