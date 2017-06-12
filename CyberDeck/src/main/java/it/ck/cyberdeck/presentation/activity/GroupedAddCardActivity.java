@@ -31,11 +31,10 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 
 public class GroupedAddCardActivity extends BaseDeckActivity {
 
@@ -174,7 +173,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    // Load the high-resolution "zoomed-in" image.
 	    final ImageView expandedImageView = (ImageView) findViewById(
 	            R.id.expanded_image);
-	    
+
 	    loadImage(cardKey, expandedImageView);
 
 	    // Calculate the starting and ending bounds for the zoomed-in image.
@@ -219,18 +218,18 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    // Hide the thumbnail and show the zoomed-in view. When the animation
 	    // begins, it will position the zoomed-in view in the place of the
 	    // thumbnail.
-	    ViewHelper.setAlpha(thumbView, 0f);
-//	    thumbView.setAlpha(0f);
+//	    ViewHelper.setAlpha(thumbView, 0f);
+	    thumbView.setAlpha(0f);
 	    expandedImageView.setVisibility(View.VISIBLE);
-	    ViewHelper.setAlpha(expandedImageView, 1f);
-
+//	    ViewHelper.setAlpha(expandedImageView, 1f);
+			expandedImageView.setAlpha(1f);
 	    // Set the pivot point for SCALE_X and SCALE_Y transformations
 	    // to the top-left corner of the zoomed-in view (the default
 	    // is the center of the view).
-	    ViewHelper.setPivotX(expandedImageView, 0f);
-	    ViewHelper.setPivotY(expandedImageView, 0f);
-//	    expandedImageView.setPivotX(0f);
-//	    expandedImageView.setPivotY(0f);
+//	    ViewHelper.setPivotX(expandedImageView, 0f);
+//	    ViewHelper.setPivotY(expandedImageView, 0f);
+	    expandedImageView.setPivotX(0f);
+	    expandedImageView.setPivotY(0f);
 
 	    // Construct and run the parallel animation of the four translation and
 	    // scale properties (X, Y, SCALE_X, and SCALE_Y).
@@ -272,7 +271,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 
 	            // Animate the four positioning/sizing properties in parallel,
 	            // back to their original values.
-	           
+
 	            AnimatorSet set = new AnimatorSet();
 	            set.play(ObjectAnimator.ofFloat(expandedImageView,  "x", startBounds.left))
 	                        .with(ObjectAnimator
@@ -285,12 +284,13 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	                                		);
 	            set.setDuration(mShortAnimationDuration);
 	            set.setInterpolator(new DecelerateInterpolator());
-	            
+
 	            set.addListener(new AnimatorListenerAdapter() {
 	                @Override
 	                public void onAnimationEnd(Animator animation) {
 	                	Log.i("animation", "onAnimationEnd");
-	                	ViewHelper.setAlpha(thumbView, 1f);
+	                	thumbView.setAlpha(1f);
+//	                	ViewHelper.setAlpha(thumbView, 1f);
 	                	expandedImageView.clearAnimation();
 	                    expandedImageView.setVisibility(View.GONE);
 	                    mCurrentAnimator = null;
@@ -299,7 +299,8 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	                @Override
 	                public void onAnimationCancel(Animator animation) {
 	                	Log.i("animation", "onAnimationCancel");
-	                	ViewHelper.setAlpha(thumbView, 1f);
+	                	thumbView.setAlpha(1f);
+//	                	ViewHelper.setAlpha(thumbView, 1f);
 	                	expandedImageView.clearAnimation();
 	                    expandedImageView.setVisibility(View.GONE);
 	                    mCurrentAnimator = null;
