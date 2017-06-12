@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+
+import it.ck.cyberdeck.BuildConfig;
 import it.ck.cyberdeck.model.CardKey;
 import it.ck.cyberdeck.model.CardLibrary;
 import it.ck.cyberdeck.model.CardSet;
@@ -26,12 +28,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.Context;
 
 import com.google.gson.stream.JsonReader;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class RawResourceLibraryCardGatewayTest {
 
 	private WelcomeActivity activity = Robolectric.buildActivity(WelcomeActivity.class).create().get();
