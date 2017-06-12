@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it.ck.cyberdeck"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="it.ck.cyberdeck"
     android:versionCode="13"
     android:versionName="1.0.12-BETA" >
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="25" />
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -15,10 +12,11 @@
 
     <application
         android:name="it.ck.cyberdeck.presentation.CyberDeckApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        >
         <activity
             android:name="it.ck.cyberdeck.presentation.activity.CardListActivity"
             android:label="@string/app_name" >

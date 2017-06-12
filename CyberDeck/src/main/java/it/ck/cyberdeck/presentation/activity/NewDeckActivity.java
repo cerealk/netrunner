@@ -40,19 +40,15 @@ public class NewDeckActivity extends BaseCyberDeckActivity {
 
 		this.createDeck = (Button) findViewById(R.id.create_deck);
 
-		this.createDeck.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText
-				    .getText().toString());
-				deckService.saveDeck(deck);
-				Intent intent = new Intent(NewDeckActivity.this, DeckActivity.class);
-				intent.putExtra(DeckActivity.DECK_ARG_ID, deck);
-				startActivity(intent);
-			}
+		this.createDeck.setOnClickListener(v -> {
 
-		});
+      Deck deck = deckService.createDeck(getSelectedIdentity(), deckNameText
+          .getText().toString());
+      deckService.saveDeck(deck);
+      Intent intent = new Intent(NewDeckActivity.this, DeckActivity.class);
+      intent.putExtra(DeckActivity.DECK_ARG_ID, deck);
+      startActivity(intent);
+    });
 	}
 
 	protected Identity getSelectedIdentity() {

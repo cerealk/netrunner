@@ -49,23 +49,16 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 		cardList.setAdapter(listViewAdapter);
 		
-		cardList.setOnChildClickListener(new OnChildClickListener() {
-			
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				CardEntry entry = listViewAdapter.getEntry(groupPosition, childPosition);
-				Intent detailIntent = new Intent(DeckActivity.this,
-						DeckDetailActivity.class);
-				detailIntent.putExtra(BaseDeckActivity.DECK_ARG_ID,
-						presenter.getDeck());
-				detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, entry);
-				startActivity(detailIntent);
-				return false;
-			}
-			
-	
-		});
+		cardList.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+      CardEntry entry = listViewAdapter.getEntry(groupPosition, childPosition);
+      Intent detailIntent = new Intent(DeckActivity.this,
+          DeckDetailActivity.class);
+      detailIntent.putExtra(BaseDeckActivity.DECK_ARG_ID,
+          presenter.getDeck());
+      detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, entry);
+      startActivity(detailIntent);
+      return false;
+    });
 		
 		presenter.publish();
 
@@ -73,16 +66,12 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 		Button addButton = (Button) findViewById(R.id.add_card_button);
 
-		addButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(DeckActivity.this,
-						GroupedAddCardActivity.class);
-				intent.putExtra(DECK_ARG_ID, presenter.getDeck());
-				startActivityForResult(intent, REQUEST_CODE);
-			}
-
-		});
+		addButton.setOnClickListener(v -> {
+      Intent intent = new Intent(DeckActivity.this,
+          GroupedAddCardActivity.class);
+      intent.putExtra(DECK_ARG_ID, presenter.getDeck());
+      startActivityForResult(intent, REQUEST_CODE);
+    });
 		this.font = Typeface.createFromAsset( getApplicationContext().getAssets(), "fontawesome-webfont.ttf" );
 		addButton.setTypeface(font);
 	}
