@@ -171,9 +171,7 @@ public class Deck implements Serializable {
 	}
 
 	private boolean checkPointRange(int ap) {
-		if (size() >= MIN_DECK_SIZE)
-			return getPointRange().contains(ap);
-		return false;
+		return size() >= MIN_DECK_SIZE && getPointRange().contains(ap);
 	}
 
 	private boolean requiresAgendaPointCheck() {
