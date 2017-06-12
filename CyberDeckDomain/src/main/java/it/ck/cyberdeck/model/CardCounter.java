@@ -10,15 +10,11 @@ public class CardCounter implements Serializable {
 	private Map<Card, Integer> count = new TreeMap<Card, Integer>();
 
 	public class CardNotFoundException extends DeckException {
+
 		private static final long serialVersionUID = -4688094597415515668L;
-		private Card card;
+
 		public CardNotFoundException(Card card){
-			this.card = card;
-		}
-		
-		@Override
-		public String getMessage() {
-			return "Card " + card.getName() + " not found";
+			super("Card " + card.getName() + " not found");
 		}
 	}
 
