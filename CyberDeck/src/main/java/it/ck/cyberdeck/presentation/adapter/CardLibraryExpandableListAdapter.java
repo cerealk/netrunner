@@ -46,10 +46,10 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 		} else 
 			childView = convertView;
 		
-		TextView label = (TextView) childView.findViewById(R.id.cardName);
+		TextView label = childView.findViewById(R.id.cardName);
 		label.setText(card.getName());
 		
-		ImageView icon = (ImageView) childView.findViewById(R.id.icon);
+		ImageView icon = childView.findViewById(R.id.icon);
 		icon.setImageBitmap(ImageFactory.getFactionImage(context, card.getSide(), card.getFaction()));
 		return childView;
 	}
@@ -77,14 +77,14 @@ public class CardLibraryExpandableListAdapter extends BaseExpandableListAdapter 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 	    View convertView, ViewGroup parent) {
-		String gropuName = ((ElementGroup<Card>) getGroup(groupPosition)).getType().name();
+		String gropuName = getGroup(groupPosition).getType().name();
     if (convertView == null) {
         LayoutInflater infalInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = infalInflater.inflate(R.layout.group_item,
                 null);
     }
-    TextView item = (TextView) convertView.findViewById(R.id.cardGroup);
+    TextView item = convertView.findViewById(R.id.cardGroup);
     item.setText(gropuName);
     return convertView;
 	}

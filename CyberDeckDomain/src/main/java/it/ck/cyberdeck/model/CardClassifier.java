@@ -10,19 +10,19 @@ public class CardClassifier implements Serializable, Comparable<CardClassifier>{
 	private CardType type;
 	private String subtype;
 
-	public CardClassifier(Side side, Faction faction, CardType type,
-      String subtype) {
+	CardClassifier(Side side, Faction faction, CardType type,
+								 String subtype) {
 				this.side = side;
 				this.faction = faction;
 				this.type = type;
 				this.subtype = subtype;
   }
 
-	public boolean isNeutral() {
+	boolean isNeutral() {
 	  return this.faction.equals(Faction.NEUTRAL);
   }
 
-	public boolean sameFactionAs(Identity identity) {
+	boolean sameFactionAs(Identity identity) {
 	  return faction.equals(identity.faction());
   }
 
@@ -30,7 +30,7 @@ public class CardClassifier implements Serializable, Comparable<CardClassifier>{
 	  return type.equals(CardType.IDENTITY);
   }
 
-	public boolean sameSideAs(Identity identity) {
+	boolean sameSideAs(Identity identity) {
 	  return side.equals(identity.side());
   }
 

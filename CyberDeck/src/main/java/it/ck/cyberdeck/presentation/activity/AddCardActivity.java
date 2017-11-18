@@ -1,5 +1,11 @@
 package it.ck.cyberdeck.presentation.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ExpandableListView;
+
+import java.util.List;
+
 import it.ck.cyberdeck.R;
 import it.ck.cyberdeck.model.Card;
 import it.ck.cyberdeck.model.CardLibrary;
@@ -7,14 +13,6 @@ import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.adapter.CardLibraryExpandableListAdapter;
-
-import java.util.List;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
 
 public class AddCardActivity extends BaseDeckActivity {
 
@@ -25,7 +23,7 @@ public class AddCardActivity extends BaseDeckActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_expandable_card);
 
-		ExpandableListView expListView = (ExpandableListView) findViewById(R.id.expandableListView1);
+		ExpandableListView expListView = findViewById(R.id.expandableListView1);
 		CardLibrary cl = ((CyberDeckApp) getApplication()).getDeckService()
 				.loadCardLibrary();
 
@@ -34,22 +32,16 @@ public class AddCardActivity extends BaseDeckActivity {
 		adapter = new CardLibraryExpandableListAdapter(this, values);
 		expListView.setAdapter(adapter);
 
-		expListView.setOnChildClickListener(new OnChildClickListener() {
+		expListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-
-				Card cardToBeAdded = (Card) getListAdapter().getChild(
-						groupPosition, childPosition);
-				presenter.addCard(cardToBeAdded);
-				return true;
-			}
-
-		});
+      Card cardToBeAdded = (Card) getListAdapter().getChild(
+          groupPosition, childPosition);
+      presenter.addCard(cardToBeAdded);
+      return true;
+    });
 	}
 
-	protected CardLibraryExpandableListAdapter getListAdapter() {
+	private CardLibraryExpandableListAdapter getListAdapter() {
 		return adapter;
 	}
 

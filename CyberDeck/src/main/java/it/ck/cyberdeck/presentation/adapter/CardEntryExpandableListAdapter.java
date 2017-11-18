@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,14 +57,18 @@ public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			childView = inflater.inflate(R.layout.composite_deck_entry_layout,null );
+
 		} else 
 			childView = convertView;
 		
-		ImageView icon = (ImageView) childView.findViewById(R.id.icon);
-		TextView cardName = (TextView) childView.findViewById(R.id.cardName);
-		TextView cardReputation = (TextView) childView.findViewById(R.id.reputation);
+		ImageView icon = childView.findViewById(R.id.icon);
+		TextView cardName = childView.findViewById(R.id.cardName);
+		cardName.setTextColor(Color.WHITE);
+		TextView cardReputation = childView.findViewById(R.id.reputation);
 		cardReputation.setTypeface(font);
-		TextView countText = (TextView) childView.findViewById(R.id.countText);
+		cardReputation.setTextColor(Color.WHITE);
+		TextView countText = childView.findViewById(R.id.countText);
+		countText.setTextColor(Color.WHITE);
 		CardEntry entry = getEntry(groupPosition,childPosition);
 		cardName.setText(getCardNameText(entry));
 		cardReputation.setText(getCardReputationText(entry));
@@ -101,12 +106,12 @@ public class CardEntryExpandableListAdapter extends BaseExpandableListAdapter {
 	    View convertView, ViewGroup parent) {
 		String gropuName = getGroup(groupPosition).getType().name();
     if (convertView == null) {
-        LayoutInflater infalInflater = (LayoutInflater) context
+        LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = infalInflater.inflate(R.layout.group_item,
+        convertView = inflater.inflate(R.layout.group_item,
                 null);
     }
-    TextView item = (TextView) convertView.findViewById(R.id.cardGroup);
+    TextView item = convertView.findViewById(R.id.cardGroup);
     item.setText(gropuName);
     return convertView;
 	}

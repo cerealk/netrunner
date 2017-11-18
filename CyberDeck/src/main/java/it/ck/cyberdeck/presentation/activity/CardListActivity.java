@@ -38,14 +38,7 @@ public class CardListActivity extends BaseCyberDeckActivity implements
 		setContentView(R.layout.activity_card_list);
 
 		if (findViewById(R.id.card_detail_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
 			mTwoPane = true;
-
-			// In two-pane mode, list items should be given the
-			// 'activated' state when touched.
 			((CardListFragment) getSupportFragmentManager().findFragmentById(
 					R.id.card_list)).setActivateOnItemClick(true);
 		}
@@ -59,9 +52,6 @@ public class CardListActivity extends BaseCyberDeckActivity implements
 	@Override
 	public void onItemSelected(Card card) {
 		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putSerializable(CardDetailFragment.ARG_ITEM_ID, card);
 			CardDetailFragment fragment = new CardDetailFragment();
@@ -70,8 +60,6 @@ public class CardListActivity extends BaseCyberDeckActivity implements
 					.replace(R.id.card_detail_container, fragment).commit();
 
 		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
 			Intent detailIntent = new Intent(this, CardGalleryActivity.class);
 			detailIntent.putExtra(CardDetailFragment.ARG_ITEM_ID, card);
 			startActivity(detailIntent);

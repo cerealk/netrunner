@@ -8,7 +8,7 @@ import java.util.List;
 public class DeckData {
 	private String name;
 	private CardKey identity;
-	private List<CardRef> cards = new ArrayList<CardRef>();
+	private List<CardRef> cards = new ArrayList<>();
 	
 	public String getName() {
 		return name;

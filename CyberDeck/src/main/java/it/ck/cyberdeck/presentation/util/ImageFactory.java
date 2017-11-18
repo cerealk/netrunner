@@ -10,9 +10,9 @@ import android.support.v4.util.LruCache;
 
 public final class ImageFactory {
 	private ImageFactory() {
-	};
+	}
 
-	private static LruCache<CacheKey, Bitmap> imageCache = new LruCache<ImageFactory.CacheKey, Bitmap>(
+	private static LruCache<CacheKey, Bitmap> imageCache = new LruCache<>(
 			10);
 
 	private static class CacheKey {

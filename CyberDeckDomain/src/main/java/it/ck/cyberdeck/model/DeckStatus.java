@@ -29,11 +29,11 @@ public class DeckStatus implements Serializable {
 		this.reputationCap = reputationCap;
 	}
 
-	public StatusCode status() {
+	StatusCode status() {
 		return statusCode;
 	}
 
-	public Reason reason() {
+	Reason reason() {
 		return this.reason;
 	}
 
@@ -41,16 +41,16 @@ public class DeckStatus implements Serializable {
 		return cardCount;
 	}
 	
-	protected void updateCardCount(Integer cardCount){
+	void updateCardCount(Integer cardCount){
 		this.cardCount = cardCount;
 	}
 
-	public void invalid(Reason reason) {
+	void invalid(Reason reason) {
 		this.statusCode=INVALID;
 		this.reason=reason;
 	}
 
-	public void valid() {
+	void valid() {
 		this.statusCode = VALID;
 		this.reason = null;
 	}
@@ -63,7 +63,7 @@ public class DeckStatus implements Serializable {
 		return agendaPoints;
 	}
 
-	protected void updateAgendaPoints(Integer ap) {
+	void updateAgendaPoints(Integer ap) {
 		this.agendaPoints = ap;
 	}
 
@@ -71,11 +71,11 @@ public class DeckStatus implements Serializable {
 		return agendaRange;
 	}
 
-	protected void setAgendaRange(Range<Integer> pointRange) {
+	void setAgendaRange(Range<Integer> pointRange) {
 		agendaRange = pointRange;
 	}
 
-	protected void setReputation(Integer reputation) {
+	void setReputation(Integer reputation) {
 		this.reputation = reputation;
 	}
 	

@@ -2,7 +2,6 @@ package it.ck.cyberdeck.presentation.presenter;
 
 import it.ck.cyberdeck.app.DeckService;
 import it.ck.cyberdeck.model.Card;
-import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.command.Command;
 import it.ck.cyberdeck.model.command.DeckCommandFactory;
@@ -24,7 +23,7 @@ public class DeckPresenter  {
 	public void publish(){
 		deckPublisher.publishDeckName(deck.name());
 		deckPublisher.publishIdentity(deck.getIdentity());
-		deckPublisher.publishEntryList(deck.cards());
+		deckPublisher.publishEntryList();
 		deckPublisher.publishDeckStatus(deck.checkStatus());
 	}
 
@@ -51,10 +50,6 @@ public class DeckPresenter  {
 		saveDeck();
 	}
 
-	public CardEntry get(int position) {
-		return deck.cards().get(position);
-	}
-	
 	public void addCard(Card card){
 		
 		DeckCommandFactory commandFactory = new DefaultDeckCommandFactory();

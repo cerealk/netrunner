@@ -10,7 +10,7 @@ import android.widget.ImageView;
 public abstract class BaseCyberDeckActivity extends FragmentActivity {
 
 	private DeckService deckService;
-	protected ToastHandler toastHandler;
+	private ToastHandler toastHandler;
 	private ImageLoaderFactory ilFactory;
 	
 	@Override
@@ -25,11 +25,11 @@ public abstract class BaseCyberDeckActivity extends FragmentActivity {
 		return deckService;
 	}
 
-	protected CyberDeckApp getCyberDeckApp() {
+	private CyberDeckApp getCyberDeckApp() {
 		return (CyberDeckApp) getApplication();
 	}
 
-	protected void showToast(String toastText) {
+	void showToast(String toastText) {
 		toastHandler.toast(toastText);
 	}
 	

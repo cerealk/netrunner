@@ -22,8 +22,6 @@ public class CardDetailActivity extends BaseCyberDeckActivity {
 		setContentView(R.layout.activity_card_detail);
 
 		if (savedInstanceState == null) {
-			// Create the detail fragment and add it to the activity
-			// using a fragment transaction.
 			CardDetailFragment fragment = CardDetailFragment.newInstance((Card) getIntent()
 					.getSerializableExtra(CardDetailFragment.ARG_ITEM_ID));
 			getSupportFragmentManager().beginTransaction()

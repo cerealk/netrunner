@@ -25,4 +25,5 @@
     <string name="title_activity_deck_detail">Deck Detail</string>
 	<string name="reputation_dot">&#xf111;</string>
 	<string name="zero_percent">0%</string>
+    <string name="dummyText">dummyText</string>
 </resources>

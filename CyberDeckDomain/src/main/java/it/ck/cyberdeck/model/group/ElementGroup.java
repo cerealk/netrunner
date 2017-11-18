@@ -14,7 +14,7 @@ public class ElementGroup<T> implements Serializable {
 
 	private CardType type;
 
-	private List<T> elements = new ArrayList<T>();
+	private List<T> elements = new ArrayList<>();
 
 	private Comparator<T> sorter;
 

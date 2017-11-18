@@ -10,6 +10,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,15 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 	private final List<Card> totalValues;
 
 	public CardLibraryArrayAdapter(Context context, List<Card> values) {
-		super(context, R.layout.rowlayout, new ArrayList<Card>(values));
+		super(context, R.layout.rowlayout, new ArrayList<>(values));
 		this.context = context;
-		this.values = new ArrayList<Card>(values);
-		this.totalValues = new ArrayList<Card>(values);
+		this.values = new ArrayList<>(values);
+		this.totalValues = new ArrayList<>(values);
 	}
 	
+	@NonNull
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -45,9 +47,9 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		}
 		
 
-		TextView textView = (TextView) rowView.findViewById(R.id.cardName);
+		TextView textView = rowView.findViewById(R.id.cardName);
 
-		ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+		ImageView imageView = rowView.findViewById(R.id.icon);
 		Card card = getItem(position);
 		textView.setText(card.getName());
 
@@ -57,10 +59,11 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 		return rowView;
 	}
 	
+	@NonNull
 	@Override
 	public Filter getFilter() {
 
-		Filter filter = new Filter() {
+		return new Filter() {
 
 			@SuppressWarnings("unchecked")
 			@Override
@@ -78,7 +81,7 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 			protected FilterResults performFiltering(CharSequence constraint) {
 
 				FilterResults results = new FilterResults();
-				ArrayList<Card> filteredCard = new ArrayList<Card>();
+				ArrayList<Card> filteredCard = new ArrayList<>();
 
 				constraint = constraint.toString().toLowerCase();
 				for (int i = 0; i < totalValues.size(); i++) {
@@ -94,8 +97,6 @@ public class CardLibraryArrayAdapter extends ArrayAdapter<Card> {
 				return results;
 			}
 		};
-
-		return filter;
 	}
 
 }

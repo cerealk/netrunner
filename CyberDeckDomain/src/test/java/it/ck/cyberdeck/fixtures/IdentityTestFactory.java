@@ -12,8 +12,7 @@ public class IdentityTestFactory{
 	}
 
 	public static Identity getTheProfessor() {
-		Identity theProfessor = new Identity("The Professor", Side.RUNNER, Faction.SHAPER, 45, 1, new CardKey(CardSet.CREATION_AND_CONTROL, 29));
-		return theProfessor;
+		return new Identity("The Professor", Side.RUNNER, Faction.SHAPER, 45, 1, new CardKey(CardSet.CREATION_AND_CONTROL, 29));
 	}
 	
 	public static Identity getHBIdentity(){
@@ -27,8 +26,7 @@ public class IdentityTestFactory{
 
 	public static Identity getIdentity(Side side, Faction faction, Integer minimumCardCount) {
 		CardKey key = new CardKey(CardSet.CORE, 1);
-		Identity identity = new Identity("name", side, faction, minimumCardCount, 15, key);
-		return identity;
+		return new Identity("name", side, faction, minimumCardCount, 15, key);
 	}
 	
 	public static Identity getLowCountIdentity() {

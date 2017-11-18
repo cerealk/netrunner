@@ -8,7 +8,6 @@ import it.ck.cyberdeck.model.group.ElementGroup;
 import it.ck.cyberdeck.presentation.BaseDeckActivity;
 import it.ck.cyberdeck.presentation.CyberDeckApp;
 import it.ck.cyberdeck.presentation.adapter.CardGridAdapter;
-import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
 
 import java.util.List;
 
@@ -48,10 +47,10 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 		
 		public CardSectionFragment() {
 
-		};
+		}
 
 		public static CardSectionFragment newInstance(
-				ElementGroup<Card> cardGroup, DeckPresenter presenter) {
+				ElementGroup<Card> cardGroup) {
 			CardSectionFragment fragment = new CardSectionFragment();
 			Bundle args = new Bundle();
 			args.putSerializable(CardSectionFragment.ARG_SECTION_GROUP,
@@ -68,7 +67,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 			View rootView = inflater.inflate(R.layout.fragment_card_grid,
 					container, false);
 			cardGroup = (ElementGroup<Card>) getArguments().getSerializable(ARG_SECTION_GROUP);
-			GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
+			GridView gridView = rootView.findViewById(R.id.gridview);
 			CardGridAdapter adapter = new CardGridAdapter(this.getActivity().getApplicationContext(), cardGroup.getCards());
 			gridView.setAdapter(adapter);
 			OnItemClickListener listener = new OnItemClickListener() {
@@ -119,8 +118,8 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return CardSectionFragment.newInstance(cardGroups.get(position),
-					GroupedAddCardActivity.this.presenter);
+			return CardSectionFragment.newInstance(cardGroups.get(position)
+			);
 		}
 
 		@Override
@@ -134,8 +133,6 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 		}
 	}
 
-	private SectionsPagerAdapter sectionsPagerAdapter;
-	private ViewPager viewPager;
 	private int mShortAnimationDuration;
 	private Animator mCurrentAnimator;
 
@@ -149,10 +146,10 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 		List<ElementGroup<Card>> cardGroups = cl
 				.getCardGroupsWithoutIdentities(getDeck().getIdentity());
 
-		sectionsPagerAdapter = new SectionsPagerAdapter(
+		SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager(), cardGroups);
 
-		viewPager = (ViewPager) findViewById(R.id.pager);
+		ViewPager viewPager = findViewById(R.id.pager);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
@@ -171,7 +168,7 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    }
 
 	    // Load the high-resolution "zoomed-in" image.
-	    final ImageView expandedImageView = (ImageView) findViewById(
+	    final ImageView expandedImageView = findViewById(
 	            R.id.expanded_image);
 
 	    loadImage(cardKey, expandedImageView);
@@ -262,54 +259,51 @@ public class GroupedAddCardActivity extends BaseDeckActivity {
 	    // to the original bounds and show the thumbnail instead of
 	    // the expanded image.
 	    final float startScaleFinal = startScale;
-	    expandedImageView.setOnClickListener(new View.OnClickListener() {
-	        @Override
-	        public void onClick(View view) {
-	            if (mCurrentAnimator != null) {
-	                mCurrentAnimator.cancel();
-	            }
+	    expandedImageView.setOnClickListener(view -> {
+          if (mCurrentAnimator != null) {
+              mCurrentAnimator.cancel();
+          }
 
-	            // Animate the four positioning/sizing properties in parallel,
-	            // back to their original values.
+          // Animate the four positioning/sizing properties in parallel,
+          // back to their original values.
 
-	            AnimatorSet set = new AnimatorSet();
-	            set.play(ObjectAnimator.ofFloat(expandedImageView,  "x", startBounds.left))
-	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, "y",startBounds.top))
-	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, "scaleX", startScaleFinal))
-	                        .with(ObjectAnimator
-	                                .ofFloat(expandedImageView, "scaleY", startScaleFinal))
-	                                .with(ObjectAnimator.ofFloat(expandedImageView, "alpha", 0f)
-	                                		);
-	            set.setDuration(mShortAnimationDuration);
-	            set.setInterpolator(new DecelerateInterpolator());
+          AnimatorSet set1 = new AnimatorSet();
+          set1.play(ObjectAnimator.ofFloat(expandedImageView,  "x", startBounds.left))
+                      .with(ObjectAnimator
+                              .ofFloat(expandedImageView, "y",startBounds.top))
+                      .with(ObjectAnimator
+                              .ofFloat(expandedImageView, "scaleX", startScaleFinal))
+                      .with(ObjectAnimator
+                              .ofFloat(expandedImageView, "scaleY", startScaleFinal))
+                              .with(ObjectAnimator.ofFloat(expandedImageView, "alpha", 0f)
+                                  );
+          set1.setDuration(mShortAnimationDuration);
+          set1.setInterpolator(new DecelerateInterpolator());
 
-	            set.addListener(new AnimatorListenerAdapter() {
-	                @Override
-	                public void onAnimationEnd(Animator animation) {
-	                	Log.i("animation", "onAnimationEnd");
-	                	thumbView.setAlpha(1f);
+          set1.addListener(new AnimatorListenerAdapter() {
+              @Override
+              public void onAnimationEnd(Animator animation) {
+                Log.i("animation", "onAnimationEnd");
+                thumbView.setAlpha(1f);
 //	                	ViewHelper.setAlpha(thumbView, 1f);
-	                	expandedImageView.clearAnimation();
-	                    expandedImageView.setVisibility(View.GONE);
-	                    mCurrentAnimator = null;
-	                }
+                expandedImageView.clearAnimation();
+                  expandedImageView.setVisibility(View.GONE);
+                  mCurrentAnimator = null;
+              }
 
-	                @Override
-	                public void onAnimationCancel(Animator animation) {
-	                	Log.i("animation", "onAnimationCancel");
-	                	thumbView.setAlpha(1f);
+              @Override
+              public void onAnimationCancel(Animator animation) {
+                Log.i("animation", "onAnimationCancel");
+                thumbView.setAlpha(1f);
 //	                	ViewHelper.setAlpha(thumbView, 1f);
-	                	expandedImageView.clearAnimation();
-	                    expandedImageView.setVisibility(View.GONE);
-	                    mCurrentAnimator = null;
-	                }
-	            });
-	            set.start();
-	            mCurrentAnimator = set;
-	        }
-	    });
+                expandedImageView.clearAnimation();
+                  expandedImageView.setVisibility(View.GONE);
+                  mCurrentAnimator = null;
+              }
+          });
+          set1.start();
+          mCurrentAnimator = set1;
+      });
 	}
 	
 

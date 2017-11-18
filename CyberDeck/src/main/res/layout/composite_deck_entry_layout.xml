@@ -22,7 +22,7 @@
         android:layout_centerVertical="false"
         android:layout_marginTop="4dp"
         android:layout_toRightOf="@+id/icon"
-        android:text="@+id/cardName" />
+        android:text="@string/dummyText" />
 
     <TextView
         android:id="@+id/countText"
@@ -31,7 +31,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:gravity="right"
-        android:paddingRight="4dp" />
+        android:paddingRight="4dp"
+        android:text="@string/dummyText"/>
 
     <TextView
         android:id="@+id/reputation"

@@ -43,7 +43,7 @@ public class DeckServiceImplTest {
 	
 	@Test
 	public void iCanGetTheDeckNames() throws Exception {
-		final List<String> deckNames=new ArrayList<String>();
+		final List<String> deckNames= new ArrayList<>();
 		deckNames.add("deck1");
 		deckNames.add("deck2");
 		deckNames.add("deck3");

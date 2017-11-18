@@ -1,11 +1,11 @@
 package it.ck.cyberdeck.presentation.activity;
 
-import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+
+import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
 
 public class WelcomeActivity extends BaseCyberDeckActivity {
 
@@ -14,39 +14,28 @@ public class WelcomeActivity extends BaseCyberDeckActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
 
-		final Button buttonLibrary = (Button) findViewById(R.id.button_library);
+		final Button buttonLibrary = findViewById(R.id.button_library);
 
-		buttonLibrary.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(WelcomeActivity.this,
-						CardListActivity.class);
-				startActivity(intent);
-			}
-		});
+		buttonLibrary.setOnClickListener(v -> {
+      Intent intent = new Intent(WelcomeActivity.this,
+          CardListActivity.class);
+      startActivity(intent);
+    });
 
-		final Button buttonNewDeck = (Button) findViewById(R.id.button_new_deck);
-		buttonNewDeck.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(WelcomeActivity.this,
-						NewDeckActivity.class);
-				startActivity(intent);
-			}
+		final Button buttonNewDeck = findViewById(R.id.button_new_deck);
+		buttonNewDeck.setOnClickListener(v -> {
+      Intent intent = new Intent(WelcomeActivity.this,
+          NewDeckActivity.class);
+      startActivity(intent);
+    });
 
-		});
+		final Button buttonDeckList = findViewById(R.id.button_deck_list);
+		buttonDeckList.setOnClickListener(v -> {
+      Intent intent = new Intent(WelcomeActivity.this,
+          DeckListActivity.class);
+      startActivity(intent);
 
-		final Button buttonDeckList = (Button) findViewById(R.id.button_deck_list);
-		buttonDeckList.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(WelcomeActivity.this,
-						DeckListActivity.class);
-				startActivity(intent);
-
-			}
-
-		});
+    });
 	}
 	
 }

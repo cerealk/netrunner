@@ -41,13 +41,13 @@ public class CyberDeckApp extends Application {
 				new AndroidLibraryCardGateway(this)));
 	}
 
-	public static void initImageLoader(Context context) {
+	private static void initImageLoader(Context context) {
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
 									.showImageOnLoading(R.drawable.corp_back)
 									.showImageForEmptyUri(R.drawable.ic_empty)
 									.showImageOnFail(R.drawable.ic_error)
 									.cacheInMemory(true)
-									.cacheOnDisc(true)
+									.cacheOnDisk(true)
 									.bitmapConfig(Bitmap.Config.RGB_565)
 									.build();
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
@@ -55,7 +55,7 @@ public class CyberDeckApp extends Application {
 				.memoryCacheSizePercentage(50)
 				.defaultDisplayImageOptions(options)
 				.denyCacheImageMultipleSizesInMemory()
-				.discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.build();
 		// Initialize ImageLoader with configuration.

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/removeCard" android:title="@string/removeCard" android:menuCategory="system"></item>
-    <item android:id="@+id/reoveAll" android:title="@string/removeAll"></item>
+    <item
+        android:id="@+id/removeCard"
+        android:title="@string/removeCard"
+        android:menuCategory="system"/>
+    <item
+        android:id="@+id/reoveAll"
+        android:title="@string/removeAll"/>
     
 
 </menu>

@@ -3,7 +3,7 @@ package it.ck.cyberdeck.persistence.filesystem;
 import it.ck.cyberdeck.model.CardKey;
 
 
-public class CardRef {
+class CardRef {
 	private CardKey key;
 	private Integer count;
 	

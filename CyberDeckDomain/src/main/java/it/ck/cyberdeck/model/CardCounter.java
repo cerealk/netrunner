@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 public class CardCounter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Map<Card, Integer> count = new TreeMap<Card, Integer>();
+	private Map<Card, Integer> count = new TreeMap<>();
 
 	public class CardNotFoundException extends DeckException {
 
@@ -26,14 +26,14 @@ public class CardCounter implements Serializable {
 	public Integer getCount(Card card) {
 		Integer currentCount = count.get(card);
 		if (currentCount == null) {
-			currentCount = Integer.valueOf(0);
+			currentCount = 0;
 		}
 		return currentCount;
 	}
 
 	public void remove(Card card) {
 		checkCardExistence(card);
-		updateCount(card, getCount(card).intValue()-1);
+		updateCount(card, getCount(card) -1);
 	}
 
 	public void removeAll(Card card) {
@@ -43,7 +43,7 @@ public class CardCounter implements Serializable {
 
 	private void checkCardExistence(Card card) {
 		Integer cardCount = getCount(card);
-		if (cardCount.intValue() == 0) {
+		if (cardCount == 0) {
 			throw new CardNotFoundException(card);
 		}
 	}
@@ -75,7 +75,7 @@ public class CardCounter implements Serializable {
 	}
 
 	public List<CardEntry> getEntries() {
-		List<CardEntry> entries = new ArrayList<CardEntry>();
+		List<CardEntry> entries = new ArrayList<>();
 		Set<Entry<Card, Integer>> cards = count.entrySet();
 		for (Map.Entry<Card, Integer> entry : cards) {
 			entries.add(new CardEntry(entry.getKey(), entry.getValue()));

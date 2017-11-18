@@ -152,10 +152,7 @@ public class Card implements Serializable, Comparable<Card> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Card)) {
-			return false;
-		}
-		return this.key.equals(((Card) obj).key);
+		return obj instanceof Card && this.key.equals(((Card) obj).key);
 	}
 
 	public boolean isIdentity() {

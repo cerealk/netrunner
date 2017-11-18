@@ -16,7 +16,7 @@ public class CardTestFactory {
 		return getCard(Side.RUNNER, Faction.SHAPER);
 	}
 
-	public static Card getCard(Side side, Faction faction) {
+	private static Card getCard(Side side, Faction faction) {
 		return getCard("name", side, faction, 1, 5, CardType.HARDWARE);
 	}
 
@@ -57,16 +57,14 @@ public class CardTestFactory {
 		CardData data = getRunnerCardData("name", Side.RUNNER, Faction.SHAPER, 15, 1,
 				CardType.HARDWARE);
 		data.unique = true;
-		Card card = new Card(data);
-		return card;
+		return new Card(data);
 	}
 
 	public static Card getCard(String name, Side side) {
 		
 		CardData data =	getRunnerCardData(name, side, Faction.SHAPER, 15, 1, CardType.HARDWARE);
 
-		Card card = new Card(data);
-		return card;
+		return new Card(data);
 	}
 
 	public static Card getCorpCardWithNoAgenda(String name, int num) {
@@ -101,8 +99,7 @@ public class CardTestFactory {
 		data.agendapoints = agendapoints;
 		data.num = num;
 		data.type = CardType.AGENDA;
-		Card card = new Card(data);
-		
-		return card;
+
+		return new Card(data);
   }
 }

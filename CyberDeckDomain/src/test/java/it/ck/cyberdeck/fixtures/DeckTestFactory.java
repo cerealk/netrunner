@@ -23,8 +23,7 @@ public class DeckTestFactory {
 
 	public static Deck getCorpDeck() {
 		Identity identity = getHBIdentity();
-		Deck corpDeck = new Deck(identity, "corp deck");
-		return corpDeck;
+		return new Deck(identity, "corp deck");
 	}
 
 	public static Deck twoCardDeck() {

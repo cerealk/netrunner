@@ -10,7 +10,7 @@ import java.util.*;
 
 public class CardLibrary {
 
-	private Map<CardKey, Card> cards = new HashMap<CardKey, Card>();
+	private Map<CardKey, Card> cards = new HashMap<>();
 	private ReputationRuleFactory reputationRuleFactory;
 
 	public CardLibrary(ReputationRuleFactory reputationRuleFactory) {
@@ -18,7 +18,7 @@ public class CardLibrary {
 	}
 
 	public List<Card> getCardList() {
-		List<Card> cardList = new ArrayList<Card>();
+		List<Card> cardList = new ArrayList<>();
 		cardList.addAll(cards.values());
 		Collections.sort(cardList, new CardKeyComparator());
 		return Collections.unmodifiableList(cardList);
@@ -26,7 +26,7 @@ public class CardLibrary {
 
 	public List<Identity> getIdentities() {
 
-		List<Identity> identities = new ArrayList<Identity>();
+		List<Identity> identities = new ArrayList<>();
 		for (Card card : cards.values()) {
 			if (card.isIdentity()){
 				CardKey key = card.getKey();
@@ -40,16 +40,6 @@ public class CardLibrary {
 		return reputationRuleFactory.createRule(key);
 	}
 
-	public List<Card> getCardList(Identity identity) {
-		List<Card> result = new ArrayList<Card>();
-		for (Card card : cards.values()) {
-			if (identity.canUse(card)) {
-				result.add(card);
-			}
-		}
-		return result;
-	}
-
 	public void addAll(List<Card> cardList) {
 		for (Card card : cardList) {
 			cards.put(card.getKey(), card);
@@ -57,19 +47,19 @@ public class CardLibrary {
 	}
 
 	public List<ElementGroup<Card>> getCardGroups(Side side) {
-		Map<CardType, ElementGroup<Card>> cardGroups = new HashMap<CardType, ElementGroup<Card>>();
+		Map<CardType, ElementGroup<Card>> cardGroups = new HashMap<>();
 		for (Card card : cards.values()) {
 			if (card.getSide().equals(side)) {
 				ElementGroup<Card> cardGroup = cardGroups.get(card.getType());
 				if (cardGroup == null) {
-					cardGroup = new ElementGroup<Card>(card.getType(), new CardNameComparator());
+					cardGroup = new ElementGroup<>(card.getType(), new CardNameComparator());
 				}
 				cardGroup.add(card);
 				cardGroups.put(card.getType(), cardGroup);
 			}
 		}
 
-		return Collections.unmodifiableList(new ArrayList<ElementGroup<Card>>(cardGroups
+		return Collections.unmodifiableList(new ArrayList<>(cardGroups
 				.values()));
 
 	}
@@ -77,22 +67,22 @@ public class CardLibrary {
 	public List<ElementGroup<Card>> getCardGroups(Identity identity) {
 		Map<CardType, ElementGroup<Card>> cardGroups = populateCardGroup(identity);
 
-		return Collections.unmodifiableList(new ArrayList<ElementGroup<Card>>(cardGroups.values()));
+		return Collections.unmodifiableList(new ArrayList<>(cardGroups.values()));
 	}
 	
 	public List<ElementGroup<Card>> getCardGroupsWithoutIdentities(Identity identity){
 		Map<CardType, ElementGroup<Card>> cardGroups = populateCardGroup(identity);
 		cardGroups.remove(CardType.IDENTITY);
-		return Collections.unmodifiableList(new ArrayList<ElementGroup<Card>>(cardGroups.values()));
+		return Collections.unmodifiableList(new ArrayList<>(cardGroups.values()));
 	}
 
 	private Map<CardType, ElementGroup<Card>> populateCardGroup(Identity identity) {
-		Map<CardType, ElementGroup<Card>> cardGroups = new HashMap<CardType, ElementGroup<Card>>();
+		Map<CardType, ElementGroup<Card>> cardGroups = new HashMap<>();
 		for (Card card : cards.values()) {
 			if (card.getSide().equals(identity.side())) {
 				ElementGroup<Card> cardGroup = cardGroups.get(card.getType());
 				if (cardGroup == null) {
-					cardGroup = new ElementGroup<Card>(card.getType(), new CardNameComparator());
+					cardGroup = new ElementGroup<>(card.getType(), new CardNameComparator());
 				}
 				if (identity.canUse(card)) {
 					cardGroup.add(card);

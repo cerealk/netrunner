@@ -1,23 +1,22 @@
 package it.ck.cyberdeck.presentation.activity;
 
-import it.ck.cyberdeck.R;
-import it.ck.cyberdeck.model.Deck;
-import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
-import it.ck.cyberdeck.presentation.BaseDeckActivity;
-
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.util.List;
+
+import it.ck.cyberdeck.R;
+import it.ck.cyberdeck.model.Deck;
+import it.ck.cyberdeck.presentation.BaseCyberDeckActivity;
+import it.ck.cyberdeck.presentation.BaseDeckActivity;
 
 public class DeckListActivity extends BaseCyberDeckActivity {
 
@@ -27,40 +26,30 @@ public class DeckListActivity extends BaseCyberDeckActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck_list);
-		ListView deckListview = (ListView) findViewById(R.id.listViewDecks);
+		ListView deckListView = findViewById(R.id.listViewDecks);
 
-		adapter = new ArrayAdapter<String>(this,
+		adapter = new ArrayAdapter<>(this,
 				android.R.layout.simple_list_item_1);
 		loadDecks();
-		deckListview.setAdapter(adapter);
+		deckListView.setAdapter(adapter);
 
-		deckListview.setOnItemClickListener(new ListView.OnItemClickListener() {
+		deckListView.setOnItemClickListener((parent, view, pos, id) -> {
+      String deckName = (String) parent.getItemAtPosition(pos);
+      Deck deck = getDeckService().loadDeck(deckName);
+      Intent intent = new Intent(DeckListActivity.this,
+          DeckActivity.class);
+      intent.putExtra(BaseDeckActivity.DECK_ARG_ID, deck);
+      startActivity(intent);
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int pos,
-					long id) {
-				String deckName = (String) parent.getItemAtPosition(pos);
-				Deck deck = getDeckService().loadDeck(deckName);
-				Intent intent = new Intent(DeckListActivity.this,
-						DeckActivity.class);
-				intent.putExtra(BaseDeckActivity.DECK_ARG_ID, deck);
-				startActivity(intent);
+    });
+		registerForContextMenu(deckListView);
+		Button newDeckButton = findViewById(R.id.button1);
+		newDeckButton.setOnClickListener(v -> {
+      Intent intent = new Intent(DeckListActivity.this,
+          NewDeckActivity.class);
+      startActivity(intent);
 
-			}
-		});
-		registerForContextMenu(deckListview);
-		Button newDeckButton = (Button) findViewById(R.id.button1);
-		newDeckButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(DeckListActivity.this,
-						NewDeckActivity.class);
-				startActivity(intent);
-
-			}
-
-		});
+    });
 
 	}
 

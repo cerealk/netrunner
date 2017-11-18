@@ -1,12 +1,9 @@
 package it.ck.cyberdeck.presentation;
 
-import it.ck.cyberdeck.model.CardEntry;
 import it.ck.cyberdeck.model.Deck;
 import it.ck.cyberdeck.model.DeckStatus;
 import it.ck.cyberdeck.model.Identity;
 import it.ck.cyberdeck.presentation.presenter.DeckPresenter;
-
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,13 +27,10 @@ public abstract class BaseDeckActivity extends BaseCyberDeckActivity implements 
 	}
 	
 	private Deck initDeck(Bundle savedInstanceState) {
-		Deck deck = null;
-		if(savedInstanceState == null){
-			deck  = (Deck) getIntent().getExtras().getSerializable(DECK_ARG_ID);
-		}else {
-			deck = (Deck) savedInstanceState.getSerializable(DECK_ARG_ID);
-		}
-		return deck;
+		if(savedInstanceState == null)
+			return (Deck) getIntent().getExtras().getSerializable(DECK_ARG_ID);
+		else
+			return (Deck) savedInstanceState.getSerializable(DECK_ARG_ID);
 	}
 
 	@Override
@@ -66,7 +60,7 @@ public abstract class BaseDeckActivity extends BaseCyberDeckActivity implements 
 	}
 
 	@Override
-	public void publishEntryList(List<CardEntry> cards) {
+	public void publishEntryList() {
 	}
 
 	@Override

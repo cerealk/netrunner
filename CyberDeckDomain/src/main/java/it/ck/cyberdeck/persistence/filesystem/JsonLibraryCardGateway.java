@@ -68,7 +68,7 @@ public abstract class JsonLibraryCardGateway implements LibraryCardGateway {
 
 	protected List<Card> loadCards() {
 		List<CardData> data = loadRawData();
-		List<Card> cards = new ArrayList<Card>();
+		List<Card> cards = new ArrayList<>();
 		for (CardData cardData : data) {
 			cards.add(new Card(cardData));
 		}

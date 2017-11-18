@@ -9,8 +9,6 @@ import it.ck.cyberdeck.presentation.DeckView;
 import it.ck.cyberdeck.presentation.adapter.CardEntryExpandableListAdapter;
 import it.ck.cyberdeck.presentation.fragment.CardDetailFragment;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,20 +29,19 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	private ImageView identityImg;
 	private ExpandableListView cardList;
 	private CardEntryExpandableListAdapter listViewAdapter;
-	private Typeface font;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck);
 
-		identityName = (TextView) findViewById(R.id.deck_identity);
-		deckStatusLine = (TextView) findViewById(R.id.deckStatusLine);
-		identityImg = (ImageView) findViewById(R.id.identity_image);
+		identityName = findViewById(R.id.deck_identity);
+		deckStatusLine = findViewById(R.id.deckStatusLine);
+		identityImg = findViewById(R.id.identity_image);
 		listViewAdapter = new CardEntryExpandableListAdapter(
 				this.getApplicationContext(), getDeck(), getImageLoaderFactory());
-		cardList = (ExpandableListView) findViewById(R.id.deck_cards);
+		cardList = findViewById(R.id.deck_cards);
 
 		cardList.setAdapter(listViewAdapter);
 		
@@ -64,7 +60,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 
 		registerForContextMenu(cardList);
 
-		Button addButton = (Button) findViewById(R.id.add_card_button);
+		Button addButton = findViewById(R.id.add_card_button);
 
 		addButton.setOnClickListener(v -> {
       Intent intent = new Intent(DeckActivity.this,
@@ -72,7 +68,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
       intent.putExtra(DECK_ARG_ID, presenter.getDeck());
       startActivityForResult(intent, REQUEST_CODE);
     });
-		this.font = Typeface.createFromAsset( getApplicationContext().getAssets(), "fontawesome-webfont.ttf" );
+		Typeface font = Typeface.createFromAsset(getApplicationContext().getAssets(), "fontawesome-webfont.ttf");
 		addButton.setTypeface(font);
 	}
 
@@ -134,7 +130,7 @@ public class DeckActivity extends BaseDeckActivity implements DeckView {
 	}
 
 	@Override
-	public void publishEntryList(List<CardEntry> cards) {
+	public void publishEntryList() {
 		listViewAdapter.updateGroups(getDeck());
 		listViewAdapter.notifyDataSetChanged();
 		int count = listViewAdapter.getGroupCount();

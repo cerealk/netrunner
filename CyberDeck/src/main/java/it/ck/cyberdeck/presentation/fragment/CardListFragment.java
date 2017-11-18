@@ -48,23 +48,16 @@ public class CardListFragment extends ListFragment {
 		/**
 		 * Callback for when an item has been selected.
 		 */
-		public void onItemSelected(Card card);
+		void onItemSelected(Card card);
 	}
 
 	/**
 	 * A dummy implementation of the {@link Callbacks} interface that does
 	 * nothing. Used only when this fragment is not attached to an activity.
 	 */
-	private static Callbacks sDummyCallbacks = new Callbacks() {
-		@Override
-		public void onItemSelected(Card card) {
-		}
-	};
+	private static Callbacks sDummyCallbacks = card -> {
+  };
 
-	private CardLibrary cardLibrary;
-	private LibraryCardGateway gateway;
-
-	private TextView filterText;
 	private CardLibraryArrayAdapter adapter;
 
 	/**
@@ -77,8 +70,8 @@ public class CardListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		gateway = new AndroidLibraryCardGateway(this.getActivity());
-		cardLibrary = gateway.loadCardLibrary();
+		LibraryCardGateway gateway = new AndroidLibraryCardGateway(this.getActivity());
+		CardLibrary cardLibrary = gateway.loadCardLibrary();
 		adapter = new CardLibraryArrayAdapter(getActivity(), cardLibrary.getCardList());
 		setListAdapter(adapter);
 
@@ -90,9 +83,9 @@ public class CardListFragment extends ListFragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 		 ViewGroup result = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
-		filterText = new EditText(this.getActivity());
+		TextView filterText = new EditText(this.getActivity());
 		filterText.setHint("Card Filter");
-		ListView lv = (ListView) result.findViewById(android.R.id.list);
+		ListView lv = result.findViewById(android.R.id.list);
 		lv.addHeaderView(filterText);
 		filterText.addTextChangedListener(new TextWatcher() {
 		    @Override

@@ -24,8 +24,7 @@ public class CardLibraryTest {
 
   private CardLibrary getCardLibrary() {
     FileSystemLibraryCardGateway loader = new FileSystemLibraryCardGateway(Fixtures.RAW_PATH);
-    CardLibrary cl = loader.loadCardLibrary();
-    return cl;
+    return loader.loadCardLibrary();
   }
 
   @Test
@@ -94,7 +93,7 @@ public class CardLibraryTest {
 		  
   }
   
-  protected Matcher<? super String> emptyString() {
+  private Matcher<? super String> emptyString() {
     return new TypeSafeMatcher<String>() {
 
       @Override
@@ -104,7 +103,7 @@ public class CardLibraryTest {
       }
 
       @Override
-      protected boolean matchesSafely(String item) {
+      public boolean matchesSafely(String item) {
         return StringUtils.isEmpty(item);
       }
 

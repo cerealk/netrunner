@@ -67,15 +67,13 @@ public class AndroidLibraryCardGateway extends JsonLibraryCardGateway
 
 
     private File getDeckFile(String name) {
-        File deckSource = new File(getDeckDir(), name);
-        return deckSource;
+        return new File(getDeckDir(), name);
     }
 
     private BufferedReader getReader(File deckSource)
             throws FileNotFoundException {
         FileInputStream fis = new FileInputStream(deckSource);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-        return reader;
+        return new BufferedReader(new InputStreamReader(fis));
     }
 
     @Override
