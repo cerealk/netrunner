@@ -24,12 +24,12 @@ android {
 }
 
 dependencies {
-    compile project(':CyberDeckDomain')
-    compile 'com.android.support:appcompat-v7:27.0.0'
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.hamcrest:hamcrest-core:1.3'
-    testCompile 'org.hamcrest:hamcrest-library:1.3'
-    testCompile 'org.robolectric:robolectric:3.5.1'
+    implementation project(':CyberDeckDomain')
+    implementation 'com.android.support:appcompat-v7:27.0.0'
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    testImplementation 'org.robolectric:robolectric:3.5.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
 }
